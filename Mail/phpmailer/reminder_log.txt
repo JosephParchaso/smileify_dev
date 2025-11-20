@@ -1514,3 +1514,11 @@ Reminders checked at 2025-11-20 09:00:03. Sent to 0 recipient(s).
 [2025-11-20 09:30:03] Checking between 2025-11-21 09:30:03 and 2025-11-21 10:00:03
 Reminders checked at 2025-11-20 09:30:03. Sent to 0 recipient(s).
 
+[2025-11-20 20:00:01] Script started
+[2025-11-20 20:00:01] Checking between 2025-11-21 20:00:01 and 2025-11-21 20:30:01
+Reminders checked at 2025-11-20 20:00:01. Sent to 0 recipient(s).
+
+[2025-11-20 20:30:02] Script started
+[2025-11-20 20:30:02] Checking between 2025-11-21 20:30:02 and 2025-11-21 21:00:02
+Reminders checked at 2025-11-20 20:30:02. Sent to 0 recipient(s).
+

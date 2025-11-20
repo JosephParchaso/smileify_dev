@@ -14,7 +14,7 @@ $(document).ready(function() {
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[1, "asc"]],
+            "order": [[0, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

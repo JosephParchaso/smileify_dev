@@ -54,7 +54,7 @@ $stmt = $conn->prepare("
     FROM service s
     INNER JOIN branch_service bs ON s.service_id = bs.service_id
     WHERE bs.branch_id = ? AND bs.status = 'Active'
-    ORDER BY s.name ASC
+    ORDER BY s.service_id ASC
 ");
 $stmt->bind_param("i", $branchId);
 $stmt->execute();

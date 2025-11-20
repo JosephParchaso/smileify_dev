@@ -158,10 +158,10 @@
 #promosTable th:nth-child(6), #promosTable td:nth-child(6) { width: 10% !important; text-align: center;}
 
 #branchesTable th:nth-child(1), #branchesTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#branchesTable th:nth-child(2), #branchesTable td:nth-child(2) { width: 20% !important; }
+#branchesTable th:nth-child(2), #branchesTable td:nth-child(2) { width: 25% !important; }
 #branchesTable th:nth-child(3), #branchesTable td:nth-child(3) { width: 30% !important; }
-#branchesTable th:nth-child(4), #branchesTable td:nth-child(4) { width: 15% !important; }
-#branchesTable th:nth-child(5), #branchesTable td:nth-child(5) { width: 10% !important; }
+#branchesTable th:nth-child(4), #branchesTable td:nth-child(4) { width: 10% !important; }
+#branchesTable th:nth-child(5), #branchesTable td:nth-child(5) { width: 5% !important; }
 #branchesTable th:nth-child(6), #branchesTable td:nth-child(6) { width: 10% !important; text-align: center;}
 
 .transaction-table th:nth-child(1),.transaction-table td:nth-child(1) { width: 10% !important; text-align: center;}
