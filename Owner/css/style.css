@@ -143,26 +143,37 @@
     cursor: pointer;
 }
 
+#adminsTable th:nth-child(1), #adminsTable td:nth-child(1) { width: 5% !important; text-align: center;}
+#adminsTable th:nth-child(2), #adminsTable td:nth-child(2) { width: 10% !important; }
+#adminsTable th:nth-child(3), #adminsTable td:nth-child(3) { width: 30% !important; }
+#adminsTable th:nth-child(4), #adminsTable td:nth-child(4) { width: 5% !important; text-align: center;}
+#adminsTable th:nth-child(5), #adminsTable td:nth-child(5) { width: 5% !important; text-align: center;}
+
+#dentistsTable th:nth-child(1), #dentistsTable td:nth-child(1) { width: 5% !important; text-align: center;}
+#dentistsTable th:nth-child(2), #dentistsTable td:nth-child(2) { width: 10% !important; }
+#dentistsTable th:nth-child(3), #dentistsTable td:nth-child(3) { width: 30% !important; }
+#dentistsTable th:nth-child(4), #dentistsTable td:nth-child(4) { width: 5% !important; text-align: center;}
+#dentistsTable th:nth-child(5), #dentistsTable td:nth-child(5) { width: 5% !important; text-align: center;}
+
 #servicesTable th:nth-child(1), #servicesTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { width: 20% !important; }
-#servicesTable th:nth-child(3), #servicesTable td:nth-child(3) { width: 25% !important; }
-#servicesTable th:nth-child(4), #servicesTable td:nth-child(4) { width: 10% !important; }
-#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { width: 10% !important; }
-#servicesTable th:nth-child(6), #servicesTable td:nth-child(6) { width: 10% !important; text-align: center;}
+#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { width: 10% !important; }
+#servicesTable th:nth-child(3), #servicesTable td:nth-child(3) { width: 30% !important; }
+#servicesTable th:nth-child(4), #servicesTable td:nth-child(4) { width: 5% !important; }
+#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { width: 5% !important; }
+#servicesTable th:nth-child(6), #servicesTable td:nth-child(6) { width: 5% !important; text-align: center;}
 
 #promosTable th:nth-child(1), #promosTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#promosTable th:nth-child(2), #promosTable td:nth-child(2) { width: 20% !important; }
-#promosTable th:nth-child(3), #promosTable td:nth-child(3) { width: 25% !important; }
-#promosTable th:nth-child(4), #promosTable td:nth-child(4) { width: 10% !important; }
-#promosTable th:nth-child(5), #promosTable td:nth-child(5) { width: 10% !important; }
-#promosTable th:nth-child(6), #promosTable td:nth-child(6) { width: 10% !important; text-align: center;}
+#promosTable th:nth-child(2), #promosTable td:nth-child(2) { width: 10% !important; }
+#promosTable th:nth-child(3), #promosTable td:nth-child(3) { width: 30% !important; }
+#promosTable th:nth-child(4), #promosTable td:nth-child(4) { width: 5% !important; }
+#promosTable th:nth-child(5), #promosTable td:nth-child(5) { width: 5% !important; }
+#promosTable th:nth-child(6), #promosTable td:nth-child(6) { width: 5% !important; text-align: center;}
 
 #branchesTable th:nth-child(1), #branchesTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#branchesTable th:nth-child(2), #branchesTable td:nth-child(2) { width: 25% !important; }
-#branchesTable th:nth-child(3), #branchesTable td:nth-child(3) { width: 30% !important; }
-#branchesTable th:nth-child(4), #branchesTable td:nth-child(4) { width: 10% !important; }
-#branchesTable th:nth-child(5), #branchesTable td:nth-child(5) { width: 5% !important; }
-#branchesTable th:nth-child(6), #branchesTable td:nth-child(6) { width: 10% !important; text-align: center;}
+#branchesTable th:nth-child(2), #branchesTable td:nth-child(2) { width: 20% !important; }
+#branchesTable th:nth-child(3), #branchesTable td:nth-child(3) { width: 10% !important; }
+#branchesTable th:nth-child(4), #branchesTable td:nth-child(4) { width: 10% !important; text-align: center;}
+#branchesTable th:nth-child(5), #branchesTable td:nth-child(5) { width: 10% !important; text-align: center;}
 
 .transaction-table th:nth-child(1),.transaction-table td:nth-child(1) { width: 10% !important; text-align: center;}
 .transaction-table th:nth-child(2),.transaction-table td:nth-child(2) { width: 30% !important; }

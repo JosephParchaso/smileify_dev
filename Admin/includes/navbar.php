@@ -94,7 +94,7 @@ require_once BASE_PATH . '/processes/load_notifications.php';
                 <strong><?= htmlspecialchars($_SESSION['username']) ?></strong> 
                 <span class="dash">-</span> 
                 <span class="user-role">
-                    <?= htmlspecialchars(ucfirst($_SESSION['role'] ?? '')) ?>
+                    <?= ($_SESSION['role'] === 'admin') ? 'Secretary' : htmlspecialchars($_SESSION['role']) ?>
                 </span>
                 <?php if (!empty($_SESSION['branch_name'])): ?>
                     <span class="dash">-</span> 

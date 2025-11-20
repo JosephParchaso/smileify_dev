@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } catch (Exception $e) {
         $conn->rollback();
-        error_log("Admin profile update failed: " . $e->getMessage());
+        error_log("Secretary profile update failed: " . $e->getMessage());
         $_SESSION['updateError'] = "Database update failed.";
         header("Location: " . BASE_URL . "/Admin/pages/profile.php");
         exit();

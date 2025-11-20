@@ -38,7 +38,7 @@ require_once BASE_PATH . '/Owner/includes/navbar.php';
 
         <div class="card">
             <h2><span class="material-symbols-outlined">groups</span> Employees</h2>
-            <div class="announcement"><strong>Admins</strong> - Active: <?= htmlspecialchars($employeeStats['admins']['active']) ?> Inactive: <?= htmlspecialchars($employeeStats['admins']['inactive']) ?></div>
+            <div class="announcement"><strong>Secretaries</strong> - Active: <?= htmlspecialchars($employeeStats['admins']['active']) ?> Inactive: <?= htmlspecialchars($employeeStats['admins']['inactive']) ?></div>
             <div class="announcement"><strong>Dentists</strong> - Active: <?= htmlspecialchars($employeeStats['dentists']['active']) ?> Inactive: <?= htmlspecialchars($employeeStats['dentists']['inactive']) ?></div>
             <hr>
             <div class="announcement"><strong>Total</strong> - Active: <?= htmlspecialchars($employeeStats['total']['active']) ?> Inactive: <?= htmlspecialchars($employeeStats['total']['inactive']) ?></div>

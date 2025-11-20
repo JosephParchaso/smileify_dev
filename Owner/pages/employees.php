@@ -20,7 +20,7 @@ $updateError   = $_SESSION['updateError'] ?? '';
 
 <div class="tabs-container">
     <div class="tabs">
-        <div class="tab <?= $activeTab === 'admin' ? 'active' : '' ?>" onclick="switchTab('admin')">Admins</div>
+        <div class="tab <?= $activeTab === 'admin' ? 'active' : '' ?>" onclick="switchTab('admin')">Secretaries</div>
         <div class="tab <?= $activeTab === 'dentist' ? 'active' : '' ?>" onclick="switchTab('dentist')">Dentists</div>
     </div>
     

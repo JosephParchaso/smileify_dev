@@ -112,13 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             );
 
             if ($stmt->execute()) {
-                $_SESSION['updateSuccess'] = "Admin updated successfully!";
+                $_SESSION['updateSuccess'] = "Secretary updated successfully!";
                 $forceStmt = $conn->prepare("UPDATE users SET force_logout = 1 WHERE user_id = ?");
                 $forceStmt->bind_param("i", $user_id);
                 $forceStmt->execute();
                 $forceStmt->close();
             } else {
-                $_SESSION['updateError'] = "Failed to update admin.";
+                $_SESSION['updateError'] = "Failed to update Secretary.";
             }
 
             $stmt->close();

@@ -188,18 +188,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const confirmBtn = document.getElementById("confirmButton");
-    confirmBtn.addEventListener("click", function (e) {
-        const keys = Object.keys(sessionStorage).filter(k => k.startsWith("otpExpiryTimestamp_"));
-        const expiryTime = keys.length > 0 ? parseInt(sessionStorage.getItem(keys[0])) : null;
+    let isConfirming = false;
 
-        if (!expiryTime || Date.now() > expiryTime) {
+    confirmBtn.addEventListener("click", function (e) {
+        if (isConfirming) {
             e.preventDefault();
-            $('#resendMessage')
-                .removeClass('success')
-                .addClass('error')
-                .text('OTP expired. Please resend to get a new code.')
-                .show();
+            return;
         }
+        isConfirming = true;
+        confirmBtn.disabled = true;
     });
 });
 </script>

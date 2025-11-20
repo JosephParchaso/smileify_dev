@@ -15,7 +15,7 @@ require_once BASE_PATH . '/Owner/includes/navbar.php';
 $updateSuccess = $_SESSION['updateSuccess'] ?? "";
 $updateError = $_SESSION['updateError'] ?? "";
 ?>
-<title>Profile</title>
+<title>Branches</title>
 
 <div class="profile-container">
     <div class="profile-section">

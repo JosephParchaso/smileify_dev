@@ -26,7 +26,6 @@ if ($result) {
         $branches[] = [
             $row['branch_id'],
             $row['name'],
-            $row['address'],
             $row['phone_number'],
             $row['status'],
             '<button class="btn-branch" data-type="branch" data-id="'.$row['branch_id'].'">Manage</button>'

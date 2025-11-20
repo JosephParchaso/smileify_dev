@@ -18,7 +18,7 @@ require_once BASE_PATH . '/includes/db.php';
 $adminBranchId = $_SESSION['branch_id'] ?? null;
 
 if (!$adminBranchId) {
-    echo "<div class='alert alert-danger'>No branch assigned to this admin account.</div>";
+    echo "<div class='alert alert-danger'>No branch assigned to this secretary account.</div>";
     require_once BASE_PATH . '/includes/footer.php';
     exit();
 }

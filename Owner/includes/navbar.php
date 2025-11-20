@@ -41,7 +41,7 @@ require_once BASE_PATH . '/Owner/processes/load_employees_status.php';
             </li>
             <li>
                 <a href="<?= BASE_URL ?>/Owner/pages/profile.php" class="<?= ($currentPage == 'profile') ? 'active' : '' ?>">
-                    <span class="link-text">Profile</span>
+                    <span class="link-text">Branches</span>
                 </a>
             </li>
             <li class="nav-item dropdown">

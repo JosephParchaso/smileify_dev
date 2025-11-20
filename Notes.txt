@@ -106,6 +106,13 @@ remove contact number and address on owner and edit function 👍
 service add 0 price 👍 
 fix promo container 👍
 double insert on otp booking, confirming otp, signing in, forgot, change email/password, walkin account creation 👍
+table size since branches and services, too long make dentists short 👍
+admins -> secretary front end 👍
+localhost task scheduler 👍
+remove dental cert on booking appontment
+documents since branches too long
+notes ni daze
+localhost task scheduler 👍
 block admin in mobile
 mobile view
 

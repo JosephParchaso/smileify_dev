@@ -222,16 +222,16 @@
     cursor: pointer;
 }
 
-#registeredTable th:nth-child(1), #registeredTable td:nth-child(1) { width: 15% !important; text-align: center;}
-#registeredTable th:nth-child(2), #registeredTable td:nth-child(2) { width: 30% !important; }
+#registeredTable th:nth-child(1), #registeredTable td:nth-child(1) { width: 5% !important; text-align: center;}
+#registeredTable th:nth-child(2), #registeredTable td:nth-child(2) { width: 20% !important; }
 #registeredTable th:nth-child(3), #registeredTable td:nth-child(3) { width: 20% !important; }
-#registeredTable th:nth-child(4), #registeredTable td:nth-child(4) { width: 10% !important; }
+#registeredTable th:nth-child(4), #registeredTable td:nth-child(4) { width: 30% !important; }
 #registeredTable th:nth-child(5), #registeredTable td:nth-child(5) { width: 10% !important; text-align: center;}
 
-#inactiveTable th:nth-child(1), #inactiveTable td:nth-child(1) { width: 15% !important; text-align: center;}
-#inactiveTable th:nth-child(2), #inactiveTable td:nth-child(2) { width: 30% !important; }
+#inactiveTable th:nth-child(1), #inactiveTable td:nth-child(1) { width: 5% !important; text-align: center;}
+#inactiveTable th:nth-child(2), #inactiveTable td:nth-child(2) { width: 20% !important; }
 #inactiveTable th:nth-child(3), #inactiveTable td:nth-child(3) { width: 20% !important; }
-#inactiveTable th:nth-child(4), #inactiveTable td:nth-child(4) { width: 10% !important; }
+#inactiveTable th:nth-child(4), #inactiveTable td:nth-child(4) { width: 30% !important; }
 #inactiveTable th:nth-child(5), #inactiveTable td:nth-child(5) { width: 10% !important; text-align: center;}
 
 #recentTable th:nth-child(1), #recentTable td:nth-child(1) { width: 5% !important; text-align: center;}
@@ -263,32 +263,32 @@
 #prescriptionTable th:nth-child(6), #prescriptionTable td:nth-child(6) { width: 10% !important; text-align: center; }
 
 #suppliesTable th:nth-child(1), #suppliesTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#suppliesTable th:nth-child(2), #suppliesTable td:nth-child(2) { width: 25% !important; }
+#suppliesTable th:nth-child(2), #suppliesTable td:nth-child(2) { width: 20% !important; }
 #suppliesTable th:nth-child(3), #suppliesTable td:nth-child(3) { width: 10% !important; }
-#suppliesTable th:nth-child(4), #suppliesTable td:nth-child(4) { width: 15% !important; }
-#suppliesTable th:nth-child(5), #suppliesTable td:nth-child(5) { width: 15% !important; }
-#suppliesTable th:nth-child(6), #suppliesTable td:nth-child(6) { width: 20% !important; text-align: center;}
+#suppliesTable th:nth-child(4), #suppliesTable td:nth-child(4) { width: 10% !important; }
+#suppliesTable th:nth-child(5), #suppliesTable td:nth-child(5) { width: 10% !important; text-align: center;}
+#suppliesTable th:nth-child(6), #suppliesTable td:nth-child(6) { width: 10% !important; text-align: center;}
 
 #servicesTable th:nth-child(1), #servicesTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { width: 25% !important; }
+#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { width: 20% !important; }
 #servicesTable th:nth-child(3), #servicesTable td:nth-child(3) { width: 10% !important; }
 #servicesTable th:nth-child(4), #servicesTable td:nth-child(4) { width: 10% !important; }
-#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { width: 10% !important; }
+#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { width: 10% !important; text-align: center;}
 #servicesTable th:nth-child(6), #servicesTable td:nth-child(6) { width: 10% !important; text-align: center;}
 
-#promosTable_filter th:nth-child(1), #promosTable_filter td:nth-child(1) { width: 5% !important; text-align: center;}
-#promosTable_filter th:nth-child(2), #promosTable_filter td:nth-child(2) { width: 25% !important; }
-#promosTable_filter th:nth-child(3), #promosTable_filter td:nth-child(3) { width: 10% !important; }
-#promosTable_filter th:nth-child(4), #promosTable_filter td:nth-child(4) { width: 15% !important; }
-#promosTable_filter th:nth-child(5), #promosTable_filter td:nth-child(5) { width: 15% !important; }
-#promosTable_filter th:nth-child(6), #promosTable_filter td:nth-child(6) { width: 20% !important; text-align: center;}
+#promosTable th:nth-child(1), #promosTable td:nth-child(1) { width: 5% !important; text-align: center;}
+#promosTable th:nth-child(2), #promosTable td:nth-child(2) { width: 20% !important; }
+#promosTable th:nth-child(3), #promosTable td:nth-child(3) { width: 10% !important; }
+#promosTable th:nth-child(4), #promosTable td:nth-child(4) { width: 10% !important; }
+#promosTable th:nth-child(5), #promosTable td:nth-child(5) { width: 10% !important; text-align: center;}
+#promosTable th:nth-child(6), #promosTable td:nth-child(6) { width: 10% !important; text-align: center;}
 
 #announcementsTable th:nth-child(1), #announcementsTable td:nth-child(1) { width: 5% !important; text-align: center; }
 #announcementsTable th:nth-child(2), #announcementsTable td:nth-child(2) { width: 20% !important; }
 #announcementsTable th:nth-child(3), #announcementsTable td:nth-child(3) { width: 10% !important; }
 #announcementsTable th:nth-child(4), #announcementsTable td:nth-child(4) { width: 10% !important; }
 #announcementsTable th:nth-child(5), #announcementsTable td:nth-child(5) { width: 10% !important; }
-#announcementsTable th:nth-child(6), #announcementsTable td:nth-child(6) { width: 10% !important; }
+#announcementsTable th:nth-child(6), #announcementsTable td:nth-child(6) { width: 10% !important; text-align: center;}
 #announcementsTable th:nth-child(7), #announcementsTable td:nth-child(7) { width: 10% !important; text-align: center; }
 
 .transaction-table th:nth-child(1), .transaction-table td:nth-child(1) { width: 5% !important; text-align: center;}

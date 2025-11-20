@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function renderAdminForm(data) {
         const isEdit = !!data;
         employeeBody.innerHTML = `
-            <h2>${isEdit ? "Manage Admin" : "Add Admin"}</h2>
+            <h2>${isEdit ? "Manage Secretary" : "Add Secretary"}</h2>
             <form id="adminForm" action="${BASE_URL}/Owner/processes/employees/${isEdit ? "update_admin.php" : "insert_admin.php"}" method="POST" autocomplete="off">
                 ${isEdit ? `<input type="hidden" name="user_id" value="${data.user_id}">` : ""}
 
@@ -224,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>` : ""}
 
                 <div class="button-group button-group-profile">
-                    <button type="submit" class="form-button confirm-btn">${isEdit ? "Save Changes" : "Add Admin"}</button>
+                    <button type="submit" class="form-button confirm-btn">${isEdit ? "Save Changes" : "Add Secretary"}</button>
                     <button type="button" class="form-button cancel-btn" onclick="closeEmployeeModal()">Cancel</button>
                 </div>
             </form>

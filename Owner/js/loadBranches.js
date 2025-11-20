@@ -9,7 +9,6 @@ $(document).ready(function() {
             "columns": [
                 { "title": "ID" },
                 { "title": "Branch Name" },
-                { "title": "Address" },
                 { "title": "Phone Number" },
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }

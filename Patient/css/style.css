@@ -120,13 +120,13 @@
     padding: 6px 12px;
 }
 
-.transaction-table th:nth-child(1),.transaction-table td:nth-child(1) { width: 20% !important; }
-.transaction-table th:nth-child(2),.transaction-table td:nth-child(2) { width: 10% !important; }
-.transaction-table th:nth-child(3),.transaction-table td:nth-child(3) { width: 15% !important; }
-.transaction-table th:nth-child(4),.transaction-table td:nth-child(4) { width: 10% !important; }
-.transaction-table th:nth-child(5),.transaction-table td:nth-child(5) { width: 10% !important; }
-.transaction-table th:nth-child(6),.transaction-table td:nth-child(6) { width: 10% !important; } 
-.transaction-table th:nth-child(7),.transaction-table td:nth-child(7) { width: 10% !important; text-align: center;}
+.transaction-table th:nth-child(1),.transaction-table td:nth-child(1) { width: 10% !important; }
+.transaction-table th:nth-child(2),.transaction-table td:nth-child(2) { width: 25% !important; }
+.transaction-table th:nth-child(3),.transaction-table td:nth-child(3) { width: 25% !important; }
+.transaction-table th:nth-child(4),.transaction-table td:nth-child(4) { width: 5% !important; }
+.transaction-table th:nth-child(5),.transaction-table td:nth-child(5) { width: 5% !important; }
+.transaction-table th:nth-child(6),.transaction-table td:nth-child(6) { width: 5% !important; } 
+.transaction-table th:nth-child(7),.transaction-table td:nth-child(7) { width: 5% !important; text-align: center;}
 
 @media (max-width: 768px) {
     .profile-container {

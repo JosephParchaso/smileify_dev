@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmt->execute()) {
             $new_admin_id = $stmt->insert_id;
 
-            $notif_msg = "Your admin account has been created. Branch Assignment: $branch_name. Username: $username";
+            $notif_msg = "Your Secretary account has been created. Branch Assignment: $branch_name. Username: $username";
             $notif_sql = "INSERT INTO notifications (user_id, message) VALUES (?, ?)";
             $notif_stmt = $conn->prepare($notif_sql);
             $notif_stmt->bind_param("is", $new_admin_id, $notif_msg);
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->addAddress($email);
 
             $mail->isHTML(true);
-            $mail->Subject = "Your Smile-ify Admin Account";
+            $mail->Subject = "Your Smile-ify Secretary Account";
 
             if (!empty($dateStarted)) {
                 $ts = strtotime($dateStarted);
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $mail->Body = "
                 <p>Dear <strong>{$firstName} {$lastName}</strong>,</p>
-                <p>Your admin account for <strong>Smile-ify</strong> has been successfully created.</p>
+                <p>Your Secretary account for <strong>Smile-ify</strong> has been successfully created.</p>
 
                 <p><strong>Email:</strong> {$email}</p>
                 <p><strong>Date to Start:</strong> {$dateStartedFormatted}</p>
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     NOTE: Kindly change your password after your first login to ensure account security.
                 </p>
 
-                <p>You may now access the admin dashboard.</p>
+                <p>You may now access the Secretary dashboard.</p>
 
                 <br>
                 <p>Best regards,<br><strong>Smile-ify Team</strong></p>
@@ -145,14 +145,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             try {
                 $mail->send();
-                $_SESSION['updateSuccess'] = "Admin added successfully! Username: {$username}, Default password: {$raw_password}. Email sent.";
+                $_SESSION['updateSuccess'] = "Secretary added successfully! Username: {$username}, Default password: {$raw_password}. Email sent.";
             } catch (Exception $e) {
                 error_log("Mail Error: " . $mail->ErrorInfo);
-                $_SESSION['updateSuccess'] = "Admin added successfully, but failed to send email. Username: {$username}, Password: {$raw_password}";
+                $_SESSION['updateSuccess'] = "Secretary added successfully, but failed to send email. Username: {$username}, Password: {$raw_password}";
             }
 
         } else {
-            $_SESSION['updateError'] = "Failed to insert admin.";
+            $_SESSION['updateError'] = "Failed to insert Secretary.";
         }
 
         $stmt->close();

@@ -14,7 +14,7 @@ date_default_timezone_set('Asia/Manila');
 $logFile = BASE_PATH . '/Mail/phpmailer/reminder_log.txt';
 file_put_contents($logFile, '[' . date('Y-m-d H:i:s') . "] Script started\n", FILE_APPEND);
 
-$hoursBefore = 24;
+$hoursBefore = 25;
 $minutesBefore = 0;
 $windowMinutes = 30; 
 
