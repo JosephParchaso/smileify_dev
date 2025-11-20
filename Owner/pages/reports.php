@@ -79,7 +79,7 @@ $conn->close();
                         <div class="staff-performance">
                             <div class="branch-growth-grid">
                                 <div class="branch-growth-list">
-                                    <h4 class="branch-growth-tracker-text">Which branch is growing the fastest?</h4>
+                                    <h4 class="branch-growth-tracker-text">Branch Revenue Comparison</h4>
                                     <table class="branch-growth-table">
                                         <thead>
                                             <tr><th>Branch</th><th>Revenue</th><th>% Contribution</th></tr>
@@ -87,23 +87,8 @@ $conn->close();
                                         <tbody id="branchGrowthTableBody<?= $branchId ?>-<?= $mode ?>"></tbody>
                                     </table>
                                     <div class="branch-growth-chart">
-                                        <h4>Revenue Distribution</h4>
+                                        <h4>Revenue by Period</h4>
                                         <canvas id="branchGrowthChartall-<?= $mode ?>"></canvas>
-                                    </div>
-                                </div>
-
-                                <div class="branch-growth-list">
-                                    <h4 style="color:#e74c3c;">RED FLAG: Which branch has declining service uptake?</h4>
-                                    <table class="branch-growth-table">
-                                        <thead>
-                                            <tr><th>Branch</th><th>Previous Count</th><th>Current Count</th><th>Difference</th><th>% Total Decline</th></tr>
-                                        </thead>
-                                        <tbody id="declineTableBody<?= $branchId ?>-<?= $mode ?>"></tbody>
-                                    </table>
-                                    <div class="branch-growth-chart-decline">
-                                        <h4>Previous vs Current Count Distribution</h4>
-                                        <button id="toggleDeclineChart<?= $branchId ?>-<?= $mode ?>" class="toggle-chart-btn">Switch to Bar Chart</button>
-                                        <canvas id="declineChart<?= $branchId ?>-<?= $mode ?>"></canvas>
                                     </div>
                                 </div>
                             </div>

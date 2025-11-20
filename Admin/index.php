@@ -226,6 +226,18 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
             });
         }
     });
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll("form").forEach(form => {
+            form.addEventListener("submit", function () {
+                const btn = form.querySelector("button[type='submit']");
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerText = "Processing...";
+                }
+            });
+        });
+    });
 </script>
 
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>

@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3 class="announce-title">Announcements</h3>
 
             <?php if (empty($announcements)): ?>
-                <p>No announcements available.</p>
+                <p>No announcements.</p>
             <?php else: ?>
 
                 <?php foreach ($announcements as $item): ?>

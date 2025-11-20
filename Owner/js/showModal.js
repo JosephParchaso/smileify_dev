@@ -438,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const scheduleContainer = document.getElementById("branchScheduleContainer");
             scheduleContainer.innerHTML = "";
 
-            const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+            const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
             const savedSchedule = isEdit ? data.branch_schedule || {} : {};
 
             days.forEach(day => {

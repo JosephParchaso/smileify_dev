@@ -220,6 +220,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <strong>Username:</strong> $username<br>
                 <strong>Password:</strong> $default_password
             </p>
+                <p style='color:#c0392b; font-weight:bold;'>
+                    NOTE: Kindly change your password after your first login to ensure account security.
+                </p>
             <hr>
             <p><strong>Appointment Details:</strong></p>
             <p>

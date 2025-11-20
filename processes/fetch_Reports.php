@@ -127,6 +127,82 @@ try {
     $incomeTrend = [];
     $labels = [];
 
+    $servicesBreakdownPerDate = [];
+
+    if ($mode === 'daily') {
+        for ($i = 6; $i >= 0; $i--) {
+            $day = date('Y-m-d', strtotime("-$i days"));
+            $sql = "SELECT s.name AS service_name, SUM(dts.quantity) AS cnt
+                    FROM dental_transaction_services dts
+                    JOIN dental_transaction dt ON dts.dental_transaction_id = dt.dental_transaction_id
+                    JOIN appointment_transaction at ON dt.appointment_transaction_id = at.appointment_transaction_id
+                    JOIN service s ON dts.service_id = s.service_id
+                    WHERE at.branch_id = ?
+                    AND DATE(at.appointment_date) = ?
+                    GROUP BY s.service_id
+                    ORDER BY cnt DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("is", $branch_id, $day);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dayServices = [];
+            while ($row = $result->fetch_assoc()) {
+                $dayServices[] = $row['service_name'] . " (" . $row['cnt'] . ")";
+            }
+            $servicesBreakdownPerDate[] = $dayServices;
+            $stmt->close();
+        }
+    } elseif ($mode === 'weekly') {
+        $days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+        foreach ($days as $d) {
+            $sql = "SELECT s.name AS service_name, SUM(dts.quantity) AS cnt
+                    FROM dental_transaction_services dts
+                    JOIN dental_transaction dt ON dts.dental_transaction_id = dt.dental_transaction_id
+                    JOIN appointment_transaction at ON dt.appointment_transaction_id = at.appointment_transaction_id
+                    JOIN service s ON dts.service_id = s.service_id
+                    WHERE at.branch_id = ?
+                    AND YEARWEEK(at.appointment_date,1) = YEARWEEK(CURDATE(),1)
+                    AND DAYNAME(at.appointment_date) = ?
+                    GROUP BY s.service_id
+                    ORDER BY cnt DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("is", $branch_id, $d);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dayServices = [];
+            while ($row = $result->fetch_assoc()) {
+                $dayServices[] = $row['service_name'] . " (" . $row['cnt'] . ")";
+            }
+            $servicesBreakdownPerDate[] = $dayServices;
+            $stmt->close();
+        }
+    } elseif ($mode === 'monthly') {
+        $daysInMonth = date('t');
+        for ($d = 1; $d <= $daysInMonth; $d++) {
+            $sql = "SELECT s.name AS service_name, SUM(dts.quantity) AS cnt
+                    FROM dental_transaction_services dts
+                    JOIN dental_transaction dt ON dts.dental_transaction_id = dt.dental_transaction_id
+                    JOIN appointment_transaction at ON dt.appointment_transaction_id = at.appointment_transaction_id
+                    JOIN service s ON dts.service_id = s.service_id
+                    WHERE at.branch_id = ?
+                    AND YEAR(at.appointment_date) = YEAR(CURDATE())
+                    AND MONTH(at.appointment_date) = MONTH(CURDATE())
+                    AND DAY(at.appointment_date) = ?
+                    GROUP BY s.service_id
+                    ORDER BY cnt DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ii", $branch_id, $d);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $dayServices = [];
+            while ($row = $result->fetch_assoc()) {
+                $dayServices[] = $row['service_name'] . " (" . $row['cnt'] . ")";
+            }
+            $servicesBreakdownPerDate[] = $dayServices;
+            $stmt->close();
+        }
+    }
+
     if ($mode === 'daily') {
         for ($i = 6; $i >= 0; $i--) {
             $day = date('Y-m-d', strtotime("-$i days"));
@@ -899,7 +975,8 @@ try {
         "trend" => [
             "labels" => $labels,
             "services" => $servicesTrend,
-            "income" => $incomeTrend
+            "income" => $incomeTrend,
+            "servicesBreakdown" => $servicesBreakdownPerDate
         ],
         "branchComparison" => $branchComparison,
         'servicePrices'     => $servicePrices,

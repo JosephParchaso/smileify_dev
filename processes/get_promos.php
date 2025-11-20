@@ -14,7 +14,8 @@ $sql = "
     FROM promo p
     LEFT JOIN branch_promo bp 
         ON p.promo_id = bp.promo_id AND bp.status = 'Active'
-    WHERE p.image_path IS NOT NULL
+    WHERE bp.status = 'Active'
+        AND p.image_path IS NOT NULL
         AND p.image_path != ''
     GROUP BY p.promo_id
     ORDER BY p.date_updated DESC

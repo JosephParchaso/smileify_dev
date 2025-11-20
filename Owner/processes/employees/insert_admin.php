@@ -133,6 +133,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <strong>Password:</strong> {$raw_password}
                 </p>
 
+                <p style='color:#c0392b; font-weight:bold;'>
+                    NOTE: Kindly change your password after your first login to ensure account security.
+                </p>
+
                 <p>You may now access the admin dashboard.</p>
 
                 <br>

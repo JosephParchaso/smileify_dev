@@ -195,12 +195,21 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    
+
+    let isSubmitting = false;
+
     function protectForm(formId) {
         const form = document.getElementById(formId);
         if (!form) return;
-        
-        form.addEventListener("submit", function () {
+
+        form.addEventListener("submit", function (e) {
+            if (isSubmitting) {
+                e.preventDefault();
+                return;
+            }
+
+            isSubmitting = true;
+
             const btn = form.querySelector("button[type='submit']");
             if (btn) {
                 btn.disabled = true;
@@ -211,6 +220,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     protectForm("requestOtpChangePassword");
     protectForm("requestOtpChangeEmail");
-
 });
 </script>

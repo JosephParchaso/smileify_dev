@@ -162,12 +162,6 @@ function renderBranchGrowthChart(branch_id, mode, branchGrowthChartData, chartTy
         return;
     }
     
-    const parentContainer = ctx.parentElement;
-    if (parentContainer && !parentContainer.style.height) {
-        parentContainer.style.height = '350px'; 
-        parentContainer.style.position = 'relative';
-    }
-
     if (charts[key]) {
         charts[key].destroy();
         delete charts[key];
@@ -244,9 +238,23 @@ function renderBranchGrowthChart(branch_id, mode, branchGrowthChartData, chartTy
                             return `${label}: ₱${value.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
                         }
                     }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    offset: 6,
+                    color: (context) => {
+                        
+                    return context.dataset.backgroundColor;
+                    },
+                    font: {
+                        size: 12,
+                    },
+                    formatter: (value) => "₱" + Number(value).toLocaleString()
                 }
             }
-        }
+        },
+        plugins: [ChartDataLabels]
     });
 }
 
@@ -485,6 +493,35 @@ function renderServicesTrendChart(branch_id, mode, trend) {
                         family: 'Poppins, sans-serif'
                     },
                     formatter: (value) => value > 0 ? value : ''
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: {
+                        size: 14,
+                        weight: 'bold'
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    callbacks: {
+                        title: (context) => {
+                            return `${context[0].label}`;
+                        },
+                        label: (context) => {
+                            return `Total Services: ${context.parsed.y}`;
+                        },
+                        afterLabel: (context) => {
+                        
+                            const dataIndex = context.dataIndex;
+                            const servicesBreakdown = trend.servicesBreakdown?.[dataIndex];
+                            
+                            if (servicesBreakdown && servicesBreakdown.length > 0) {
+                                return 'Services:\n' + servicesBreakdown.join('\n');
+                            }
+                            return '';
+                        }
+                    }
                 }
             },
             scales: {

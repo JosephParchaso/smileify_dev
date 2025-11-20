@@ -103,17 +103,25 @@ $updateError = $_SESSION['updateError'] ?? "";
     </div>
 </div>
 
-
 <script>
     const ADMIN_BRANCH_ID = <?= isset($_SESSION['branch_id']) ? intval($_SESSION['branch_id']) : 'null' ?>;
-    
+
     document.addEventListener("DOMContentLoaded", function () {
-        
+
+        let isSubmitting = false;
+
         function protectForm(formId) {
             const form = document.getElementById(formId);
             if (!form) return;
-            
-            form.addEventListener("submit", function () {
+
+            form.addEventListener("submit", function (e) {
+                if (isSubmitting) {
+                    e.preventDefault();
+                    return;
+                }
+
+                isSubmitting = true;
+
                 const btn = form.querySelector("button[type='submit']");
                 if (btn) {
                     btn.disabled = true;
@@ -124,8 +132,6 @@ $updateError = $_SESSION['updateError'] ?? "";
 
         protectForm("requestOtpChangePassword");
         protectForm("requestOtpChangeEmail");
-
     });
 </script>
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>
-

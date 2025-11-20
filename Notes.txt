@@ -104,8 +104,8 @@ send email on admin creation 👍
 hereby2 sa owner 👍 
 remove contact number and address on owner and edit function 👍 
 service add 0 price 👍 
-fix promo container
-double insert on otp booking, confirming otp, signing in, forgot, change email/password
+fix promo container 👍
+double insert on otp booking, confirming otp, signing in, forgot, change email/password, walkin account creation 👍
 block admin in mobile
 mobile view
 

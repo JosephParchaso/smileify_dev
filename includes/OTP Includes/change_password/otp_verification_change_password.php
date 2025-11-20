@@ -125,13 +125,18 @@ document.addEventListener('DOMContentLoaded', function () {
         updateTimerUI();
     }
 
+    let isResending = false;
+
     $('#resendOTPButton').click(function () {
-        if (this.disabled) return;
+        if (this.disabled || isResending) return;
+
+        isResending = true;
+        this.disabled = true;
 
         $('.otp-verification-modal-content .error').not('#resendMessage').hide();
 
         const messageDiv = $('#resendMessage');
-        
+
         messageDiv.removeClass('error')
                 .addClass('success')
                 .text('Resending OTP')
@@ -143,24 +148,24 @@ document.addEventListener('DOMContentLoaded', function () {
             dataType: 'json',
             success: function (response) {
                 if (response.success) {
+
                     messageDiv.removeClass('error')
                             .addClass('success')
                             .text(response.message)
                             .show();
 
-                    setTimeout(() => {
-                        messageDiv.fadeOut();
-                    }, 10000);
+                    setTimeout(() => messageDiv.fadeOut(), 10000);
 
                     const newTimestamp = response.otp_created;
                     const newKey = "otpExpiryTimestamp_" + newTimestamp;
                     const newExpiry = (newTimestamp * 1000) + (expiryLimit * 1000);
-                    
+
                     Object.keys(sessionStorage).forEach(key => {
                         if (key.startsWith("otpExpiryTimestamp_")) {
                             sessionStorage.removeItem(key);
                         }
                     });
+
                     sessionStorage.setItem(newKey, newExpiry);
                     storageKey = newKey;
                     startCountdown();
@@ -176,6 +181,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         .addClass('error')
                         .text('Error resending OTP. Please try again.')
                         .show();
+            },
+            complete: function () {
+                isResending = false;
+                updateTimerUI();
             }
         });
     });
