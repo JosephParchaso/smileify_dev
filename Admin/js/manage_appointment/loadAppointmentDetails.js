@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>Date Booked:</strong><span>${data.date_created}</span></p>
                 <div class="button-group button-group-profile">
                     <button class="confirm-btn" id="markDone">Complete Transaction</button>
+                    <button class="confirm-btn" id="reSched">Resched Appointment</button>
                     <button class="cancel-btn-appointment" id="markCancel">Cancel Appointment</button>
                 </div>
             `;

@@ -22,6 +22,7 @@ $branchId = intval($_GET['id']);
 $sql = "SELECT 
             branch_id,
             name,
+            nickname,
             address,
             phone_number,
             map_url,

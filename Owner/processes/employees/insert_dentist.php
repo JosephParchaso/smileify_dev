@@ -88,8 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 email,
                 contact_number, contact_number_iv, contact_number_tag,
                 license_number, license_number_iv, license_number_tag,
-                date_started, status, signature_image, profile_image
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                date_started, status, date_updated, signature_image, profile_image
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, ?)
         ");
 
         $null = null;

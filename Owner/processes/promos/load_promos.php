@@ -10,13 +10,15 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'owner') {
     exit();
 }
 
+$totalBranches = $conn->query("SELECT COUNT(*) AS total FROM branch")->fetch_assoc()['total'];
+
 $sql = "
     SELECT 
         p.promo_id, 
         p.name, 
         p.discount_type, 
         p.discount_value,
-        GROUP_CONCAT(DISTINCT b.name ORDER BY b.name SEPARATOR ', ') AS branches,
+        GROUP_CONCAT(DISTINCT b.nickname ORDER BY b.nickname SEPARATOR ', ') AS branches,
         MIN(bp.start_date) AS start_date, 
         MAX(bp.end_date) AS end_date
     FROM promo p
@@ -28,25 +30,26 @@ $sql = "
 
 $result = $conn->query($sql);
 
-if (!$result) {
-    echo json_encode(["error" => "Query failed: " . $conn->error]);
-    exit();
-}
-
 $promos = [];
 while ($row = $result->fetch_assoc()) {
+
     $discount = ($row['discount_type'] === 'percentage')
-        ? $row['discount_value'] . '%'
-        : '₱' . number_format($row['discount_value'], 2);
+        ? rtrim(rtrim($row['discount_value'], '0'), '.') . '%'
+        : '₱' . number_format($row['discount_value'], 0);
 
     $validity = (!empty($row['start_date']) && !empty($row['end_date']))
         ? date("M d, Y", strtotime($row['start_date'])) . " - " . date("M d, Y", strtotime($row['end_date']))
         : '-';
 
-    $branchList = $row['branches'] ?: '-';
+    $assignedBranches = array_map('trim', explode(',', $row['branches']));
+
+    if (count($assignedBranches) == $totalBranches) {
+        $branchList = "All Branches";
+    } else {
+        $branchList = $row['branches'] ?: '-';
+    }
 
     $promos[] = [
-        $row['promo_id'],
         htmlspecialchars($row['name']),
         htmlspecialchars($branchList),
         $discount,

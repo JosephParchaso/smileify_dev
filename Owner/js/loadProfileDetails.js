@@ -68,6 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
 function closeEditProfileModal() {
     document.getElementById("editProfileModal").style.display = "none";
 }
+function closeChangePasswordModal() {
+    document.getElementById("changePasswordModal").style.display = "none";
+}
 function closeChangeEmailModal() {
     document.getElementById("changeEmailModal").style.display = "none";
 }

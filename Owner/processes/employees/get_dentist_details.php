@@ -146,8 +146,8 @@ while ($sc = $resSched->fetch_assoc()) {
         "dentist_id"   => (int)$sc['dentist_id'],
         "day"          => $sc['day'],
         "branch_id"    => (int)$sc['branch_id'],
-        "start_time"   => $sc['start_time'],
-        "end_time"     => $sc['end_time']
+        "start_time"   => $sc['start_time'] ? date("H:i", strtotime($sc['start_time'])) : "",
+        "end_time"     => $sc['end_time'] ? date("H:i", strtotime($sc['end_time'])) : ""
     ];
 }
 

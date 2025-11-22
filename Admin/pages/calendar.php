@@ -15,7 +15,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
 $updateSuccess = $_SESSION['updateSuccess'] ?? "";
 $updateError = $_SESSION['updateError'] ?? "";
 
-$sql = "SELECT branch_id, name, address, phone_number, status FROM branch";
+$sql = "SELECT branch_id, nickname, address, phone_number, status FROM branch";
 $result = $conn->query($sql);
 
 $branches = [];
@@ -29,32 +29,37 @@ $conn->close();
 
 <title>Calendar</title>
 
+<?php
+$adminBranchId = $_SESSION['branch_id'] ?? '';
+?>
+
 <div class="tabs-container">
     <div class="tabs-nomargin">
-        <?php foreach ($branches as $i => $branch): ?>
+        <?php foreach ($branches as $branch): ?>
             <div 
-                class="tab <?= $i === 0 ? 'active' : '' ?>" 
+                class="tab <?= ($branch['branch_id'] == $adminBranchId ? 'active' : '') ?>" 
                 data-branch-id="<?= $branch['branch_id'] ?>"
                 onclick="switchTabBranch(<?= $branch['branch_id'] ?>)">
-                <?= htmlspecialchars($branch['name']) ?>
+                <?= htmlspecialchars($branch['nickname']) ?>
             </div>
         <?php endforeach; ?>
     </div>
 </div>
+
+<input 
+    type="hidden" 
+    id="branchIdInput" 
+    value="<?= htmlspecialchars($adminBranchId) ?>"
+>
 
 <div class="calendar-container">
     <div id="calendarLegend" class="legend"></div>
     <div id="calendar"></div>
 </div>
 
-<input type="hidden" id="branchIdInput" value="<?= htmlspecialchars($branches[0]['branch_id'] ?? '') ?>">
-
-
 <div id="appointmentModalDetails" class="manage-calendar-modal">
     <div class="manage-calendar-modal-content">
-        <div id="modalBody" class="manage-calendar-modal-content-body">  
-            <!-- Appointment info will be loaded here -->
-        </div>
+        <div id="modalBody" class="manage-calendar-modal-content-body"></div>
     </div>
 </div>
 
@@ -73,4 +78,3 @@ $conn->close();
 <?php endif; ?>
 
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>
-

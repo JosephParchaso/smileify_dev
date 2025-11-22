@@ -30,9 +30,12 @@ $result = $stmt->get_result();
 
 $promos = [];
 while ($row = $result->fetch_assoc()) {
-    $discount = $row['discount_type'] === 'percentage' 
-        ? $row['discount_value'] . '%'
-        : '₱' . number_format($row['discount_value'], 2);
+
+    if ($row['discount_type'] === 'percentage') {
+        $discount = rtrim(rtrim($row['discount_value'], '0'), '.') . '%';
+    } else {
+        $discount = '₱' . number_format($row['discount_value'], 0);
+    }
 
     $start = !empty($row['start_date']) ? date("M d, Y", strtotime($row['start_date'])) : "-";
     $end   = !empty($row['end_date']) ? date("M d, Y", strtotime($row['end_date'])) : "-";

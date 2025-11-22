@@ -34,7 +34,7 @@ $role = $_SESSION['role'] ?? '';
         <div class="new-patient-count" id="newPatientCount<?= $bid ?>-<?= $mode ?>">New Patient Count: 0</div>
     </div>
     <div class="chart-box peak-hours">
-        <h4>Peak Hours</h4>
+        <h4>Clinic Peak Hours</h4>
         <canvas id="peakHoursChart<?= $bid ?>-<?= $mode ?>"></canvas>
     </div>
 </div>
@@ -46,7 +46,7 @@ $role = $_SESSION['role'] ?? '';
             <div class="staff-performance-table">
                 <table id="servicesBreakdownTable<?= $bid ?>-<?= $mode ?>">
                     <thead>
-                        <tr><th>Service</th><th>Count</th><th>%Total of Service</th></tr>
+                        <tr><th>Service</th><th>Count</th><th style="text-align: right;">Service Share (%)</th></tr>
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -63,7 +63,7 @@ $role = $_SESSION['role'] ?? '';
             <div class="staff-performance-table">
                 <table id="promosTable<?= $bid ?>-<?= $mode ?>">
                     <thead>
-                        <tr><th>Promo Name</th><th>Count</th><th>%Total of Promos</th></tr>
+                        <tr><th>Promo Name</th><th>Count</th><th style="text-align: right;">Promo Share (%)</th></tr>
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -77,33 +77,16 @@ $role = $_SESSION['role'] ?? '';
 <?php endif; ?>
 
 <?php if ($role === 'owner'): ?>
-    <h2>Branch Comparison</h2>
-    <div class="staff-performance">
-        <div class="staff-performance-grid">
-            <div class="staff-performance-table">
-                <h4>Service Prices</h4>
-                <table id="servicePricesTable<?= $bid ?>-<?= $mode ?>">
-                    <thead><tr><th>Service</th><th>Price (PHP)</th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="chart-wrapper">
-                <canvas id="branchComparisonChart<?= $bid ?>-<?= $mode ?>"></canvas>
-            </div>
-        </div>
-    </div>
-
     <div class="chart-box income-trend">
-        <h4>Income Trend</h4>
+        <h4>Revenue Trend</h4>
         <div class="chart-wrapper-income-trend">
             <canvas id="incomeTrendChart<?= $bid ?>-<?= $mode ?>"></canvas>
         </div>
     </div>
 
     <div class="profitability-analysis">
-        <h2>Profitability Analysis</h2>
-        <div class="profitability-grid">
-            <div class="chart-box">
+    <div class="profitability-grid">
+        <div class="chart-box chart-container" id="growthTrendContainer-<?= $bid ?>-<?= $mode ?>">
                 <h4>Growth Trend</h4>
                 <canvas id="growthTrendChart<?= $bid ?>-<?= $mode ?>"></canvas>
             </div>
@@ -112,16 +95,13 @@ $role = $_SESSION['role'] ?? '';
 
     <h2>Staff Performance</h2>
     <div class="staff-performance">
-        <div class="staff-performance-grid">
-            <div class="staff-performance-table">
-                <table id="staffPerformanceTable<?= $bid ?>-<?= $mode ?>">
-                    <thead><tr><th>Dentist</th><th>Branch</th><th>Services Rendered</th><th>Total Income (₱)</th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="staff-performance-chart">
-                <canvas id="staffPerformanceChart<?= $bid ?>-<?= $mode ?>"></canvas>
-            </div>
+        <div class="staff-performance-table">
+            <table id="staffPerformanceTable<?= $bid ?>-<?= $mode ?>">
+                <thead><tr><th>Dentist</th>
+                            <th>Services Rendered</th>
+                            <th style="text-align: right;">Total Revenue (₱)</th></tr></thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 <?php endif; ?>

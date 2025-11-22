@@ -54,9 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 email,
                 contact_number, contact_number_iv, contact_number_tag,
                 address, address_iv, address_tag,
-                branch_id, role, status, password, date_started
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', ?, ?, ?)
+                branch_id, role, status, date_updated, password, date_started
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'admin', ?, NOW(), ?, ?)
         ");
 
         $stmt->bind_param(
@@ -145,10 +144,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             try {
                 $mail->send();
-                $_SESSION['updateSuccess'] = "Secretary added successfully! Username: {$username}, Default password: {$raw_password}. Email sent.";
+                $_SESSION['updateSuccess'] = "Secretary added successfully";
             } catch (Exception $e) {
                 error_log("Mail Error: " . $mail->ErrorInfo);
-                $_SESSION['updateSuccess'] = "Secretary added successfully, but failed to send email. Username: {$username}, Password: {$raw_password}";
+                $_SESSION['updateSuccess'] = "Secretary added successfully";
             }
 
         } else {

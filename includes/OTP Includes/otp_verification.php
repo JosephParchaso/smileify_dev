@@ -187,16 +187,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    const otpForm = document.querySelector(".otp-verification-modal-content form");
     const confirmBtn = document.getElementById("confirmButton");
-    let isConfirming = false;
 
-    confirmBtn.addEventListener("click", function (e) {
-        if (isConfirming) {
-            e.preventDefault();
-            return;
-        }
-        isConfirming = true;
-        confirmBtn.disabled = true;
+    otpForm.addEventListener("submit", function () {
+        setTimeout(() => {
+            confirmBtn.disabled = true;
+        }, 50);
     });
 });
 </script>

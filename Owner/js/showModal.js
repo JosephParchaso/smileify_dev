@@ -2,59 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const employeeModal = document.getElementById("manageModal");
     const employeeBody = document.getElementById("modalBody");
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const tomorrowISO = tomorrow.toISOString().split("T")[0];
-
-    document.body.addEventListener("focusin", function (e) {
-        if (e.target && e.target.id === "dateofBirth") {
-            e.target.setAttribute("min", "1900-01-01");
-            e.target.setAttribute("max", today.toISOString().split("T")[0]);
-        }
-
-        if (e.target && e.target.id === "dateStarted") {
-            e.target.setAttribute("min", tomorrowISO);
-        }
-    });
-
-    document.body.addEventListener("change", function (e) {
-        if (e.target && e.target.id === "dateStarted") {
-            const dateInput = e.target;
-            const errorEl = document.getElementById("dateError");
-
-            if (dateInput.value) {
-                const selectedDate = new Date(dateInput.value);
-                selectedDate.setHours(0, 0, 0, 0);
-                const day = selectedDate.getDay();
-
-                const now = new Date();
-                now.setHours(0, 0, 0, 0);
-                const tomorrowCheck = new Date(now);
-                tomorrowCheck.setDate(now.getDate() + 1);
-
-                if (isNaN(selectedDate)) {
-                    errorEl.textContent = "Please enter a valid date.";
-                    errorEl.style.display = "block";
-                    dateInput.value = "";
-                } else if (selectedDate < tomorrowCheck) {
-                    errorEl.textContent = "Please enter a valid date.";
-                    errorEl.style.display = "block";
-                    dateInput.value = "";
-                } else if (day === 0) {
-                    errorEl.textContent =
-                        "Sundays are not available. Please select another date.";
-                    errorEl.style.display = "block";
-                    dateInput.value = "";
-                } else {
-                    errorEl.style.display = "none";
-                }
-            }
-        }
-    });
-
     document.body.addEventListener("click", function (e) {
         if (e.target.classList.contains("btn-action")) {
             const id = e.target.getAttribute("data-id");
@@ -242,6 +189,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 branchSelect.appendChild(option);
             });
         });
+
+        setTimeout(() => {
+            const form = document.getElementById("adminForm");
+            if (form) attachEmailValidator(form);
+        }, 50);
+
+        setTimeout(() => {
+            const form = document.getElementById("adminForm");
+            if (form) attachDateValidators(form);
+        }, 60);
+
+        setTimeout(() => {
+            const form = document.getElementById("adminForm");
+            if (form) attachSafeSubmit(form);
+        }, 70);
     }
     
     function renderDentistForm(data) {
@@ -504,11 +466,8 @@ document.addEventListener("DOMContentLoaded", () => {
                         `).join("")}
                     </select>
 
-                    <input type="time" class="start-time" name="schedule[${day}][start][]" 
-                        value="${startVal}" ${isWholeDay ? "disabled" : ""}>
-
-                    <input type="time" class="end-time" name="schedule[${day}][end][]" 
-                        value="${endVal}" ${isWholeDay ? "disabled" : ""}>
+                    <select class="start-time" name="schedule[${day}][start][]" ${isWholeDay ? "disabled" : ""}></select>
+                    <select class="end-time" name="schedule[${day}][end][]" ${isWholeDay ? "disabled" : ""}></select>
 
                     <button type="button" class="whole-day-btn">${isWholeDay ? "Undo" : "Whole Day"}</button>
                     <button type="button" class="remove-row-btn">×</button>
@@ -530,32 +489,51 @@ document.addEventListener("DOMContentLoaded", () => {
                 rowsContainer.appendChild(row);
                 updateAddScheduleButton(day);
                 updateWholeDayVisibility(day);
+
+                buildTimeOptions(startInput, startVal);
+                buildTimeOptions(endInput, endVal);
+
+                const branchSelect = row.querySelector("select[name$='[branch][]']");
+                branchSelect.addEventListener("change", updateBranchDropdowns);
+                
+                setTimeout(updateBranchDropdowns, 10);
+            }
+
+            function buildTimeOptions(select, selected = "") {
+                const start = 9 * 60;
+                const end = 16 * 60 + 30;
+
+                select.innerHTML = `<option value="">--</option>`;
+
+                for (let t = start; t <= end; t += 30) {
+                    let hh = String(Math.floor(t / 60)).padStart(2, "0");
+                    let mm = String(t % 60).padStart(2, "0");
+                    let val = `${hh}:${mm}`;
+                    let label = formatTime(val);
+
+                    let opt = document.createElement("option");
+                    opt.value = val;
+                    opt.textContent = label;
+
+                    if (selected === val) opt.selected = true;
+
+                    select.appendChild(opt);
+                }
+            }
+
+            function formatTime(time) {
+                let [h, m] = time.split(":");
+                h = parseInt(h);
+
+                const ampm = h >= 12 ? "pm" : "am";
+                const hour12 = (h % 12) || 12;
+
+                return `${hour12}:${m} ${ampm}`;
             }
 
             container.querySelectorAll("input[type=checkbox]").forEach(chk => {
                 chk.addEventListener("change", () => {
-
-                    document.querySelectorAll(".schedule-row select").forEach(select => {
-                        const selectedValue = select.value;
-
-                        const checkedBranches = Array.from(
-                            document.querySelectorAll("#branchAssignment input[type=checkbox]:checked")
-                        ).map(cb => ({
-                            branch_id: cb.value,
-                            name: cb.nextElementSibling.textContent
-                        }));
-
-                        select.innerHTML = `
-                            <option value="" disabled>Select Branch</option>
-                            ${checkedBranches.map(b => `
-                                <option value="${b.branch_id}">${b.name}</option>
-                            `).join("")}
-                        `;
-
-                        if (checkedBranches.some(b => b.branch_id == selectedValue)) {
-                            select.value = selectedValue;
-                        }
-                    });
+                    updateBranchDropdowns();
                 });
             });
         });
@@ -578,22 +556,267 @@ document.addEventListener("DOMContentLoaded", () => {
                 container.appendChild(wrapper);
             });
         });
+
+        setTimeout(() => {
+            const form = document.getElementById("dentistForm");
+            if (form) attachEmailValidator(form);
+        }, 50);
+
+        setTimeout(() => {
+            const form = document.getElementById("dentistForm");
+            if (form) attachDateValidators(form);
+        }, 60);
     }
 
-    function hasStarted(dateStarted) {
-        if (!dateStarted) return false;
+    function attachEmailValidator(form) {
+        const emailInput = form.querySelector("#email");
+        if (!emailInput) return;
+
+        let timer = null;
+        let emailIsValid = true;
+        let validating = false;
+
+        let errorSpan = form.querySelector("#emailErrorDynamic");
+        if (!errorSpan) {
+            errorSpan = document.createElement("span");
+            errorSpan.id = "emailErrorDynamic";
+            errorSpan.className = "error-msg-calendar error";
+            errorSpan.style.display = "none";
+            emailInput.parentNode.appendChild(errorSpan);
+        }
+
+        const submitBtn = form.querySelector("button[type='submit']");
+
+        function show(msg) {
+            errorSpan.textContent = msg;
+            errorSpan.style.display = "block";
+        }
+
+        function hide() {
+            errorSpan.style.display = "none";
+        }
+
+        function disableSubmit() {
+            if (submitBtn) submitBtn.disabled = true;
+        }
+
+        function enableSubmit() {
+            if (submitBtn) submitBtn.disabled = false;
+        }
+
+        function validate(email) {
+            const basicPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!basicPattern.test(email)) {
+                emailIsValid = false;
+                show("Invalid email format.");
+                disableSubmit();
+                return;
+            }
+
+            hide();
+            validating = true;
+
+            fetch(`/Smile-ify/processes/validate_email.php?email=${encodeURIComponent(email)}`)
+                .then(res => res.json())
+                .then(d => {
+                    emailIsValid = d.valid;
+
+                    if (!d.valid) {
+                        show("Email domain is invalid or unreachable.");
+                        disableSubmit();
+                    } else {
+                        hide();
+                        enableSubmit();
+                    }
+                })
+                .catch(() => {
+                    emailIsValid = false;
+                    show("Unable to validate email right now.");
+                    disableSubmit();
+                })
+                .finally(() => {
+                    validating = false;
+                });
+        }
+
+        emailInput.addEventListener("input", () => {
+            clearTimeout(timer);
+
+            hide();
+            validating = false;
+
+            disableSubmit();
+
+            timer = setTimeout(() => {
+                validate(emailInput.value.trim());
+            }, 500);
+        });
+
+        form.addEventListener("submit", (e) => {
+            if (!emailInput.checkValidity()) return;
+
+            if (validating) {
+                e.preventDefault();
+                show("Validating email… please wait.");
+                disableSubmit();
+                return;
+            }
+
+            if (!emailIsValid) {
+                e.preventDefault();
+                show("Please enter a valid email address.");
+                disableSubmit();
+                return;
+            }
+
+            enableSubmit();
+        });
+    }
+
+    function attachDateValidators(form) {
+        if (!form) return;
+
+        const dobInput = form.querySelector("#dateofBirth");
+        const startInput = form.querySelector("#dateStarted");
+
+        function getOrCreateErrorSpan(input, id) {
+            let span = form.querySelector("#" + id);
+            if (!span) {
+                span = document.createElement("span");
+                span.id = id;
+                span.className = "error-msg-calendar error";
+                span.style.display = "none";
+                input.parentNode.appendChild(span);
+            }
+            return span;
+        }
+
+        const dobError = dobInput ? getOrCreateErrorSpan(dobInput, "dobError") : null;
+        const startError = startInput ? getOrCreateErrorSpan(startInput, "dateError") : null;
+
         const today = new Date();
-        today.setHours(0,0,0,0);
+        today.setHours(0, 0, 0, 0);
 
-        const started = new Date(dateStarted);
-        started.setHours(0,0,0,0);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+        const tomorrowISO = tomorrow.toISOString().split("T")[0];
 
-        return started <= today;
+        if (dobInput) {
+            dobInput.addEventListener("change", () => {
+                const value = dobInput.value;
+                if (!value) {
+                    dobError.style.display = "none";
+                    return;
+                }
+                const selected = new Date(value);
+                selected.setHours(0, 0, 0, 0);
+
+                if (isNaN(selected)) {
+                    dobError.textContent = "Please enter a valid date.";
+                    dobError.style.display = "block";
+                    dobInput.value = "";
+                } else if (selected > today) {
+                    dobError.textContent = "Please enter a valid date.";
+                    dobError.style.display = "block";
+                    dobInput.value = "";
+                } else {
+                    dobError.style.display = "none";
+                }
+            });
+
+            dobInput.setAttribute("min", "1900-01-01");
+            dobInput.setAttribute("max", today.toISOString().split("T")[0]);
+        }
+
+        if (startInput) {
+            startInput.addEventListener("change", () => {
+                const value = startInput.value;
+                if (!value) {
+                    startError.style.display = "none";
+                    return;
+                }
+
+                const selected = new Date(value);
+                selected.setHours(0, 0, 0, 0);
+                const day = selected.getDay();
+
+                const now = new Date();
+                now.setHours(0, 0, 0, 0);
+
+                const tomorrowCheck = new Date(now);
+                tomorrowCheck.setDate(now.getDate() + 1);
+
+                if (isNaN(selected)) {
+                    startError.textContent = "Please enter a valid date.";
+                    startError.style.display = "block";
+                    startInput.value = "";
+                } else if (selected < tomorrowCheck) {
+                    startError.textContent = "Start date must be at least tomorrow.";
+                    startError.style.display = "block";
+                    startInput.value = "";
+                } else if (day === 0) {
+                    startError.textContent = "Sundays are not available. Please select another date.";
+                    startError.style.display = "block";
+                    startInput.value = "";
+                } else {
+                    startError.style.display = "none";
+                }
+            });
+
+            startInput.setAttribute("min", tomorrowISO);
+        }
+    }
+
+    function attachSafeSubmit(form) {
+        form.addEventListener("submit", function () {
+            const btn = form.querySelector("button[type='submit']");
+            if (!btn) return;
+
+            if (form.checkValidity()) {
+                btn.disabled = true;
+            }
+        });
+    }
+
+    function updateBranchDropdowns() {
+        const allRows = document.querySelectorAll(".schedule-row");
+
+        const chosen = [];
+        allRows.forEach(row => {
+            const sel = row.querySelector("select[name$='[branch][]']");
+            if (sel && sel.value) chosen.push(sel.value);
+        });
+
+        allRows.forEach(row => {
+            const select = row.querySelector("select[name$='[branch][]']");
+            const currentValue = select.value;
+
+            const checkedBranches = Array.from(
+                document.querySelectorAll("#branchAssignment input[type=checkbox]:checked")
+            ).map(cb => ({
+                branch_id: cb.value,
+                name: cb.nextElementSibling.textContent
+            }));
+
+            select.innerHTML = `
+                <option value="" disabled ${currentValue === "" ? "selected" : ""}>Select Branch</option>
+                ${checkedBranches.map(b => `
+                    <option value="${b.branch_id}" 
+                        ${currentValue == b.branch_id ? "selected" : ""}
+                        ${currentValue !== b.branch_id && chosen.includes(b.branch_id) ? "disabled" : ""}
+                    >
+                        ${b.name}
+                    </option>
+                `).join("")}
+            `;
+        });
     }
 
     function toggleWholeDay(button) {
         const row = button.closest(".schedule-row");
         const rowsContainer = row.parentElement;
+
         const start = row.querySelector(".start-time");
         const end = row.querySelector(".end-time");
 
@@ -601,26 +824,36 @@ document.addEventListener("DOMContentLoaded", () => {
                     .querySelector("h4").textContent;
 
         if (button.textContent === "Whole Day") {
+
             rowsContainer.querySelectorAll(".schedule-row").forEach(r => {
                 if (r !== row) r.remove();
             });
+
+            start.value = "09:00";
+            end.value   = "16:30";
+
             start.disabled = true;
             end.disabled = true;
-            start.value = "";
-            end.value = "";
+
+            start.value = "09:00";
+            end.value = "16:30";
 
             start.insertAdjacentHTML("afterend",
-                `<input type="hidden" name="${start.name}" value="">`);
+                `<input type="hidden" class="tmp-start-hidden" name="${start.name}" value="">`);
             end.insertAdjacentHTML("afterend",
-                `<input type="hidden" name="${end.name}" value="">`);
+                `<input type="hidden" class="tmp-end-hidden" name="${end.name}" value="">`);
 
             button.textContent = "Undo";
 
         } else {
+
             start.disabled = false;
             end.disabled = false;
 
-            row.querySelectorAll("input[type=hidden]").forEach(h => h.remove());
+            start.value = "";
+            end.value = "";
+
+            row.querySelectorAll(".tmp-start-hidden, .tmp-end-hidden").forEach(h => h.remove());
 
             button.textContent = "Whole Day";
         }
@@ -657,6 +890,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 wholeBtn.style.display = "inline-block";
             }
         });
+    }
+
+    function hasStarted(dateStarted) {
+        if (!dateStarted) return false;
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        const started = new Date(dateStarted);
+        started.setHours(0,0,0,0);
+
+        return started <= today;
     }
 });
 

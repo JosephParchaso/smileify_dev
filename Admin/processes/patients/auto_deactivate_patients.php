@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 
-$thresholdDate = date('Y-m-d H:i:s', strtotime('-3 years'));
+$thresholdDate = date('Y-m-d H:i:s', strtotime('-5 years'));
 
 $sql = "
     UPDATE users u

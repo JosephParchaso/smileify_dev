@@ -7,7 +7,7 @@ $(document).ready(function() {
             "ordering": true,
             "searching": true,
             "columns": [
-                { "title": "ID" },
+                { "title": "Appointment ID" },
                 { "title": "Patient" },
                 { "title": "Dentist" },
                 { "title": "Date" },
@@ -16,7 +16,7 @@ $(document).ready(function() {
                 { "title": "Created", "visible": false }, 
                 { "title": "Action", "orderable": false, "searchable": false }
             ],
-            "order": [[6, "desc"]],
+            "order": [[3, "asc"], [4, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

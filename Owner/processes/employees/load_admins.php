@@ -12,12 +12,12 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'owner') {
 $sql = "SELECT 
             u.user_id,
             CONCAT(u.first_name, ' ', IFNULL(u.middle_name, ''), ' ', u.last_name) AS name,
-            b.name AS branch,
+            b.nickname AS branch,
             u.status
         FROM users u
         LEFT JOIN branch b ON u.branch_id = b.branch_id
         WHERE u.role = 'admin'
-        ORDER BY u.user_id DESC";
+        ORDER BY u.last_name ASC";
 
 $result = $conn->query($sql);
 

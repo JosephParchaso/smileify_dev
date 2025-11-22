@@ -109,14 +109,161 @@ double insert on otp booking, confirming otp, signing in, forgot, change email/p
 table size since branches and services, too long make dentists short 👍
 admins -> secretary front end 👍
 localhost task scheduler 👍
+
+email validation employees 
+
+owner
+reports tabs, nickname 
+calendar, branches nicknames 
+employees, sorted by status and name, 
+
+admin secretary     
+dashboard secretary buttons card
+calendar fix automatics load on what bracnch loggedin
+recent bookings Upcoming date and time / table header IDs
+added appointment id on email confirmation
+tables, fixed table header
+
+
+
+
+- Owner dob no validation either text, no date calendar or date but year first to enter
+- Dob in book appointment guess if mo type sa year mawala day and month
+- Sa schedule of dentists, di na ma pick ang branch bisag other day nimo sha iassign sa picked branch
+- owner services, if check tann branches, it should say "All branches" instead of meantioning all branches
+
 remove dental cert on booking appontment
+admin calendar on load default branch
 documents since branches too long
 notes ni daze
-localhost task scheduler 👍
 block admin in mobile
 mobile view
 
 
+
+Notes Suggestion:
+Revenue is money so aligned right, asta ang percentage
+Mawa ang peso
+contribution pweede ra mawa ang percentage
+Line Graph for no need 
+redundant na ang hover for clinic insight patient mix 
+no need the branch columm 
+remove bar g
+labels for services trend 
+Scale 
+labels remove .5 
+if it no zero, if with values put sa income trend 
+
+booking form email validation, all errors display within inputs 👍
+
+in the add secretary, dapat pag enter palang ma validate na 👍
+
+Last updated if no entry is equal to date created - initial value employees, service, promo, branch 👍
+
+Display 9:00 to 4:30 on the Adding the dentist on another branch for ADDING DENTIST 👍
+
+remove the dili pwede i sleect na time, Example: if 4:30, dapat 4 30 taman  time validation nlng
+
+Status followed by the name, in sorting 
+Last name ang name
+
+remove .00 in the services 👍
+simple presentation of the information
+
+Suggestion: in services, put all branch, only list those only ang katong mga branch nga gi assign, 👍
+
+In the demo of the promos, After pila ka minutes mu activate. For demo purposes, for it to 
+
+Promo should require image. 👍
+
+List: bug promo does not show in the admin side after putting the promo in the promo creation
+
+Last update in branches
+
+check the bug in error changing the qr code of the owner
+
+Add note: Use google maps url link 👍
+
+ADMIN
+di comfortable si miss: 
+buttons must be in the end of the card 👍
+
+Remove the dash in the highlights
+
+change the validity to 5 years - inactive/archive 👍
+
+Current date only. 👍
+
+change the sort for to day only and only show the future after all the current day apoointments,  👍
+
+include rebooking button or resched button and it will link to the schedule changing feature./ 
+
+Prepare for the demo individual account, emails, 
+
+to showcase the features
+
+put line in the subtotal 
+
+Pipe is only for programmers. Change the Prescription
+
+Amoxc 60mg - 7
+Once a day for 7 days
+
+Dr. Ben Solante
+Patient Name Should have a proper Format. 
+Put in the container the Branch name
+
+NX ray bya ayha marka resul 
+
+X-Ray : Result, if naa, View Xray Result Button
+
+In the Official Receipt, 
+Promo can be put in the Left, align to discount to how much
+Categorize 
+
+You place minus or wala, 
+
+Additional Payment must broken down on what service. 
+
+Usab nalayout Include in the discount the 
+
+Remove the doctor in the official Receipt
+and license number
+
+Remove page 1 of 1
+
+allow zero input in the medical certificate payment 
+
+Dental Certificate, Jessa Amores
+
+Chagne fitness status to another 
+
+Remove remarks:
+
+or if not , don't make it bold
+
+Make it descriptive
+
+Change the layout to the default dental certificate of the dental clinic
+
+around 30 minutes for demo presentation
+
+PATIENT
+Remove booked/unavailable 👍
+
+Dental Transaction Table changes to the displaying of the table 
+
+Mu show lang ang QR or ang image if nay bayad, don't show if wala 
+
+Prepare examples for demonstration
+
+Demonstration should be organized
+data should be verified, linked.
+Smooth and organized. 
+
+on the reminder, show on the calendar and the verification. 
+
+load dentist with less than start date
 
 fixed date pickers{
     employees, start date - only accepts tomorrow 👍

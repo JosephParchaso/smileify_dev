@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Smile-ify/includes/config.php';
@@ -198,6 +201,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
             <hr>
             <p><strong>Appointment Details:</strong></p>
             <p>
+                <strong>Appointment ID:</strong> $appointment_transaction_id<br>
                 <strong>Date:</strong> $appointmentDate<br>
                 <strong>Time:</strong> $appointmentTime<br>
                 <strong>Estimated End Time:</strong> $formattedEndTime<br>

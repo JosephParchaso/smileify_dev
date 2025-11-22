@@ -41,8 +41,8 @@ $(document).ready(function() {
             "columns": [
                 { "title": "ID" },
                 { "title": "Service Name" },
-                { "title": "Price" },
-                { "title": "Duration" },
+                { "title": "Price (₱)" },
+                { "title": "Duration (mins)" },
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],

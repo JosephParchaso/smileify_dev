@@ -40,7 +40,7 @@ $result = $stmt->get_result();
 $bookings = [];
 while ($row = $result->fetch_assoc()) {
     $bookings[] = [
-        $row['user_id'],
+        $row['appointment_transaction_id'],
         $row['patient'],
         $row['dentist'] ?: 'Available Dentist',
         $row['appointment_date'],

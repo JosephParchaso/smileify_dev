@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 if (isBlocked) {
                     opt.className = "blocked-slot";
-                    opt.textContent = `${display} — Booked/Unavailable`;
+                    opt.textContent = display;
                 } else {
                     opt.textContent = display;
                 }

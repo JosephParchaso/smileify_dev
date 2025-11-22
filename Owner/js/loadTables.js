@@ -7,14 +7,13 @@ $(document).ready(function() {
             "ordering": true,
             "searching": true,
             "columns": [
-                { "title": "ID" },
                 { "title": "Service Name" },
                 { "title": "Branch" },
-                { "title": "Price" },
-                { "title": "Duration" },
+                { "title": "Price (₱)" },
+                { "title": "Duration (mins)" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[0, "asc"]],
+            "order": [[2, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"
@@ -39,14 +38,13 @@ $(document).ready(function() {
             "ordering": true,
             "searching": true,
             "columns": [
-                { "title": "ID" },
                 { "title": "Promo Name" },
                 { "title": "Branch" },
                 { "title": "Discount" },
                 { "title": "Validity" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[0, "asc"]],
+            "order": [[2, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

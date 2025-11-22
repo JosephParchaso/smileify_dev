@@ -1974,6 +1974,7 @@ nav {
     font-weight: 600;
     color: #122130;
     margin-bottom: 15px;
+    margin-top: 0px;
     text-align: center;
 }
 
@@ -2012,10 +2013,24 @@ nav {
 }
 
 /* ===================== STAFF PERFORMANCE ===================== */
+
+.branch-growth-tracker-text {
+    display: block;
+    margin-block-start: 0px;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+
 .staff-performance {
-    margin-top: 2rem;
     background: #fff;
-    padding: 1.5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     border-radius: 4px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.1);
     transition: all 0.25s ease-in-out;

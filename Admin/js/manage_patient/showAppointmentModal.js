@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     timeSelect.innerHTML += `
                         <option value="${time}" ${isAvailable ? "" : "disabled"}>
-                            ${formatted}${isAvailable ? "" : " — Booked/Unavailable"}
+                            ${formatted}
                         </option>
                     `;
                 });

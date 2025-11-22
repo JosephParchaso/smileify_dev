@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $branch_id     = intval($_POST["branch_id"] ?? 0);
     $branchName    = trim($_POST["branchName"] ?? "");
+    $nickname      = trim($_POST["nickname"] ?? "");
     $address       = trim($_POST["address"] ?? "");
     $phone_number  = trim($_POST["contactNumber"] ?? "");
     $map_url       = trim($_POST["map_url"] ?? "");
     $status        = $_POST["status"] ?? "Active";
 
     try {
-        $check_sql = "SELECT name, address, phone_number, status, map_url
+        $check_sql = "SELECT name, nickname, address, phone_number, status, map_url
                         FROM branch
                         WHERE branch_id = ?";
         $check_stmt = $conn->prepare($check_sql);
@@ -32,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         } else {
             if (
                 $current['name'] !== $branchName ||
+                $current['nickname'] !== $nickname ||
                 $current['address'] !== $address ||
                 $current['phone_number'] !== $phone_number ||
                 $current['status'] !== $status ||
@@ -39,10 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ) {
                 $sql = "UPDATE branch 
                         SET name = ?, 
+                            nickname = ?, 
                             address = ?, 
                             phone_number = ?, 
                             status = ?, 
-                            map_url = ?
+                            map_url = ?,
+                            date_updated = NOW()
                         WHERE branch_id = ?";
                 $stmt = $conn->prepare($sql);
                 if (!$stmt) {
@@ -50,8 +54,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 }
 
                 $stmt->bind_param(
-                    "sssssi",
-                    $branchName, $address, $phone_number,
+                    "ssssssi",
+                    $branchName, $nickname, $address, $phone_number,
                     $status, $map_url, $branch_id
                 );
 

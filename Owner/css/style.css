@@ -155,19 +155,17 @@
 #dentistsTable th:nth-child(4), #dentistsTable td:nth-child(4) { width: 5% !important; text-align: center;}
 #dentistsTable th:nth-child(5), #dentistsTable td:nth-child(5) { width: 5% !important; text-align: center;}
 
-#servicesTable th:nth-child(1), #servicesTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { width: 10% !important; }
-#servicesTable th:nth-child(3), #servicesTable td:nth-child(3) { width: 30% !important; }
-#servicesTable th:nth-child(4), #servicesTable td:nth-child(4) { width: 5% !important; }
-#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { width: 5% !important; }
-#servicesTable th:nth-child(6), #servicesTable td:nth-child(6) { width: 5% !important; text-align: center;}
+#servicesTable th:nth-child(1), #servicesTable td:nth-child(1) { width: 15% !important; text-align: left;}
+#servicesTable th:nth-child(2), #servicesTable td:nth-child(2) { width: 30% !important; }
+#servicesTable th:nth-child(3), #servicesTable td:nth-child(3) { width: 10% !important; text-align: center;}
+#servicesTable th:nth-child(4), #servicesTable td:nth-child(4) { width: 10% !important; text-align: center;}
+#servicesTable th:nth-child(5), #servicesTable td:nth-child(5) { width: 10% !important; text-align: center;}
 
-#promosTable th:nth-child(1), #promosTable td:nth-child(1) { width: 5% !important; text-align: center;}
-#promosTable th:nth-child(2), #promosTable td:nth-child(2) { width: 10% !important; }
-#promosTable th:nth-child(3), #promosTable td:nth-child(3) { width: 30% !important; }
-#promosTable th:nth-child(4), #promosTable td:nth-child(4) { width: 5% !important; }
-#promosTable th:nth-child(5), #promosTable td:nth-child(5) { width: 5% !important; }
-#promosTable th:nth-child(6), #promosTable td:nth-child(6) { width: 5% !important; text-align: center;}
+#promosTable th:nth-child(1), #promosTable td:nth-child(1) { width: 15% !important; text-align: left;}
+#promosTable th:nth-child(2), #promosTable td:nth-child(2) { width: 30% !important; }
+#promosTable th:nth-child(3), #promosTable td:nth-child(3) { width: 5% !important; text-align: center;}
+#promosTable th:nth-child(4), #promosTable td:nth-child(4) { width: 20% !important; text-align: center;}
+#promosTable th:nth-child(5), #promosTable td:nth-child(5) { width: 10% !important; text-align: center;}
 
 #branchesTable th:nth-child(1), #branchesTable td:nth-child(1) { width: 5% !important; text-align: center;}
 #branchesTable th:nth-child(2), #branchesTable td:nth-child(2) { width: 20% !important; }

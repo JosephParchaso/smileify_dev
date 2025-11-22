@@ -72,8 +72,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     endInput.setAttribute("min", startInput.value);
 
-                    if (!endInput.value || parseLocalDate(endInput.value) < startDate) {
-                        endInput.value = startInput.value;
+                    if (startInput.value) {
+                        const plusOneMonth = new Date(startDate);
+                        plusOneMonth.setMonth(plusOneMonth.getMonth() + 1);
+
+                        const y = plusOneMonth.getFullYear();
+                        const m = String(plusOneMonth.getMonth() + 1).padStart(2, "0");
+                        const d = String(plusOneMonth.getDate()).padStart(2, "0");
+
+                        const autoEnd = `${y}-${m}-${d}`;
+
+                        endInput.value = autoEnd;
                     }
                 }
             }
@@ -92,6 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (endDate < today) {
                     errorEl.textContent = "Please enter a valid date.";
+                    errorEl.style.display = "block";
+                    endInput.value = "";
+                } else if (startDate && endDate.getTime() === startDate.getTime()) {
+                    errorEl.textContent = "Start date and end date cannot be the same.";
                     errorEl.style.display = "block";
                     endInput.value = "";
                 } else if (startDate && endDate < startDate) {
@@ -129,8 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="form-group" style="position: relative; margin-bottom: 18px;">
-                    <input type="file" id="promoImage" name="promoImage" class="form-control" accept="image/*">
-                    <label for="promoImage" class="form-label" style="display: block; margin-top: 6px; margin-bottom: 4px;">Promo Image</label>
+                    <input type="file" id="promoImage" name="promoImage" class="form-control" accept="image/*" required>
+                    <label for="promoImage" class="form-label" style="display: block; margin-top: 6px; margin-bottom: 4px;">Promo Image <span class="required">*</span></label>
 
                     ${isEdit && data.image_path 
                         ? `<div class="mt-2" style="margin-top: 6px;">

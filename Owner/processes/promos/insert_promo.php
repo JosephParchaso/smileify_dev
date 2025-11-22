@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
         $conn->begin_transaction();
 
-        $sql = "INSERT INTO promo (name, description, discount_type, discount_value, date_created)
-                VALUES (?, ?, ?, ?, NOW())";
+        $sql = "INSERT INTO promo (name, description, discount_type, discount_value, date_created, date_updated)
+                VALUES (?, ?, ?, ?, NOW(), NOW())";
         $stmt = $conn->prepare($sql);
         if (!$stmt) {
             throw new Exception("Prepare failed (promo): " . $conn->error);

@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="form-group">
                     <input type="email" id="email" name="email" class="form-control" placeholder=" " required autocomplete="off"/>
                     <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                    <span id="emailError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
                 
                 <div class="form-group">
@@ -207,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div id="servicesContainer" class="checkbox-group">
                         <p class="loading-text">Select a branch to load available services</p>
                     </div>
+                    <span id="servicesError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
@@ -214,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <option value="" disabled selected hidden></option>
                     </select>
                     <label for="appointmentDentist" class="form-label">Dentist <span class="required">*</span></label>
+                    <span id="dentistError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
@@ -418,15 +421,114 @@ document.addEventListener("DOMContentLoaded", function () {
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("form").forEach(form => {
-            form.addEventListener("submit", function () {
-                const btn = form.querySelector("button[type='submit']");
-                if (btn) {
-                    btn.disabled = true;
-                    btn.innerText = "Processing...";
-                }
-            });
+document.addEventListener("DOMContentLoaded", function () {
+
+    function attachSafeSubmit(form) {
+        form.addEventListener("submit", function () {
+            const btn = form.querySelector("button[type='submit']");
+            if (!btn) return;
+            setTimeout(() => { btn.disabled = true; }, 50);
         });
+    }
+
+    const loginForm = document.querySelector("form[action*='request_otp_login.php']");
+    const bookingForm = document.querySelector("#bookingModal form");
+    const forgotForm = document.querySelector("#forgotpasswordModal form");
+
+    if (loginForm) attachSafeSubmit(loginForm);
+    if (forgotForm) attachSafeSubmit(forgotForm);
+
+    let emailIsValid = false;
+    const emailInput = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+
+    function showError(msg) {
+        emailError.textContent = msg;
+        emailError.style.display = "block";
+    }
+
+    function hideError() {
+        emailError.style.display = "none";
+    }
+
+    function validateMX(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            showError("Invalid email format.");
+            emailIsValid = false;
+            return;
+        }
+        fetch(`/Smile-ify/processes/validate_email.php?email=${encodeURIComponent(email)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.valid) {
+                    showError("Email domain is not valid or unreachable.");
+                    emailIsValid = false;
+                } else {
+                    hideError();
+                    emailIsValid = true;
+                }
+            })
+            .catch(() => {
+                showError("Unable to validate email right now.");
+                emailIsValid = false;
+            });
+    }
+
+    let timer;
+    const delay = 600;
+
+    emailInput.addEventListener("input", () => {
+        clearTimeout(timer);
+        const email = emailInput.value.trim();
+        if (email === "") {
+            hideError();
+            emailIsValid = false;
+            return;
+        }
+        timer = setTimeout(() => validateMX(email), delay);
     });
+
+    const servicesError = document.getElementById("servicesError");
+    const dentistError = document.getElementById("dentistError");
+    const servicesContainer = document.getElementById("servicesContainer");
+
+    servicesContainer.addEventListener("change", function(e) {
+        if (e.target.name === "appointmentServices[]") {
+            const selected = document.querySelectorAll("input[name='appointmentServices[]']:checked");
+            if (selected.length > 0) {
+                servicesError.style.display = "none";
+            }
+        }
+    });
+
+    bookingForm.addEventListener("submit", function(e) {
+
+        if (!emailIsValid) {
+            e.preventDefault();
+            showError("Please enter a valid email address.");
+            emailInput.focus();
+            return;
+        }
+
+        const selectedServices = document.querySelectorAll("input[name='appointmentServices[]']:checked");
+        if (selectedServices.length === 0) {
+            e.preventDefault();
+            servicesError.textContent = "Please select at least one service.";
+            servicesError.style.display = "block";
+            return;
+        }
+
+        const dentist = document.getElementById("appointmentDentist").value;
+        if (dentist === "" || dentist === null) {
+            e.preventDefault();
+            dentistError.textContent = "Please select a dentist.";
+            dentistError.style.display = "block";
+            return;
+        }
+
+        const btn = bookingForm.querySelector("button[type='submit']");
+        setTimeout(() => { btn.disabled = true; }, 50);
+    });
+});
 </script>

@@ -19,7 +19,7 @@ $sql = "
     SELECT 
         a.appointment_transaction_id,
         CONCAT(u.first_name, ' ', u.last_name) AS patient,
-        b.name AS branch,
+        b.nickname AS branch,
         GROUP_CONCAT(s.name ORDER BY s.name SEPARATOR ', ') AS services,
         CONCAT(d.last_name, ', ', d.first_name) AS dentist,
         a.appointment_date,

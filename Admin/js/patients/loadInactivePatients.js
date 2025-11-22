@@ -7,7 +7,7 @@ $(document).ready(function() {
             "ordering": true,
             "searching": true,
             "columns": [
-                { "title": "ID" },
+                { "title": "Patient ID" },
                 { "title": "Name" },
                 { "title": "Recent Transaction" },
                 { "title": "Branch Registered" },

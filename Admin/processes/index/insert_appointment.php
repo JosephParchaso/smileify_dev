@@ -226,6 +226,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <hr>
             <p><strong>Appointment Details:</strong></p>
             <p>
+                <strong>Appointment ID:</strong> $appointment_id<br>
                 <strong>Date:</strong> $appointmentDate<br>
                 <strong>Time:</strong> $appointmentTime<br>
                 <strong>Estimated End Time:</strong> $formattedEndTime<br>

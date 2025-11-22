@@ -15,7 +15,7 @@ require_once BASE_PATH . '/includes/header.php';
 require_once BASE_PATH . '/Owner/includes/navbar.php';
 require_once BASE_PATH . '/includes/db.php';
 
-$sql = "SELECT branch_id, name, address, phone_number, status FROM branch";
+$sql = "SELECT branch_id, nickname, address, phone_number, status FROM branch";
 $result = $conn->query($sql);
 
 $branches = [];
@@ -43,7 +43,7 @@ $conn->close();
                 class="tab" 
                 data-branch="branch<?= $branch['branch_id'] ?>"
                 onclick="switchTab('branch<?= $branch['branch_id'] ?>')">
-                <?= htmlspecialchars($branch['name']) ?>
+                <?= htmlspecialchars($branch['nickname']) ?>
             </div>
         <?php endforeach; ?>
     </div>
@@ -82,7 +82,7 @@ $conn->close();
                                     <h4 class="branch-growth-tracker-text">Branch Revenue Comparison</h4>
                                     <table class="branch-growth-table">
                                         <thead>
-                                            <tr><th>Branch</th><th>Revenue</th><th>% Contribution</th></tr>
+                                            <tr><th>Branch</th><th style="text-align: right;">Revenue (₱)</th><th style="text-align: right;">Contribution (%)</th></tr>
                                         </thead>
                                         <tbody id="branchGrowthTableBody<?= $branchId ?>-<?= $mode ?>"></tbody>
                                     </table>

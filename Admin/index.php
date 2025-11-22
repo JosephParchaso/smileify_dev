@@ -43,8 +43,10 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
             <div class="appointment">Today: <span id="todayCount">0</span></div>
             <div class="appointment">This Week: <span id="weekCount">0</span></div>
             <div class="appointment">This Month: <span id="monthCount">0</span></div>
-            <a href="<?= BASE_URL ?>/Admin/pages/calendar.php" class="card-link">View Calendar</a>
-            <a href="#" class="card-link" onclick="openBookingModal()"><span class="material-symbols-outlined">calendar_add_on</span> Book Appointment</a>
+            <div class="button-group card-actions">
+                <a href="<?= BASE_URL ?>/Admin/pages/calendar.php" class="confirm-btn card-link">View Calendar</a>
+                <a href="#" class="confirm-btn card-link" onclick="openBookingModal()"><span class="material-symbols-outlined">calendar_add_on</span> Book Appointment</a>
+            </div>
         </div>  
         
         <div id="bookingModal" class="booking-modal">
@@ -69,6 +71,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
                     <div class="form-group">
                         <input type="email" id="email" name="email" class="form-control" placeholder=" " required autocomplete="off"/>
                         <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                        <span id="emailError" class="error-msg-calendar error" style="display:none"></span>
                     </div>
                     
                     <div class="form-group">
@@ -132,6 +135,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
                         <div id="servicesContainer" class="checkbox-group">
                             <p class="loading-text">Select a branch to load available services</p>
                         </div>
+                        <span id="servicesError" class="error-msg-calendar error" style="display:none"></span>
                     </div>
 
                     <div class="form-group">
@@ -139,6 +143,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
                             <option value="" disabled selected hidden></option>
                         </select>
                         <label for="appointmentDentist" class="form-label">Dentist <span class="required">*</span></label>
+                        <span id="dentistError" class="error-msg-calendar error" style="display:none"></span>
                     </div>
 
                     <div class="form-group">
@@ -158,7 +163,9 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
             <h2><span class="material-symbols-outlined">groups</span> Patients</h2>
             <div class="appointment">New This Month: <span id="newPatientsCount">0</span></div>
             <div class="appointment">Total: <span id="totalPatientsCount">0</span></div>
-            <a href="<?= BASE_URL ?>/Admin/pages/patients.php" class="card-link">Manage Patients</a>
+            <div class="button-group card-actions">
+                <a href="<?= BASE_URL ?>/Admin/pages/patients.php" class="card-link">Manage Patients</a>
+            </div>
         </div>
 
         <div class="card">
@@ -166,14 +173,18 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
             <div id="lowSuppliesContainer">
                 <div class="announcement">Loading</div>
             </div>
-            <a href="<?= BASE_URL ?>/Admin/pages/supplies.php" class="card-link">Manage Supplies</a>
+            <div class="button-group card-actions">
+                <a href="<?= BASE_URL ?>/Admin/pages/supplies.php" class="card-link">Manage Supplies</a>
+            </div>
         </div>
 
         <div class="card">
             <h2><span class="material-symbols-outlined">bar_chart</span> Promo</h2>
             <div class="appointment">Total Availed: <span id="promoAvailedCount">0</span></div>
             <div id="promoAvailedList" class="announcement"></div>
-            <a href="<?= BASE_URL ?>/Admin/pages/reports.php" class="card-link">View Detailed Reports</a>
+            <div class="button-group card-actions">
+                <a href="<?= BASE_URL ?>/Admin/pages/reports.php" class="card-link">View Detailed Reports</a>
+            </div>
         </div>
 
         <div class="card">
@@ -228,14 +239,129 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
     });
     
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll("form").forEach(form => {
+
+        function attachSafeSubmit(form) {
             form.addEventListener("submit", function () {
                 const btn = form.querySelector("button[type='submit']");
-                if (btn) {
-                    btn.disabled = true;
-                    btn.innerText = "Processing...";
-                }
+                if (!btn) return;
+                setTimeout(() => { btn.disabled = true; }, 50);
             });
+        }
+
+        const loginForm = document.querySelector("form[action*='request_otp_login.php']");
+        const bookingForm = document.querySelector("#bookingModal form");
+        const forgotForm = document.querySelector("#forgotpasswordModal form");
+
+        if (loginForm) attachSafeSubmit(loginForm);
+        if (forgotForm) attachSafeSubmit(forgotForm);
+
+        let emailIsValid = false;
+        const emailInput = document.getElementById("email");
+        const emailError = document.getElementById("emailError");
+
+        function showError(msg) {
+            emailError.textContent = msg;
+            emailError.style.display = "block";
+        }
+
+        function hideError() {
+            emailError.style.display = "none";
+        }
+
+        function validateMX(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(email)) {
+                showError("Invalid email format.");
+                emailIsValid = false;
+                return;
+            }
+            fetch(`/Smile-ify/processes/validate_email.php?email=${encodeURIComponent(email)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.valid) {
+                        showError("Email domain is not valid or unreachable.");
+                        emailIsValid = false;
+                    } else {
+                        hideError();
+                        emailIsValid = true;
+                    }
+                })
+                .catch(() => {
+                    showError("Unable to validate email right now.");
+                    emailIsValid = false;
+                });
+        }
+
+        let timer;
+        const delay = 600;
+
+        emailInput.addEventListener("input", () => {
+            clearTimeout(timer);
+            const email = emailInput.value.trim();
+            enableSubmitButton(); 
+            if (email === "") {
+                hideError();
+                emailIsValid = false;
+                return;
+            }
+            timer = setTimeout(() => validateMX(email), delay);
+        });
+
+        const servicesError = document.getElementById("servicesError");
+        const dentistError = document.getElementById("dentistError");
+        const servicesContainer = document.getElementById("servicesContainer");
+
+        servicesContainer.addEventListener("change", function(e) {
+            enableSubmitButton();
+            if (e.target.name === "appointmentServices[]") {
+                const selected = document.querySelectorAll("input[name='appointmentServices[]']:checked");
+                if (selected.length > 0) {
+                    servicesError.style.display = "none";
+                }
+            }
+        });
+
+        document.getElementById("appointmentDentist").addEventListener("change", () => {
+            dentistError.style.display = "none";
+            enableSubmitButton();
+        });
+
+        function enableSubmitButton() {
+            const btn = bookingForm.querySelector("button[type='submit']");
+            btn.disabled = false;
+            btn.innerText = btn.dataset.originalText || "Confirm";
+        }
+
+        bookingForm.addEventListener("submit", function(e) {
+
+            if (!emailIsValid) {
+                e.preventDefault();
+                showError("Please enter a valid email address.");
+                emailInput.focus();
+                enableSubmitButton();
+                return;
+            }
+
+            const selectedServices = document.querySelectorAll("input[name='appointmentServices[]']:checked");
+            if (selectedServices.length === 0) {
+                e.preventDefault();
+                servicesError.textContent = "Please select at least one service.";
+                servicesError.style.display = "block";
+                enableSubmitButton();
+                return;
+            }
+
+            const dentist = document.getElementById("appointmentDentist").value;
+            if (dentist === "" || dentist === null) {
+                e.preventDefault();
+                dentistError.textContent = "Please select a dentist.";
+                dentistError.style.display = "block";
+                enableSubmitButton();
+                return;
+            }
+
+            const btn = bookingForm.querySelector("button[type='submit']");
+            setTimeout(() => { btn.disabled = true; }, 50);
         });
     });
 </script>
