@@ -129,6 +129,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
                         <select id="appointmentTime" name="appointmentTime" class="form-control" required></select>
                         <label for="appointmentTime" class="form-label">Time <span class="required">*</span></label>
                         <div id="estimatedEnd" class="text-gray-600 mt-2"></div>
+                        <span id="timeError" class="error-msg-calendar error" style="display:none"></span>
                     </div>
 
                     <div class="form-group">

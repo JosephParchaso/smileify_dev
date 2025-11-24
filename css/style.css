@@ -647,18 +647,19 @@ form {
 
 .checkout-summary {
     margin-top: 20px;
+    padding-top: 10px;
 }
 
 .checkout-summary h3 {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 1.1rem;
 }
 
+.summary-service,
 .summary-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin: 4px 0;
+    margin: 8px 0;
     font-size: 0.95rem;
 }
 
@@ -667,17 +668,36 @@ form {
     color: #333;
 }
 
-.summary-item.total {
-    font-weight: bold;
-    margin-top: 8px;
-    font-size: 1rem;
+.summary-extra {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: right;
+    margin-top: -4px;
 }
 
-.summary-service {
+.summary-divider {
+    border: 0;
+    border-top: 1px solid #dcdcdc;
+    margin: 12px 0;
+}
+
+.summary-item.total {
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-top: 14px;
+}
+
+.service-price-group {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 6px;
-    font-size: 0.95rem;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.service-extra {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 2px;
 }
 
 .forgot-password-link {
@@ -1700,10 +1720,10 @@ nav {
 
 .footer-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    max-width: 1400px;
+    grid-template-columns: repeat(4, 1fr);
+    width: 90%;
+    max-width: none;
     margin: 0 auto;
-    gap: 40px;
     text-align: left;
 }
 
@@ -1724,6 +1744,12 @@ nav {
     padding-bottom: 4px;
 }
 
+.footer-column.services-column h3 {
+    text-align: center;
+    margin: 0 auto;
+    display: table;
+}
+
 .footer-about {
     color: #2a394d;
     margin-top: 10px;
@@ -1738,17 +1764,37 @@ nav {
     text-decoration: none;
 }
 
-#footerBranches {
-    list-style: none;
+#footerBranches,
+#footerServices {
     padding: 0;
     margin: 0;
+    list-style: none;
 }
 
-#footerBranches li {
-    color: #555;
-    font-size: 14px;
-    margin: 2px 0;
-    line-height: 1.4;
+#footerServices {
+    column-count: 4;
+    column-gap: 50px;
+    margin-top: 15px;
+}
+
+#footerServices .footerDes {
+    break-inside: avoid;
+}
+
+@media (max-width: 900px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+
+    #footerServices {
+        column-count: 1;
+    }
 }
 
 /* Responsive layout */

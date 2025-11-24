@@ -4,9 +4,9 @@ require_once BASE_PATH . '/includes/db.php';
 
 header('Content-Type: application/json');
 
-$sql = "SELECT branch_id, name, map_url 
-        FROM branch 
-        WHERE status = 'Active' 
+$sql = "SELECT branch_id, name, map_url, phone_number, nickname
+        FROM branch
+        WHERE status = 'Active'
         ORDER BY name ASC";
 $result = $conn->query($sql);
 
@@ -17,7 +17,9 @@ if ($result && $result->num_rows > 0) {
         $branches[] = [
             "branch_id" => $row["branch_id"],
             "name" => $row["name"],
-            "map_url" => $row["map_url"] ?? "#"
+            "nickname" => $row["nickname"],
+            "map_url" => $row["map_url"] ?? "#",
+            "phone_number" => $row["phone_number"]
         ];
     }
 }

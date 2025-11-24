@@ -132,11 +132,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $appointment_stmt->close();
 
         if (!empty($appointmentServices) && is_array($appointmentServices)) {
-            $service_sql = "INSERT INTO appointment_services (appointment_transaction_id, service_id) VALUES (?, ?)";
+
+            $quantities = $_POST['serviceQuantity'] ?? [];
+
+            $service_sql = "INSERT INTO appointment_services 
+                            (appointment_transaction_id, service_id, quantity) 
+                            VALUES (?, ?, ?)";
             $service_stmt = $conn->prepare($service_sql);
 
             foreach ($appointmentServices as $serviceId) {
-                $service_stmt->bind_param("ii", $appointment_id, $serviceId);
+                $qty = isset($quantities[$serviceId]) && (int)$quantities[$serviceId] > 0
+                    ? (int)$quantities[$serviceId]
+                    : 1;
+
+                $service_stmt->bind_param("iii", $appointment_id, $serviceId, $qty);
                 $service_stmt->execute();
             }
 
@@ -162,20 +171,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $totalDuration = 0;
 
         if (!empty($appointmentServices) && is_array($appointmentServices)) {
+
+            $quantities = $_POST['serviceQuantity'] ?? [];
+
             $placeholders = implode(',', array_fill(0, count($appointmentServices), '?'));
             $types = str_repeat('i', count($appointmentServices));
 
-            $stmt = $conn->prepare("SELECT name, price, duration_minutes FROM service WHERE service_id IN ($placeholders)");
+            $stmt = $conn->prepare("
+                SELECT service_id, name, price, duration_minutes 
+                FROM service 
+                WHERE service_id IN ($placeholders)
+            ");
+
             $stmt->bind_param($types, ...$appointmentServices);
             $stmt->execute();
             $result = $stmt->get_result();
 
             $servicesHtml .= "<ul>";
+
             while ($row = $result->fetch_assoc()) {
-                $servicesHtml .= "<li>{$row['name']} - ₱" . number_format($row['price'], 2) . " ({$row['duration_minutes']} mins)</li>";
-                $totalPrice += $row['price'];
-                $totalDuration += (int)$row['duration_minutes'];
+
+                $sid = $row['service_id'];
+
+                $qty = isset($quantities[$sid]) && (int)$quantities[$sid] > 0
+                    ? (int)$quantities[$sid]
+                    : 1;
+
+                $linePrice = $row['price'] * $qty;
+                $lineDuration = $row['duration_minutes'] * $qty;
+
+                $servicesHtml .= "<li>{$row['name']} (x{$qty}) – ₱" 
+                                . number_format($linePrice, 2) . 
+                                " ({$lineDuration} mins)</li>";
+
+                $totalPrice += $linePrice;
+                $totalDuration += $lineDuration;
             }
+            
             $servicesHtml .= "</ul>";
             $stmt->close();
         }

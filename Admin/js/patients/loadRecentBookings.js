@@ -12,7 +12,6 @@ $(document).ready(function() {
                 { "title": "Dentist" },
                 { "title": "Date" },
                 { "title": "Time" },
-                { "title": "Status" },
                 { "title": "Created", "visible": false }, 
                 { "title": "Action", "orderable": false, "searchable": false }
             ],

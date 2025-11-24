@@ -100,11 +100,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
 
             if (!empty($_SESSION['verified_data']['appointmentServices']) && is_array($_SESSION['verified_data']['appointmentServices'])) {
                 $service_ids = $_SESSION['verified_data']['appointmentServices'];
-                $service_sql = "INSERT INTO appointment_services (appointment_transaction_id, service_id) VALUES (?, ?)";
+                $service_ids = $_SESSION['verified_data']['appointmentServices'];
+
+                $service_sql = "INSERT INTO appointment_services 
+                    (appointment_transaction_id, service_id, quantity) 
+                    VALUES (?, ?, ?)";
                 $service_stmt = $conn->prepare($service_sql);
 
                 foreach ($service_ids as $service_id) {
-                    $service_stmt->bind_param("ii", $appointment_transaction_id, $service_id);
+                    $qty = 1;
+                    $service_stmt->bind_param("iii", $appointment_transaction_id, $service_id, $qty);
                     $service_stmt->execute();
                 }
             } else {
@@ -140,16 +145,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
             $placeholders = implode(',', array_fill(0, count($appointmentServices), '?'));
             $types = str_repeat('i', count($appointmentServices));
 
-            $stmt = $conn->prepare("SELECT name, price, duration_minutes FROM service WHERE service_id IN ($placeholders)");
+            $stmt = $conn->prepare("SELECT service_id, name, price, duration_minutes 
+                        FROM service 
+                        WHERE service_id IN ($placeholders)");
             $stmt->bind_param($types, ...$appointmentServices);
             $stmt->execute();
             $result = $stmt->get_result();
 
             $servicesHtml .= "<ul>";
             while ($row = $result->fetch_assoc()) {
-                $servicesHtml .= "<li>{$row['name']} - ₱" . number_format($row['price'], 2) . " ({$row['duration_minutes']} mins)</li>";
-                $totalPrice += $row['price'];
-                $totalDuration += (int)$row['duration_minutes'];
+
+                $linePrice = $row['price'];
+                $lineDuration = $row['duration_minutes'];
+
+                $servicesHtml .= "<li>{$row['name']} – ₱" . number_format($linePrice, 2) .
+                                " ({$lineDuration} mins)</li>";
+
+                $totalPrice += $linePrice;
+                $totalDuration += $lineDuration;
             }
             $servicesHtml .= "</ul>";
             $stmt->close();

@@ -30,6 +30,7 @@ $sql = "SELECT
             s.name,
             s.price,
             s.duration_minutes,
+            s.requires_xray,
             bs.status,
             s.date_created,
             s.date_updated

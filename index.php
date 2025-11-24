@@ -118,6 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button type="submit" class="form-button">Sign In</button>
                 <div class="divider"><span>or</span></div>
                 <button type="button" class="form-button"  onclick="openBookingModal()">Book an Appointment</button>
+                <div class="divider"><span>with our</span></div>
+                <div class="button-group">
+                    <button type="button" class="form-button"  onclick="openDentistsModal()">Available Dentists</button>
+                    <button type="button" class="form-button"  onclick="openServicesModal()">Available Services</button>
+                </div>
             </form>
         </div>
     </div>
@@ -202,13 +207,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     <select id="appointmentTime" name="appointmentTime" class="form-control" required></select>
                     <label for="appointmentTime" class="form-label">Time <span class="required">*</span></label>
                     <div id="estimatedEnd" class="text-gray-600 mt-2"></div>
+                    <span id="timeError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
+                    <span id="servicesError" class="error-msg-calendar error" style="display:none"></span>
                     <div id="servicesContainer" class="checkbox-group">
                         <p class="loading-text">Select a branch to load available services</p>
                     </div>
-                    <span id="servicesError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
@@ -222,6 +228,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="form-group">
                     <textarea id="notes" name="notes" class="form-control" rows="3" placeholder=" "autocomplete="off"></textarea>
                     <label for="notes" class="form-label">Add a note</label>
+                </div>
+
+                <div class="form-group">
+                    <label class="confirmation-label">
+                        <input type="checkbox" id="confirmationCheck" required>
+                        I hereby certify that all information submitted is true and correct to the best of my knowledge.
+                        I acknowledge that any future modifications — including changes to services, appointment details,
+                        promotions, or personal information — may affect clinic processing, eligibility, or existing transactions.
+                        I accept full responsibility for informing the clinic administration of any such updates.
+                    </label>
+                    <span id="confirmError" class="error-msg" style="display:none; color:red; font-size:0.9em;">
+                        Please confirm before proceeding.
+                    </span>
                 </div>
 
                 <div class="button-group">
@@ -274,12 +293,6 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     </div>
 
-    <div class="center-button">
-        <a href="#" onclick="openDentistsModal()" class="educational-button">
-            Available Dentists
-        </a>
-    </div>
-
     <div id="dentistsModal" class="booking-modal">
         <div class="booking-modal-content">
             <h2>Available Dentists</h2>
@@ -291,6 +304,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div class="button-group">
                 <button type="button" class="cancel-btn" onclick="closeDentistsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="servicesModal" class="booking-modal services-modal">
+        <div class="booking-modal-content">
+            <h2>Available Services</h2>
+            <p>Below is the list of services.</p>
+
+            <div id="serviceContainer" style="max-height: 400px; overflow-y: auto;">
+                <p>Loading service...</p>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="cancel-btn" onclick="closeServicesModal()">Close</button>
             </div>
         </div>
     </div>
@@ -532,3 +560,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+<style>
+    #servicesModal .booking-modal-content {
+        width: 500px;
+    }
+</style>

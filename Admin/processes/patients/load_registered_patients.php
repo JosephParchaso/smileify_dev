@@ -16,16 +16,31 @@ $sql = "
         CONCAT(u.first_name, ' ', IFNULL(u.middle_name, ''), ' ', u.last_name) AS name,
         COALESCE(b.name, '-') AS branch_name,
         u.status,
+
         COALESCE(
-            DATE_FORMAT(MAX(dt.date_created), '%Y-%m-%d %h:%i %p'),
-            DATE_FORMAT(MAX(at.date_created), '%Y-%m-%d %h:%i %p')
+            DATE_FORMAT(
+                GREATEST(
+                    IFNULL(MAX(dt.date_created), '0000-00-00 00:00:00'),
+                    IFNULL(MAX(dt.date_updated), '0000-00-00 00:00:00'),
+                    IFNULL(MAX(at.date_created), '0000-00-00 00:00:00'),
+                    IFNULL(MAX(at.date_updated), '0000-00-00 00:00:00')
+                ),
+                '%Y-%m-%d %H:%i'
+            ),
+            '-'
         ) AS recent_transaction
+
     FROM users u
-    LEFT JOIN branch b ON u.branch_id = b.branch_id
-    LEFT JOIN appointment_transaction at ON u.user_id = at.user_id
-    LEFT JOIN dental_transaction dt ON at.appointment_transaction_id = dt.appointment_transaction_id
+    LEFT JOIN branch b 
+        ON u.branch_id = b.branch_id
+    LEFT JOIN appointment_transaction at 
+        ON u.user_id = at.user_id
+    LEFT JOIN dental_transaction dt 
+        ON at.appointment_transaction_id = dt.appointment_transaction_id
+
     WHERE u.role = 'patient'
     AND u.status = 'Active'
+
     GROUP BY u.user_id
     ORDER BY u.user_id ASC
 ";

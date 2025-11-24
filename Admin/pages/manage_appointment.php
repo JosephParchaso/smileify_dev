@@ -82,6 +82,14 @@ $activeTab = in_array($_GET['tab'] ?? '', $validTabs) ? $_GET['tab'] : 'dental_t
     </div>
 </div>
 
+<div id="manageAppointmentModal" class="manage-patient-modal">
+    <div class="manage-patient-modal-content">
+        <div id="appointmentModalBody" class="manage-patient-modal-content-body">
+            <!-- Appointment Booking info will be loaded here -->
+        </div>
+    </div>
+</div>
+
 <div id="setStatusModal" class="edit-profile-modal">
     <div class="edit-profile-modal-content">
         <form id="statusForm" method="POST" autocomplete="off">

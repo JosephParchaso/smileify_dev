@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     dentistSelect.disabled = true;
     timeSelect.disabled = true;
     resetServices();
+    resetServiceQuantities();
 
     function formatDisplay(time24) {
         const [hh, mm] = time24.split(':').map(Number);
@@ -268,33 +269,56 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const selectedServices = Array.from(
-            document.querySelectorAll("#servicesContainer input[type='checkbox']:checked")
-        );
-
         let totalDuration = 0;
-        selectedServices.forEach(cb => {
-            totalDuration += parseInt(cb.dataset.duration || 0);
-        });
 
+        document.querySelectorAll("#servicesContainer input[type='checkbox']:checked")
+            .forEach(cb => {
+                const duration = parseInt(cb.dataset.duration || 0);
+                const serviceId = cb.value;
+
+                const qtyInput = document.querySelector(`input[name="serviceQuantity[${serviceId}]"]`);
+                const qty = qtyInput ? parseInt(qtyInput.value || "1") : 1;
+
+                totalDuration += duration * qty;
+            });
+
+        if (totalDuration === 0) {
+            estimatedEndDisplay.textContent = "";
+            return;
+        }
+
+        const [h, m] = selectedTime.split(":").map(Number);
         const start = new Date(`2000-01-01T${selectedTime}:00`);
         start.setMinutes(start.getMinutes() + totalDuration);
 
-        let endHours = start.getHours();
-        const endMinutes = String(start.getMinutes()).padStart(2, "0");
-        const ampm = endHours >= 12 ? "PM" : "AM";
-        endHours = endHours % 12 || 12;
-        const formattedEnd = `${endHours}:${endMinutes} ${ampm}`;
+        const clinicClose = new Date("2000-01-01T16:30:00");
 
-        const hours = Math.floor(totalDuration / 60);
-        const minutes = totalDuration % 60;
+        if (start > clinicClose) {
+            document.querySelectorAll("input[name='appointmentServices[]']").forEach(cb => cb.checked = false);
+            document.querySelectorAll("input[name^='serviceQuantity']").forEach(q => q.value = "");
+            estimatedEndDisplay.textContent = "";
+            servicesError.textContent = "Selected services exceed clinic hours. Please adjust your selection.";
+            servicesError.style.display = "block";
+            return;
+        }
 
-        let durationText = hours > 0
-            ? `${hours} hour${hours > 1 ? "s" : ""}${minutes > 0 ? " and " + minutes + " min" : ""}`
-            : `${minutes} min`;
+        servicesError.style.display = "none";
+
+        const formattedEnd = start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
         estimatedEndDisplay.textContent =
-            `Estimated End Time: ${formattedEnd} (${durationText})`;
+            `Estimated End Time: ${formattedEnd} (${totalDuration} min)`;
+    }
+
+    function isEndTimeValid(startTime, totalDuration) {
+        const [h, m] = startTime.split(":").map(Number);
+        const start = new Date(`2000-01-01T${startTime}:00`);
+
+        start.setMinutes(start.getMinutes() + totalDuration);
+
+        const clinicClose = new Date("2000-01-01T16:30:00");
+
+        return start <= clinicClose;
     }
 
     branchSelect.addEventListener("change", () => {
@@ -326,12 +350,31 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.matches("input[type='checkbox']")) {
             updateEstimatedEndTime();
             loadDentists();
+
             const checkbox = e.target;
             const serviceId = checkbox.value;
             const qtyInput = document.querySelector(`input[name='serviceQuantity[${serviceId}]']`);
+
             if (qtyInput) {
-                qtyInput.style.display = checkbox.checked ? 'inline-block' : 'none';
+                qtyInput.style.display = "none";
+                qtyInput.value = "";
             }
         }
     });
+
+    servicesContainer.addEventListener("input", (e) => {
+        if (e.target.matches("input[name^='serviceQuantity']")) {
+            e.target.value = "";
+        }
+    });
+
+    function resetServiceQuantities() {
+        document.querySelectorAll("input[name^='serviceQuantity']").forEach(q => {
+            q.value = "";
+            q.disabled = true;
+        });
+        
+    timeSelect.value = "";
+    estimatedEndDisplay.textContent = "";
+    }
 });

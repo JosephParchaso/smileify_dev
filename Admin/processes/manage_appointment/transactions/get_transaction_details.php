@@ -30,6 +30,7 @@ $sql = "
         dt.remarks,
         dt.medcert_requested_date,
         dt.admin_user_id,
+        dt.xray_file,
         dt.date_created,
         dt.date_updated,
         CONCAT(u.first_name, ' ', u.last_name) AS recorded_by,
@@ -57,11 +58,13 @@ $servicesSql = "
         s.service_id,
         s.name,
         s.price,
-        dts.quantity
+        dts.quantity,
+        dts.additional_payment AS add_payment_per_services
     FROM dental_transaction_services dts
     LEFT JOIN service s ON dts.service_id = s.service_id
     WHERE dts.dental_transaction_id = ?
 ";
+
 $servicesStmt = $conn->prepare($servicesSql);
 $servicesStmt->bind_param("i", $transactionId);
 $servicesStmt->execute();
@@ -73,37 +76,12 @@ while ($row = $servicesResult->fetch_assoc()) {
         'service_id' => (int)$row['service_id'],
         'name' => $row['name'],
         'price' => (float)$row['price'],
-        'quantity' => (int)$row['quantity']
+        'quantity' => (int)$row['quantity'],
+        'add_payment_per_services' => (int)$row['add_payment_per_services']
     ];
 }
 
-$xraySql = "
-    SELECT service_id, file_path
-    FROM transaction_xrays
-    WHERE dental_transaction_id = ?
-    ORDER BY service_id, xray_id ASC
-";
-
-$xrayStmt = $conn->prepare($xraySql);
-$xrayStmt->bind_param("i", $transactionId);
-$xrayStmt->execute();
-$xrayResult = $xrayStmt->get_result();
-
-$xrays = [];
-
-while ($row = $xrayResult->fetch_assoc()) {
-    $svcId = (int)$row['service_id'];
-
-    if (!isset($xrays[$svcId])) {
-        $xrays[$svcId] = [];
-    }
-
-    $xrays[$svcId][] = [
-        'file_path' => $row['file_path']
-    ];
-}
-
-$xrayStmt->close();
+$servicesStmt->close();
 
 $response = [
     'dental_transaction_id' => (int)$data['dental_transaction_id'],
@@ -126,7 +104,7 @@ $response = [
     'date_updated' => !empty($data['date_updated']) ? $data['date_updated'] : '-',
     'medcert_eligible' => (int)$data['medcert_eligible'],
     'services' => $services,
-    'xrays' => $xrays 
+    'xray_file' => $data['xray_file'] ?? null
 ];
 
 echo json_encode($response);

@@ -124,8 +124,11 @@ recent bookings Upcoming date and time / table header IDs
 added appointment id on email confirmation
 tables, fixed table header
 
-
-
+xray remove, make it each on dental_transaction
+added field on service for xray on secretary
+add additional payment on dental trasn service
+all insert and resched appointment with qty 
+resched closed dates
 
 - Owner dob no validation either text, no date calendar or date but year first to enter
 - Dob in book appointment guess if mo type sa year mawala day and month
@@ -138,8 +141,6 @@ documents since branches too long
 notes ni daze
 block admin in mobile
 mobile view
-
-
 
 Notes Suggestion:
 Revenue is money so aligned right, asta ang percentage

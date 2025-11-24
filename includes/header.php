@@ -71,6 +71,7 @@ if (isset($_SESSION['user_id'])) {
     <script src="<?= BASE_URL ?>/js/toggleCalendar.js?v=<?= time(); ?>"></script>
     <script src="<?= BASE_URL ?>/js/loadPromos.js?v=<?= time(); ?>"></script>
     <script src="<?= BASE_URL ?>/js/loadDentists.js?v=<?= time(); ?>"></script>
+    <script src="<?= BASE_URL ?>/js/loadServices.js?v=<?= time(); ?>"></script>
 
     <!-- JS: Authenticated users -->
     <script src="<?= BASE_URL ?>/js/toggleNavbar.js?v=<?= time(); ?>"></script>

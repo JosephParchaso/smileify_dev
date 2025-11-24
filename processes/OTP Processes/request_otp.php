@@ -11,6 +11,8 @@ function isValidEmailDomain($email) {
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $_SESSION['verified_data'] = $_POST;
+    $_SESSION['verified_data']['serviceQuantity'] =
+    isset($_POST['serviceQuantity']) ? $_POST['serviceQuantity'] : [];
 
     $email = trim($_POST["email"]);
 
@@ -27,11 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $serviceIds = $_POST['appointmentServices'];
+    $quantities = isset($_POST['serviceQuantity']) ? $_POST['serviceQuantity'] : [];
     $placeholders = implode(',', array_fill(0, count($serviceIds), '?'));
     $types = str_repeat('i', count($serviceIds));
 
     $stmt = $conn->prepare("
-        SELECT s.name, s.price
+        SELECT s.service_id, s.name, s.price
         FROM service s
         INNER JOIN branch_service bs ON s.service_id = bs.service_id
         WHERE s.service_id IN ($placeholders)
@@ -45,11 +48,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $totalPrice = 0;
 
     while ($row = $result->fetch_assoc()) {
+
+        $id  = $row['service_id'];
+
+        $qty = isset($quantities[$id]) && (int)$quantities[$id] > 0
+            ? (int)$quantities[$id]
+            : 1;
+
+        $linePrice = $row['price'] * $qty;
+
         $selectedServices[] = [
-            'name' => $row['name'],
-            'price' => number_format((float)$row['price'], 2)
+            'id'    => $id,
+            'name'  => $row['name'],
+            'price' => number_format((float)$row['price'], 2),
+            'qty'   => $qty,
+            'line_price' => $linePrice
         ];
-        $totalPrice += $row['price'];
+
+        $totalPrice += $linePrice;
     }
 
     $_SESSION['selected_services'] = $selectedServices;

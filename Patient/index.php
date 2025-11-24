@@ -76,8 +76,10 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
                 <div class="quick-links">
                     <a href="#" onclick="openBookingModal()"><span class="material-symbols-outlined">calendar_add_on</span> Book Appointment</a>
                     <a href="#" onclick="openDentistsModal()"><span class="material-symbols-outlined">medical_information</span> View Dentists</a>
+                    <a href="#" onclick="openServicesModal()"><span class="material-symbols-outlined">medical_services</span> View Service</a>
                     <a href="<?= BASE_URL ?>/Patient/pages/profile.php"><span class="material-symbols-outlined">manage_accounts</span> Profile Settings</a><br>
-                    <a href="#" onclick="openEducationalModal()"><span class="material-symbols-outlined">info</span> View Infographics</a>
+                    <a href="#" onclick="openEducationalModal()"><span class="material-symbols-outlined">info</span> About</a>
+                
                 </div>
             </div>
             <?php if (!empty($error_msg)): ?>
@@ -206,9 +208,11 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
                     <select id="appointmentTime" name="appointmentTime" class="form-control" required></select>
                     <label for="appointmentTime" class="form-label">Time <span class="required">*</span></label>
                     <div id="estimatedEnd" class="text-gray-600 mt-2"></div>
+                    <span id="timeError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
+                    <span id="servicesError" class="error-msg-calendar error" style="display:none"></span>
                     <div id="servicesContainer" class="checkbox-group">
                         <p class="loading-text">Select a branch to load available services</p>
                     </div>
@@ -219,6 +223,7 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
                         <option value="" disabled selected hidden></option>
                     </select>
                     <label for="appointmentDentist" class="form-label">Dentist <span class="required">*</span></label>
+                    <span id="dentistError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
@@ -254,7 +259,7 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
     <div id="dentistsModal" class="booking-modal">
         <div class="booking-modal-content">
             <h2>Available Dentists</h2>
-            <p>Below is the list of dentists, their assigned branches, schedules and services.</p>
+            <p>Below is the list of dentists, their assigned branches, and services.</p>
 
             <div id="dentistsContainer" style="max-height: 400px; overflow-y: auto;">
                 <p>Loading dentists...</p>
@@ -264,8 +269,30 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
                 <button type="button" class="cancel-btn" onclick="closeDentistsModal()">Close</button>
             </div>
         </div>
+
+    </div>
+
+    <div id="servicesModal" class="booking-modal services-modal">
+        <div class="booking-modal-content">
+            <h2>Available Services</h2>
+            <p>Below is the list of services.</p>
+
+            <div id="serviceContainer" style="max-height: 400px; overflow-y: auto;">
+                <p>Loading service...</p>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="cancel-btn" onclick="closeServicesModal()">Close</button>
+            </div>
+        </div>
     </div>
 
     <?php require_once BASE_PATH . '/includes/footer.php'; ?>
 
+
+    <style>
+        #servicesModal .booking-modal-content {
+            width: 500px;
+        }
+    </style>
 </body>

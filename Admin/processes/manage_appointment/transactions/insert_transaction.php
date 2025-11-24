@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $services = $_POST['appointmentServices'] ?? [];
     $quantities = $_POST['serviceQuantity'] ?? [];
     $total_payment = floatval($_POST['total_payment'] ?? 0);
-    $additional_payment = floatval($_POST['additional_payment'] ?? 0);
     $payment_method = $_POST['payment_method'] ?? null;
     
     $fitness_status = trim($_POST['fitness_status'] ?? '');
     $diagnosis = trim($_POST['diagnosis'] ?? '');
     $remarks = trim($_POST['remarks'] ?? '');
+    $additional_payment = 0; 
 
     try {
         $conn->begin_transaction();
@@ -92,16 +92,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($services)) {
             $stmtService = $conn->prepare("
                 INSERT INTO dental_transaction_services 
-                (dental_transaction_id, service_id, service_name, service_price, quantity)
-                VALUES (?, ?, ?, ?, ?)
+                (dental_transaction_id, service_id, service_name, service_price, quantity, additional_payment)
+                VALUES (?, ?, ?, ?, ?, ?)
             ");
             if (!$stmtService) throw new Exception("Prepare failed for service insert: " . $conn->error);
 
             $serviceFetch = $conn->prepare("SELECT name, price FROM service WHERE service_id = ?");
             if (!$serviceFetch) throw new Exception("Prepare failed for service fetch: " . $conn->error);
-
-            $serviceNames = [];
-            $servicePrices = [];
 
             foreach ($services as $service_id) {
                 $quantity = isset($quantities[$service_id]) ? intval($quantities[$service_id]) : 1;
@@ -114,13 +111,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $service_name = $service['name'] ?? 'Unknown';
                 $service_price = $service['price'] ?? 0.00;
 
+                $extra = isset($_POST['additional_payment'][$service_id])
+                        ? floatval($_POST['additional_payment'][$service_id])
+                        : 0;
+
                 $stmtService->bind_param(
-                    "iisdi",
+                    "iisdid",
                     $dental_transaction_id,
                     $service_id,
                     $service_name,
                     $service_price,
-                    $quantity
+                    $quantity,
+                    $extra
                 );
                 $stmtService->execute();
 
@@ -130,6 +132,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmtService->close();
             $serviceFetch->close();
+
+            $total_extra = array_sum(array_map('floatval', $_POST['additional_payment'] ?? []));
+            $updateExtra = $conn->prepare("
+                UPDATE dental_transaction 
+                SET additional_payment = ?
+                WHERE dental_transaction_id = ?
+            ");
+            $updateExtra->bind_param("di", $total_extra, $dental_transaction_id);
+            $updateExtra->execute();
+            $updateExtra->close();
         }
 
         if (strtolower($payment_method) === 'cashless' && isset($_FILES['receipt_upload']) && $_FILES['receipt_upload']['error'] === UPLOAD_ERR_OK) {
@@ -184,66 +196,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $updateReceipt->close();
         }
 
-        $xrayDir = $_SERVER['DOCUMENT_ROOT'] . "/Smile-ify/images/transactions/xrays/";
-        if (!is_dir($xrayDir)) mkdir($xrayDir, 0777, true);
+        if (!empty($_FILES['xray_file']['name']) && $_FILES['xray_file']['error'] === UPLOAD_ERR_OK) {
+            $getPatient = $conn->prepare("
+                SELECT u.last_name 
+                FROM appointment_transaction at
+                JOIN users u ON u.user_id = at.user_id
+                WHERE at.appointment_transaction_id = ?
+            ");
+            $getPatient->bind_param("i", $appointment_transaction_id);
+            $getPatient->execute();
+            $pat = $getPatient->get_result()->fetch_assoc();
+            $getPatient->close();
 
-        $getServiceName = $conn->prepare("SELECT name FROM service WHERE service_id = ?");
-            
-        if (!empty($_FILES['xray_file']['name'])) {
+            $lname = $pat ? preg_replace('/[^a-zA-Z0-9_-]/', '', strtolower($pat['last_name'])) : 'patient';
 
-            foreach ($_FILES['xray_file']['name'] as $serviceId => $files) {
+            $ext = strtolower(pathinfo($_FILES['xray_file']['name'], PATHINFO_EXTENSION));
+            $cleanExt = preg_replace('/[^a-z0-9]/', '', $ext);
 
-                $svcId = intval($serviceId);
-                $getServiceName->bind_param("i", $svcId);
-                $getServiceName->execute();
-                $svcRes = $getServiceName->get_result()->fetch_assoc();
-                $serviceNameClean = $svcRes ? preg_replace('/[^a-zA-Z0-9_-]/', '', $svcRes['name']) : "service$svcId";
+            $uploadDir = $_SERVER['DOCUMENT_ROOT'] . "/Smile-ify/images/transactions/xrays/";
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
 
-                for ($i = 0; $i < count($files); $i++) {
+            $fileName = $dental_transaction_id . "_" . $lname . "." . $cleanExt;
+            $fullPath = $uploadDir . $fileName;
 
-                    if ($files[$i] == "") continue;
+            foreach (glob($uploadDir . $dental_transaction_id . "_*.*") as $oldFile) unlink($oldFile);
 
-                    $tmp = $_FILES['xray_file']['tmp_name'][$serviceId][$i];
-                    $orig = $_FILES['xray_file']['name'][$serviceId][$i];
-
-                    $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
-                    $cleanExt = preg_replace('/[^a-z0-9]/', '', $ext);
-
-                    $newFilename =
-                        $dental_transaction_id . "_" .
-                        $last_name_clean . "_" .
-                        $serviceNameClean . "_" .
-                        ($i + 1) . "." . $cleanExt;
-
-                    $target = $xrayDir . $newFilename;
-
-                    if (move_uploaded_file($tmp, $target)) {
-
-                        $relative = "images/transactions/xrays/" . $newFilename;
-
-                        $stmtX = $conn->prepare("
-                            INSERT INTO transaction_xrays 
-                                (dental_transaction_id, service_id, file_path, date_created)
-                            VALUES (?, ?, ?, NOW())
-                        ");
-
-                        if (!$stmtX) {
-                            throw new Exception("Prepare error (xray insert): " . $conn->error);
-                        }
-
-                        $stmtX->bind_param("iis", $dental_transaction_id, $svcId, $relative);
-
-                        if (!$stmtX->execute()) {
-                            throw new Exception("Execute error (xray insert): " . $stmtX->error);
-                        }
-
-                        $stmtX->close();
-                    }
-                }
+            if (move_uploaded_file($_FILES['xray_file']['tmp_name'], $fullPath)) {
+                $relativePath = "images/transactions/xrays/" . $fileName;
+                $saveXray = $conn->prepare("
+                    UPDATE dental_transaction SET xray_file = ?, date_updated = NOW()
+                    WHERE dental_transaction_id = ?
+                ");
+                $saveXray->bind_param("si", $relativePath, $dental_transaction_id);
+                $saveXray->execute();
+                $saveXray->close();
             }
         }
-
-        $getServiceName->close();
 
         $conn->commit();
         $_SESSION['updateSuccess'] = "Transaction added successfully!";

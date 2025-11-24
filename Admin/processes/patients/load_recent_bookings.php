@@ -45,7 +45,6 @@ while ($row = $result->fetch_assoc()) {
         $row['dentist'] ?: 'Available Dentist',
         $row['appointment_date'],
         substr($row['appointment_time'], 0, 5),
-        $row['status'],
         $row['date_created'],
         '<a href="' . BASE_URL . '/Admin/pages/manage_appointment.php?id=' . $row['appointment_transaction_id'] . '&backTab=recent&tab=dental_transactions" class="manage-action">Manage</a>'
     ];

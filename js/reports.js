@@ -551,12 +551,18 @@ function renderServicesTrendChart(branch_id, mode, trend) {
                             return `Total Services: ${context.parsed.y}`;
                         },
                         afterLabel: (context) => {
-                        
                             const dataIndex = context.dataIndex;
                             const servicesBreakdown = trend.servicesBreakdown?.[dataIndex];
                             
                             if (servicesBreakdown && servicesBreakdown.length > 0) {
-                                return 'Services:\n' + servicesBreakdown.join('\n');
+                                const formattedServices = servicesBreakdown.map(service => {
+                                    if (typeof service === 'object' && service.name && service.count) {
+                                        return `${service.name} (${service.count})`;
+                                    }
+                                    return service;
+                                }).join('\n');
+                                
+                                return 'Services:\n' + formattedServices;
                             }
                             return '';
                         }

@@ -499,7 +499,7 @@ try {
     $branchGrowthChartData = [];
     if ($_SESSION['role'] === 'owner' && $branch_id === 'all') {
         
-        $branchesQuery = "SELECT branch_id, name FROM branch WHERE status = 'active' ORDER BY branch_id";
+        $branchesQuery = "SELECT branch_id, name FROM branch WHERE status IN ('active', 'inactive') ORDER BY branch_id";
         $branchesResult = $conn->query($branchesQuery);
         $allBranches = [];
         while ($b = $branchesResult->fetch_assoc()) {

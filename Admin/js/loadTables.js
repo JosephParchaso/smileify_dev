@@ -14,7 +14,7 @@ $(document).ready(function() {
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[2, "desc"]],
+            "order": [[4, "desc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"
@@ -46,7 +46,7 @@ $(document).ready(function() {
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[0, "asc"]],
+            "order": [[4, "desc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"
@@ -74,7 +74,7 @@ $(document).ready(function() {
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[0, "asc"]],
+            "order": [[4, "desc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

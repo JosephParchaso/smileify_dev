@@ -30,6 +30,7 @@ $sql = "
         dt.promo_value,
         dt.payment_method,
         dt.cashless_receipt,
+        dt.xray_file,
         dt.total,
         dt.additional_payment,
         dt.notes,
@@ -181,17 +182,10 @@ while ($row = $resPres->fetch_assoc()) {
 }
 $data['prescriptions'] = $prescriptions;
 
-$xrayQuery = $conn->prepare("SELECT file_path FROM transaction_xrays WHERE dental_transaction_id = ?");
-$xrayQuery->bind_param("i", $transactionId);
-$xrayQuery->execute();
-$xrayResult = $xrayQuery->get_result();
-
-$xrays = [];
-while ($row = $xrayResult->fetch_assoc()) {
-    $xrays[] = $row['file_path'];
+$data['xray_results'] = [];
+if (!empty($data['xray_file'])) {
+    $data['xray_results'][] = $data['xray_file'];
 }
-
-$data['xray_results'] = $xrays;
 
 echo json_encode($data, JSON_PRETTY_PRINT);
 $conn->close();

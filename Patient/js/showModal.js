@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         ${
                                             data.xray_results && data.xray_results.length > 0
                                                 ? `<button class="confirm-btn" id="viewXrayResult" data-id="${data.dental_transaction_id}">View Results</button>`
-                                                : `<button class="confirm-btn" disabled>No Results</button>`
+                                                : ``
                                         }
                                     </div>
                                 </div>
@@ -712,17 +712,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     const modal = document.getElementById("medCertReceiptModal");
                     const modalBody = document.getElementById("medCertReceiptBody");
 
-                    let html = `<h2>X-ray Results</h2>`;
+                    let html = `<h2>X-ray Result</h2>`;
 
                     data.files.forEach((item) => {
                         const file = item.file_path;
-                        const serviceName = item.service_name ?? "Unknown Service";
 
                         const createdDate = item.date_created
-                            ? new Date(item.date_created).toLocaleDateString('en-US', { 
-                                month: 'long', 
-                                day: 'numeric', 
-                                year: 'numeric' 
+                            ? new Date(item.date_created).toLocaleDateString("en-US", {
+                                month: "long",
+                                day: "numeric",
+                                year: "numeric",
                             })
                             : "Unknown Date";
 
@@ -732,12 +731,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                         html += `
                             <div style="margin:20px 0; text-align:center;">
-                                <p><strong>${serviceName}</strong></p>
                                 <p style="margin-top:-10px; color:#777; font-size:14px;">${createdDate}</p>
                                 ${
                                     isPdf
-                                    ? `<iframe src="${fileUrl}" style="width:80%; height:500px; border:none;"></iframe>`
-                                    : `<img src="${fileUrl}" style="width:50%; border-radius:5px; display:block; margin:auto;">`
+                                        ? `<iframe src="${fileUrl}" style="width:80%; height:500px; border:none;"></iframe>`
+                                        : `<img src="${fileUrl}" style="width:50%; border-radius:5px; display:block; margin:auto;">`
                                 }
                             </div>
                         `;
@@ -749,7 +747,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     alert("No X-ray results available.");
                 }
-
             } catch (error) {
                 console.error("Error loading x-ray results:", error);
             }

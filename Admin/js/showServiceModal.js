@@ -52,6 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="form-group">
+                    <select id="requires_xray" class="form-control" disabled>
+                        <option value="0" ${data.requires_xray == 0 ? "selected" : ""}>No</option>
+                        <option value="1" ${data.requires_xray == 1 ? "selected" : ""}>Yes</option>
+                    </select>
+                    <label for="requires_xray" class="form-label">Requires X-ray?</label>
+                </div>
+
+                <div class="form-group">
                     <input type="text" id="dateCreated" class="form-control" value="${data.date_created}" disabled>
                     <label for="dateCreated" class="form-label">Date Created</label>
                 </div>

@@ -28,6 +28,9 @@ if (!is_array($services)) {
 }
 $services = array_map('intval', array_filter($services, 'strlen'));
 
+$preassignedDentistId = $_POST['preassignedDentistId'] ?? null;
+$selectedDentistId = $_POST['selectedDentistId'] ?? null;
+
 $cleanupBuffer = 15;
 
 $requiredServiceDuration = 0;

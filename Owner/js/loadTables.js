@@ -13,7 +13,7 @@ $(document).ready(function() {
                 { "title": "Duration (mins)" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[2, "asc"]],
+            "order": [[1, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 { "title": "Validity" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[2, "asc"]],
+            "order": [[1, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

@@ -45,6 +45,7 @@ $sql = "
         dt.total,
         dt.additional_payment,
         dt.payment_method,
+        dt.xray_file,
         dt.date_created,
         dt.prescription_downloaded,
         dt.medcert_status,
@@ -131,23 +132,17 @@ while ($p = $prescriptionsResult->fetch_assoc()) {
 
 $row['prescriptions'] = $prescriptions;
 
-
-$xrayQuery = $conn->prepare("
-    SELECT dx.file_path, s.name AS service_name, dx.date_created
-    FROM transaction_xrays dx
-    LEFT JOIN service s ON dx.service_id = s.service_id
-    WHERE dx.dental_transaction_id = ?
-");
-$xrayQuery->bind_param("i", $transactionId);
-$xrayQuery->execute();
-$xrayResult = $xrayQuery->get_result();
-
-$xrays = [];
-while ($xr = $xrayResult->fetch_assoc()) {
-    $xrays[] = $xr;
+if (!empty($row['xray_file'])) {
+    $row['xray_results'] = [
+        [
+            "file_path" => $row['xray_file'],
+            "service_name" => null,
+            "date_created" => $row["date_created"]
+        ]
+    ];
+} else {
+    $row['xray_results'] = [];
 }
-
-$row['xray_results'] = $xrays;
 
 echo json_encode($row);
 $conn->close();

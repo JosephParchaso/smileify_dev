@@ -147,19 +147,34 @@ if ($priceFromDB !== null) {
 <div id="medCertModal" class="booking-modal" data-transaction-id="">
     <div class="booking-modal-content">
         <h2>Request Dental Certificate</h2>
-        <p>Please scan the QR code below to pay for the Dental Certificate fee.</p>
 
-        <div style="text-align: center; margin: 15px 0;">
-            <img src="<?= htmlspecialchars($qrImage) ?>" alt="Payment QR Code" style="width: 210px; height: 300px; border: 1px solid #ccc; border-radius: 4px;">
-            <p><strong>Amount:</strong> ₱<?= number_format($medcertPrice, 2) ?></p>
-        </div>
+        <?php if ($medcertPrice > 0): ?>
+            <p>Please scan the QR code below to pay for the Dental Certificate fee.</p>
+
+            <div style="text-align: center; margin: 15px 0;">
+                <img src="<?= htmlspecialchars($qrImage) ?>" alt="Payment QR Code" style="width: 210px; height: 300px; border: 1px solid #ccc; border-radius: 4px;">
+                
+                <p><strong>Amount:</strong> ₱<?= number_format($medcertPrice, 0) ?></p>
+            </div>
+        <?php else: ?>
+            <p><strong>This Dental Certificate is FREE.</strong></p>
+        <?php endif; ?>
 
         <form action="<?= BASE_URL ?>/Patient/processes/profile/upload_medcert_payment.php" method="POST" enctype="multipart/form-data" id="medCertForm">
 
             <input type="hidden" name="dental_transaction_id" id="transactionIdInput">
 
-            <label for="paymentReceipt" style="font-weight: bold;">Upload Payment Screenshot:</label>
-            <input type="file" id="paymentReceipt" name="payment_receipt" accept="image/*" required style="margin-top: 10px; width: 100%;">
+            <label for="paymentReceipt" style="font-weight: bold;">
+                Upload Payment Screenshot:
+            </label>
+
+            <input type="file" id="paymentReceipt" name="payment_receipt" accept="image/*"
+                <?= $medcertPrice > 0 ? "required" : "" ?>
+                <?= $medcertPrice == 0 ? "disabled" : "" ?>
+                style="margin-top: 10px; width: 100%;">
+            
+            <?php if ($medcertPrice == 0): ?>
+            <?php endif; ?>
 
             <div class="button-group">
                 <button type="submit" class="confirm-btn">Submit</button>

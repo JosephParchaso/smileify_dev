@@ -12,30 +12,36 @@ if (!$transactionId) {
 }
 
 $stmt = $conn->prepare("
-    SELECT dx.file_path, s.name AS service_name, dx.date_created
-    FROM transaction_xrays dx
-    LEFT JOIN service s ON dx.service_id = s.service_id
-    WHERE dx.dental_transaction_id = ?
+    SELECT xray_file, date_updated
+    FROM dental_transaction
+    WHERE dental_transaction_id = ?
 ");
+
+if (!$stmt) {
+    echo json_encode(["success" => false, "error" => $conn->error]);
+    exit;
+}
+
 $stmt->bind_param("i", $transactionId);
 $stmt->execute();
 $result = $stmt->get_result();
+$data = $result->fetch_assoc();
 
-$results = [];
-while ($row = $result->fetch_assoc()) {
-    $results[] = [
-        "file_path" => $row['file_path'],
-        "service_name" => $row['service_name'],
-        "date_created" => $row['date_created']
+if ($data && !empty($data['xray_file'])) {
+
+    $response["success"] = true;
+    $response["files"] = [
+        [
+            "file_path"   => $data["xray_file"],
+            "date_created" => $data["date_updated"]
+        ]
     ];
 }
 
-if (!empty($results)) {
-    $response["success"] = true;
-    $response["files"] = $results;
-}
 if ($conn->error) {
     echo $conn->error;
     exit;
 }
+
 echo json_encode($response);
+?>

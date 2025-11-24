@@ -8,20 +8,19 @@
         </div>
 
         <div class="footer-column">
-            <h3>Our Services</h3>
-            <div id="footerServices"></div>
+            <h3>Contact Us</h3>
+            <p class="footerDes">9:00 am - 4:30 pm<br>Mon–Sat (All branches)</p>
+            <div id="footerPhones"></div>
         </div>
 
         <div class="footer-column">
-            <h3>Location</h3>
+            <h3>Branches</h3>
             <div id="footerBranches"></div>
         </div>
 
-        <div class="footer-column">
-            <h3>Contact Us</h3>
-            <p class="footerDes"><i class="far fa-clock"></i> 9:00 am - 4:30 pm<br>Mon–Sat (All branches)</p>
-            <p class="footerDes"><i class="far fa-envelope"></i> smileify.web@gmail.com</p>
-            <p class="footerDes"><i class="fas fa-phone-alt"></i> 09955446451</p>
+        <div class="footer-column services-column">
+            <h3>Our Services</h3>
+            <div id="footerServices"></div>
         </div>
     </div>
 </div>

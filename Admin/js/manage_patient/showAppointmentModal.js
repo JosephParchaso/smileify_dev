@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 resetDentist(dentistSelect);
                 calculateEstimatedEnd(timeSelect.value, servicesContainer, estimatedEndDiv);
                 attemptLoadDentists(branchSelect, dateSelect, timeSelect, servicesContainer, dentistSelect);
+                hideTimeError();
             });
         }
     });
@@ -68,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <select id="appointmentTime" name="appointmentTime" class="form-control" required></select>
                     <label for="appointmentTime" class="form-label">Time <span class="required">*</span></label>
                     <div id="estimatedEnd"></div>
+                    <span id="timeError" class="error-msg-calendar error" style="display:none"></span>
                 </div>
 
                 <div class="form-group">
@@ -181,8 +183,18 @@ document.addEventListener("DOMContentLoaded", function () {
             success: function (response) {
                 container.innerHTML = response;
 
+                const estimatedEndDiv = document.getElementById("estimatedEnd");
+                const branchSelect = document.getElementById("appointmentBranch");
+                const dateSelect = document.getElementById("appointmentDate");
+
                 container.querySelectorAll('input[name="appointmentServices[]"]').forEach(cb => {
                     cb.addEventListener("change", () => {
+                        calculateEstimatedEnd(
+                            timeSelect.value,
+                            container,
+                            estimatedEndDiv
+                        );
+
                         if (!timeSelect.value) {
                             dentistSelect.innerHTML = '<option disabled>Select time first</option>';
                             dentistSelect.disabled = true;
@@ -190,17 +202,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
 
                         attemptLoadDentists(
-                            bookingBody.querySelector("#appointmentBranch"),
-                            bookingBody.querySelector("#appointmentDate"),
-                            bookingBody.querySelector("#appointmentTime"),
+                            branchSelect,
+                            dateSelect,
+                            timeSelect,
                             container,
-                            bookingBody.querySelector("#appointmentDentist")
-                        );
-
-                        calculateEstimatedEnd(
-                            bookingBody.querySelector("#appointmentTime").value,
-                            container,
-                            bookingBody.querySelector("#estimatedEnd")
+                            dentistSelect
                         );
                     });
                 });
@@ -331,20 +337,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function calculateEstimatedEnd(startTime, servicesContainer, outputDiv) {
-        if (!startTime) return outputDiv.textContent = "";
+        if (!startTime) {
+            outputDiv.textContent = "";
+            return;
+        }
 
-        const totalDuration = [...servicesContainer.querySelectorAll("input:checked")]
-            .reduce((sum, cb) => sum + parseInt(cb.dataset.duration || "0"), 0);
+        let totalDuration = 0;
 
-        if (totalDuration === 0) return outputDiv.textContent = "";
+        servicesContainer.querySelectorAll('input[name="appointmentServices[]"]:checked')
+            .forEach(cb => {
+                const duration = parseInt(cb.dataset.duration || "0");
+
+                totalDuration += duration;
+            });
+
+        if (totalDuration === 0) {
+            outputDiv.textContent = "";
+            return;
+        }
 
         const [h, m] = startTime.split(":").map(Number);
-        const start = new Date();
-        start.setHours(h, m, 0, 0);
-        start.setMinutes(start.getMinutes() + totalDuration);
+        const end = new Date();
+        end.setHours(h, m, 0, 0);
+        end.setMinutes(end.getMinutes() + totalDuration);
 
-        const formatted = start.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-        outputDiv.textContent = `Estimated End Time: ${formatted} (${totalDuration} mins)`;
+        const formattedEnd = end.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+        });
+
+        const limit = new Date();
+        limit.setHours(16, 30, 0, 0);
+
+        if (end > limit) {
+            outputDiv.textContent = "";
+            showTimeError("Selected services exceed clinic closing time.");
+
+            servicesContainer.querySelectorAll('input[name="appointmentServices[]"]:checked')
+                .forEach(cb => {
+                    cb.checked = false;
+                });
+
+            const dentistSelect = document.getElementById("appointmentDentist");
+            if (dentistSelect) {
+                dentistSelect.innerHTML = '<option value="" disabled selected hidden></option>';
+                dentistSelect.disabled = true;
+            }
+
+            return;
+        }
+
+        hideTimeError();
+        outputDiv.textContent =
+            `Estimated End Time: ${formattedEnd} (${totalDuration} mins)`;
     }
 
     function resetAll(date, time, dentist, end) {
@@ -371,4 +416,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function closePatientBookingModal() {
     document.getElementById("manageAppointmentModal").style.display = "none";
+}
+
+function showTimeError(msg) {
+    const err = document.getElementById("timeError");
+    if (!err) return;
+
+    err.textContent = msg;
+    err.style.display = "block";
+}
+
+function hideTimeError() {
+    const err = document.getElementById("timeError");
+    if (!err) return;
+
+    err.style.display = "none";
 }

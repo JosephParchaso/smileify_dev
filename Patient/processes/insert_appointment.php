@@ -10,9 +10,11 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'patient') {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $user_id = $_SESSION['user_id'];
     $appointmentBranch = $_POST['appointmentBranch'];
     $appointmentServices = $_POST['appointmentServices'];
+    $quantities = isset($_POST['serviceQuantity']) ? $_POST['serviceQuantity'] : [];
     $appointmentDentist = $_POST['appointmentDentist'];
     $appointmentDate = $_POST['appointmentDate'];
     $appointmentTime = $_POST['appointmentTime'];
@@ -46,14 +48,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $appointment_transaction_id = $appointment_stmt->insert_id;
 
         if (!empty($appointmentServices) && is_array($appointmentServices)) {
-            $service_sql = "INSERT INTO appointment_services (appointment_transaction_id, service_id) VALUES (?, ?)";
+
+            $service_sql = "INSERT INTO appointment_services 
+                (appointment_transaction_id, service_id, quantity)
+                VALUES (?, ?, ?)";
             $service_stmt = $conn->prepare($service_sql);
 
             foreach ($appointmentServices as $service_id) {
-                $service_stmt->bind_param("ii", $appointment_transaction_id, $service_id);
+
+                $qty = isset($quantities[$service_id]) && (int)$quantities[$service_id] > 0
+                    ? (int)$quantities[$service_id]
+                    : 1;
+
+                $service_stmt->bind_param("iii", 
+                    $appointment_transaction_id,
+                    $service_id,
+                    $qty
+                );
                 $service_stmt->execute();
             }
+
             $service_stmt->close();
+
         } else {
             throw new Exception("No services selected for appointment.");
         }
