@@ -130,7 +130,8 @@ $servicesSql = "
     SELECT 
         dts.service_name,
         dts.quantity,
-        dts.service_price
+        dts.service_price,
+        dts.additional_payment
     FROM dental_transaction_services dts
     WHERE dts.dental_transaction_id = ?
 ";
@@ -142,7 +143,7 @@ $resServices = $stmtServices->get_result();
 $services = [];
 $serviceStrings = [];
 while ($row = $resServices->fetch_assoc()) {
-    $row['subtotal'] = $row['quantity'] * $row['service_price'];
+    $row['subtotal'] = ($row['quantity'] * $row['service_price']) + $row['additional_payment'];
     $services[] = $row;
     $serviceStrings[] = $row['service_name'] . " × " . $row['quantity'];
 }

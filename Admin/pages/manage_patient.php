@@ -147,7 +147,7 @@ $backTab = $_GET['tab'] ?? 'recent';
 
         <div class="form-group">
             <input type="text" id="fitnessStatus" name="fitness_status" class="form-control" placeholder=" " required />
-            <label for="fitnessStatus" class="form-label">Fitness Status <span class="required">*</span></label>
+            <label for="fitnessStatus" class="form-label">Period of Rest <span class="required">*</span></label>
         </div>
 
         <div class="form-group">

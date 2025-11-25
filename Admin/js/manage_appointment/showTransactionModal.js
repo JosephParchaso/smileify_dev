@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 mcFields.innerHTML = `
                     <div class="form-group">
                         <input class="form-control" name="fitness_status" value="${data?.fitness_status || ""}">
-                        <label class="form-label">Fitness Status <span class="required">*</span></label>
+                        <label class="form-label">Period of Rest <span class="required">*</span></label>
                     </div>
 
                     <div class="form-group">

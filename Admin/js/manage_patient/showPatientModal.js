@@ -197,6 +197,86 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("prescriptionList").innerHTML = prescriptionHtml;
                     transactionModal.style.display = "block";
 
+                    async function addPdfHeader(doc, BASE_URL, getBase64ImageFromUrl, data) {
+
+                        // ===== LOGO =====
+                        const logoUrl = `${BASE_URL}/images/logo/logo_default.png`;
+                        const logoBase64 = await getBase64ImageFromUrl(logoUrl);
+                        doc.addImage(logoBase64, "PNG", 10, 10, 50, 30);
+
+                        // ===== CLINIC NAME =====
+                        doc.setFontSize(14);
+                        doc.setFont("helvetica", "bold");
+                        doc.text("Arriesgado Dental Clinic", 105, 15, { align: "center" });
+
+                        // ===== BRANCHES =====
+                        const response = await fetch(`${BASE_URL}/Admin/processes/manage_patient/get_branches.php`);
+                        const branchesData = await response.json();
+                        const branchesText = branchesData.branches ? branchesData.branches.join(" • ") : "-";
+
+                        doc.setFontSize(12);
+                        doc.setFont("helvetica", "normal");
+                        doc.text(branchesText, 105, 25, { align: "center" });
+
+                        // ===== CLINIC HOURS =====
+                        doc.setFontSize(11);
+                        doc.text("Clinic Hours: 9AM - 3PM | Mon–Sun (All Branches)", 105, 35, { align: "center" });
+
+                        // Top divider
+                        doc.line(10, 45, 200, 45);
+
+                        // ===== PATIENT INFO =====
+                        const fullName = `${data.patient_last_name}, ${data.patient_first_name} ${data.patient_middle_name ? data.patient_middle_name[0] + "." : ""}`;
+
+                        let age = "-";
+                        if (data.patient_dob) {
+                            const dob = new Date(data.patient_dob);
+                            age = Math.floor((Date.now() - dob.getTime()) / (1000 * 60 * 60 * 24 * 365.25)) + " yrs";
+                        }
+
+                        const formattedDate = data.date_created
+                            ? new Date(data.date_created).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            })
+                            : "-";
+
+                        doc.setFontSize(12);
+
+                        const leftX = 10;
+                        const rightX = 120;
+
+                        let y = 55;
+
+                        doc.setFont("helvetica", "bold");
+                        doc.text("Patient:", leftX, y);
+                        doc.setFont("helvetica", "normal");
+                        doc.text(fullName, leftX + 30, y);
+
+                        doc.setFont("helvetica", "bold");
+                        doc.text("Age:", rightX, y);
+                        doc.setFont("helvetica", "normal");
+                        doc.text(age, rightX + 20, y);
+
+                        y += 7;
+
+                        doc.setFont("helvetica", "bold");
+                        doc.text("Branch:", leftX, y);
+                        doc.setFont("helvetica", "normal");
+                        doc.text(data.branch || "-", leftX + 30, y);
+
+                        doc.setFont("helvetica", "bold");
+                        doc.text("Date Issued:", rightX, y);
+                        doc.setFont("helvetica", "normal");
+                        doc.text(formattedDate, rightX + 30, y);
+
+                        y += 6;
+                        doc.line(10, y, 200, y);
+
+                        return { y, formattedDate };
+                    }
+
                     // ========= DOWNLOAD RECEIPT =========
                     const receiptBtn = document.getElementById("downloadReceipt");
                     if (receiptBtn) {
@@ -215,82 +295,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                 });
                             }
 
-                            const pageHeight = doc.internal.pageSize.getHeight();
-
-                            // ===== HEADER =====
-                            const logoUrl = `${BASE_URL}/images/logo/logo_default.png`;
-                            const logoBase64 = await getBase64ImageFromUrl(logoUrl);
-                            doc.addImage(logoBase64, "PNG", 10, 10, 40, 25);
-
-                            doc.setFontSize(14);
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Arriesgado Dental Clinic", 105, 15, { align: "center" });
-
-                            const response = await fetch(`${BASE_URL}/Admin/processes/manage_patient/get_branches.php`);
-                            const branchesData = await response.json();
-                            const branchesText = branchesData.branches ? branchesData.branches.join(" • ") : "-";
-
-                            doc.setFontSize(11);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(branchesText, 105, 22, { align: "center" });
-                            doc.text("Contact Us: 09955446451", 105, 28, { align: "center" });
-                            doc.text("Smile-ify@gmail.com", 105, 34, { align: "center" });
-                            doc.text("Clinic Hours: 9AM - 3PM | Mon–Sun (All Branches)", 105, 40, { align: "center" });
-                            doc.line(10, 45, 200, 45);
-
-                            // ===== TITLE =====
-                            doc.setFont("helvetica", "bold");
-                            doc.setFontSize(16);
-                            doc.text("OFFICIAL RECEIPT", 105, 55, { align: "center" });
-
-                            // ===== PATIENT INFO =====
-                            const leftLabelX = 10;
-                            const leftValueX = 45;
-                            const rightLabelX = 125;
-                            const rightValueX = 160;
-
-                            const patientFullName = `${data.patient_last_name}, ${data.patient_first_name} ${data.patient_middle_name ? data.patient_middle_name[0] + '.' : ''}`;
-                            let patientAge = "-";
-                            if (data.patient_dob) {
-                                const dob = new Date(data.patient_dob);
-                                const diff = Date.now() - dob.getTime();
-                                patientAge = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)) + " yrs";
-                            }
-
-                            let y = 70;
-                            doc.setFontSize(12);
-
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Patient Name:", leftLabelX, y);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(patientFullName, leftValueX, y);
-
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Age:", rightLabelX, y);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(patientAge, rightValueX, y);
-                            y += 8;
-
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Branch:", leftLabelX, y);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(data.branch || "-", leftValueX, y);
-
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Service Date:", rightLabelX, y);
-                            doc.setFont("helvetica", "normal");
-                            const formattedDate = data.appointment_date
-                                ? new Date(data.appointment_date).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric"
-                                })
-                                : "-";
-                            doc.text(formattedDate, rightValueX, y);
-                            y += 10;
-
-                            doc.line(10, y, 200, y);
-                            y += 6;
+                            const header = await addPdfHeader(doc, BASE_URL, getBase64ImageFromUrl, data);
+                            let y = header.y;
 
                             // ===== SERVICE TABLE =====
                             let services = [];
@@ -314,32 +320,47 @@ document.addEventListener("DOMContentLoaded", () => {
                                 console.warn("Failed to parse services:", err);
                             }
 
+                            const colService = 20;
+                            const colQty     = 80;
+                            const colUnit    = 110;
+                            const colAdd     = 145;
+                            const colSub     = 190;
+
                             y += 6;
                             doc.setFont("helvetica", "bold");
-                            doc.text("Service", 20, y);
-                            doc.text("Qty", 105, y);
-                            doc.text("Unit Price", 140, y);
-                            doc.text("Subtotal", 185, y, { align: "right" });
+                            doc.text("Service", colService, y);
+                            doc.text("Qty", colQty, y, { align: "center" });
+                            doc.text("Unit Price", colUnit, y, { align: "right" });
+                            doc.text("Add. Pay", colAdd, y, { align: "right" });
+                            doc.text("Subtotal", colSub, y, { align: "right" });
+
                             y += 4;
                             doc.line(20, y, 190, y);
                             y += 5;
 
                             doc.setFont("helvetica", "normal");
-                            let subtotal = 0;
+                            let tableSubtotal  = 0;
 
                             if (services.length > 0) {
-                                services.forEach((s) => {
-                                    const name = s.service_name || s.name || "-";
-                                    const qty = s.quantity ?? 1;
-                                    const price = s.service_price ?? s.price ?? 0;
-                                    const lineTotal = s.subtotal ?? (price * qty);
-                                    subtotal += Number(lineTotal);
+                                const serviceMaxWidth = 55;
 
-                                    doc.text(name, 20, y);
-                                    doc.text(String(qty), 110, y);
-                                    doc.text(`± ${Number(price).toLocaleString()}`, 155, y, { align: "right" });
-                                    doc.text(`± ${Number(lineTotal).toLocaleString()}`, 185, y, { align: "right" });
-                                    y += 6;
+                                services.forEach((s) => {
+                                    const name = s.service_name || "-";
+                                    const qty = s.quantity ?? 1;
+                                    const price = s.service_price ?? 0;
+                                    const addPay = Number(s.additional_payment ?? 0);
+                                    const lineTotal = (qty * price) + addPay;
+                                    tableSubtotal  += lineTotal;
+
+                                    const wrappedName = doc.splitTextToSize(name, serviceMaxWidth);
+                                    doc.text(wrappedName, colService, y);
+
+                                    doc.text(String(qty), colQty, y, { align: "center" });
+                                    doc.text(Number(price).toLocaleString(), colUnit, y, { align: "right" });
+                                    doc.text(addPay.toLocaleString(), colAdd, y, { align: "right" });
+                                    doc.text(lineTotal.toLocaleString(), colSub, y, { align: "right" });
+
+                                    y += (wrappedName.length * 6);
                                 });
                             } else {
                                 doc.text("No services recorded.", 20, y);
@@ -354,75 +375,65 @@ document.addEventListener("DOMContentLoaded", () => {
                             const labelX = 130;
                             const valueX = 190;
 
+                            // Use DB service subtotals
+                            const subtotal = data.services_raw.reduce((sum, s) => sum + Number(s.subtotal), 0);
+
                             doc.setFont("helvetica", "bold");
                             doc.text("Subtotal:", labelX, y);
                             doc.setFont("helvetica", "normal");
-                            doc.text(`± ${Number(subtotal || data.subtotal || 0).toLocaleString()}`, valueX, y, { align: "right" });
+                            doc.text(subtotal.toLocaleString(), valueX, y, { align: "right" });
                             y += 6;
 
-                            // ==== PROMO ====
+                            // === DISCOUNT ===
                             let discountValue = 0;
-                            if (data.promo && data.promo.name) {
-                                const promoName = data.promo.name;
-                                const discountType = data.promo.discount_type;
-                                const discountVal = Number(data.promo.discount_value) || 0;
 
-                                if (discountType === "percentage") {
-                                    discountValue = (subtotal * discountVal) / 100;
-                                }
-                                if (discountType === "fixed") {
-                                    discountValue = discountVal;
-                                }
+                            if (data.promo) {
+                                const type = data.promo.discount_type;
+                                const value = Number(data.promo.discount_value);
 
-                                const discountLabel =
-                                    discountType === "percentage"
-                                        ? `${promoName} (${discountVal}% OFF)`
-                                        : promoName;
+                                let discountLabel = "Discount";
+
+                                if (type === "percentage") {
+                                    discountValue = subtotal * (value / 100);
+                                    discountLabel = `Discount (${value}%)`;
+                                } 
+                                else if (type === "fixed") {
+                                    discountValue = value;
+                                    discountLabel = `Discount`;
+                                }
 
                                 doc.setFont("helvetica", "bold");
-                                doc.text("Promo:", labelX, y);
+                                doc.text(`${discountLabel}:`, labelX, y);
 
                                 doc.setFont("helvetica", "normal");
-                                const promoText = doc.splitTextToSize(discountLabel, 60);
-                                doc.text(promoText, labelX + 25, y);
-                                y += promoText.length * 6;
-
-                                doc.setFont("helvetica", "bold");
-                                doc.text("Discount:", labelX, y);
-                                doc.setFont("helvetica", "normal");
-                                doc.text(`- ± ${discountValue.toLocaleString()}`, valueX, y, { align: "right" });
+                                doc.text(
+                                    `- ${discountValue.toLocaleString(undefined, { 
+                                        minimumFractionDigits: 2, 
+                                        maximumFractionDigits: 2 
+                                    })}`,
+                                    valueX,
+                                    y,
+                                    { align: "right" }
+                                );
                                 y += 6;
                             }
 
-                            const totalAmount = subtotal - discountValue;
+                            // ===== GRAND TOTAL =====
+                            const grandTotal = Number(data.total);
 
                             doc.setFont("helvetica", "bold");
-                            doc.text("Total Amount:", labelX, y);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(`± ${Number(totalAmount).toLocaleString()}`, valueX, y, { align: "right" });
-                            y += 6;
-
-                            // ===== ADDITIONAL PAYMENT =====
-                            const additionalPayment = Number(data.additional_payment || 0);
-
-                            if (additionalPayment > 0) {
-                                doc.setFont("helvetica", "bold");
-                                doc.text("Additional Payment:", labelX, y);
-
-                                doc.setFont("helvetica", "normal");
-                                doc.text(`± ${additionalPayment.toLocaleString()}`, valueX, y, { align: "right" });
-
-                                y += 6;
-                            }
-
-                            // ===== GRAND TOTAL (TOTAL + ADDITIONAL) =====
-                            const grandTotal = totalAmount + additionalPayment;
-
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Grand Total:", labelX, y);
+                            doc.text("Total Payment:", labelX, y);
 
                             doc.setFont("helvetica", "normal");
-                            doc.text(`± ${grandTotal.toLocaleString()}`, valueX, y, { align: "right" });
+                            doc.text(
+                                grandTotal.toLocaleString(undefined, { 
+                                    minimumFractionDigits: 2, 
+                                    maximumFractionDigits: 2 
+                                }),
+                                valueX,
+                                y,
+                                { align: "right" }
+                            );
                             y += 12;
 
                             // ===== PREPARED INFO =====
@@ -436,56 +447,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                     day: "numeric"
                                 })
                                 : "-";
-                            doc.text(`Transaction Date: ${transDate}`, 20, y);
-                            y += 6;
-
-                            doc.text(`Payment Method: ${data.payment_method ? data.payment_method : "-"}`, 20, y);
-                            y += 15;
-
-                            // ===== SIGNATURE =====
-                            if (data.dentist_last_name || data.dentist_first_name) {
-                                let sigY = y + 5;
-                                if (sigY < 60) sigY = 60;
-
-                                if (sigY > pageHeight - 80) {
-                                    doc.addPage();
-                                    sigY = 50;
-                                }
-
-                                const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
-                                let hasSignature = false;
-
-                                if (data.signature_image) {
-                                    try {
-                                        const sigBase64 = await getBase64ImageFromUrl(sigUrl);
-                                        doc.addImage(sigBase64, "PNG", 125, sigY, 50, 30);
-                                        hasSignature = true;
-                                    } catch (err) {
-                                        console.warn("Could not load signature", err);
-                                    }
-                                }
-
-                                const lineY = hasSignature ? sigY + 35 : sigY + 25;
-                                doc.line(120, lineY, 200, lineY);
-
-                                const nameY = lineY + 10;
-                                const licenseY = lineY + 20;
-
-                                const dentistFullName = `${data.dentist_last_name}, ${data.dentist_first_name} ${
-                                    data.dentist_middle_name ? data.dentist_middle_name[0] + '.' : ''
-                                }`;
-
-                                doc.text("Dr. " + dentistFullName, 160, nameY, { align: "center" });
-                                doc.text("License No: " + (data.license_number ?? "-"), 160, licenseY, { align: "center" });
-                            }
-
-                            // ===== FOOTER (page numbers) =====
-                            const pageCount = doc.internal.getNumberOfPages();
-                            for (let i = 1; i <= pageCount; i++) {
-                                doc.setPage(i);
-                                doc.setFontSize(10);
-                                doc.text(`Page ${i} of ${pageCount}`, 105, pageHeight - 10, { align: "center" });
-                            }
 
                             // ===== SAVE FILE =====
                             const safeName = (data.patient_last_name || "patient").replace(/\s+/g, "_");
@@ -501,6 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         medCertBtn.addEventListener("click", async () => {
                             const { jsPDF } = window.jspdf;
                             const doc = new jsPDF();
+                            const pageHeight = doc.internal.pageSize.getHeight();
 
                             async function getBase64ImageFromUrl(url) {
                                 const res = await fetch(url);
@@ -513,178 +475,102 @@ document.addEventListener("DOMContentLoaded", () => {
                                 });
                             }
 
-                            const pageHeight = doc.internal.pageSize.getHeight();
+                            const header = await addPdfHeader(doc, BASE_URL, getBase64ImageFromUrl, data);
+                            let y = header.y + 20;
+                            let formattedDate = header.formattedDate;
 
-                            // ===== HEADER =====
-                            const logoUrl = `${BASE_URL}/images/logo/logo_default.png`;
-                            const logoBase64 = await getBase64ImageFromUrl(logoUrl);
-                            doc.addImage(logoBase64, "PNG", 10, 10, 50, 30);
+                            const diagnosis = data.diagnosis?.trim() || "not specified";
 
-                            doc.setFont("helvetica", "bold");
-                            doc.setFontSize(14);
-                            doc.text("Arriesgado Dental Clinic", 105, 18, { align: "center" });
+                            const services = Array.isArray(data.services)
+                                ? data.services.map(s => s.service_name)
+                                : [];
 
-                            const response = await fetch(`${BASE_URL}/Admin/processes/manage_patient/get_branches.php`);
-                            const branchesData = await response.json();
-                            const branchesText = branchesData.branches ? branchesData.branches.join(" • ") : "-";
+                            const restText = data.fitness_status?.trim() || "No rest period necessary.";
 
-                            doc.setFont("helvetica", "normal");
-                            doc.setFontSize(11);
-                            doc.text(branchesText, 105, 25, { align: "center" });
-                            doc.text("Contact Us: 09955446451", 105, 31, { align: "center" });
-                            doc.text("Smile-ify@gmail.com", 105, 37, { align: "center" });
-                            doc.text("Clinic Hours: 9AM - 3PM | Mon–Sun (All Branches)", 105, 43, { align: "center" });
-
-                            doc.line(10, 48, 200, 48);
-
-                            // ===== TITLE =====
-                            doc.setFont("helvetica", "bold");
-                            doc.setFontSize(18);
-                            doc.text("Dental Certificate", 105, 60, { align: "center" });
-
-                            // ===== PATIENT INFO =====
-                            const patientFullName = `${data.patient_last_name}, ${data.patient_first_name} ${data.patient_middle_name ? data.patient_middle_name[0] + '.' : ''}`;
-                            let patientAge = "-";
-                            if (data.patient_dob) {
-                                const dob = new Date(data.patient_dob);
-                                const diff = Date.now() - dob.getTime();
-                                patientAge = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)) + " yrs";
-                            }
-
-                            const formattedDate = data.date_created
-                                ? new Date(data.date_created).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric"
-                                })
-                                : "-";
-
-                            let y = 80;
-                            doc.setFontSize(12);
-                            doc.setFont("helvetica", "normal");
+                            const remarks = data.remarks?.trim() || "None.";
 
                             // ===== MAIN CERTIFICATE BODY =====
-                            doc.text(
-                                `This is to certify that ${patientFullName}, aged ${patientAge}, was examined and treated at Arriesgado Dental Clinic on ${formattedDate}.`,
-                                20, y, { maxWidth: 170, align: "justify" }
-                            );
-                            y += 20;
-
-                            // ===== DIAGNOSIS =====
-                            const diagnosis = data.diagnosis && data.diagnosis.trim() !== "" ? data.diagnosis : "Not specified.";
                             doc.setFont("helvetica", "normal");
                             doc.setFontSize(12);
+
                             doc.text(
-                                `The patient was diagnosed with ${diagnosis.toLowerCase()}.`,
-                                20, y, { maxWidth: 170, align: "justify" }
+                                `This is to certify that this patient was examined and treated at Arriesgado Dental Clinic on ${formattedDate} and was diagnosed with ${diagnosis}.`,
+                                20, y,
+                                { maxWidth: 170, align: "justify" }
                             );
-                            y += 15;
+                            y += 20;
 
-                            // ===== SERVICES / PROCEDURES =====
-                            let servicesText = "";
-                            if (data.services) {
-                                let filtered = Array.isArray(data.services)
-                                    ? data.services
-                                        .map(s => s.service_name || s.name || s)
-                                        .filter(name => !/Dental Certificate/i.test(name)) // exclude "Dental Certificate"
-                                    : (data.services_text || data.services || "")
-                                        .split(",")
-                                        .filter(name => !/Dental Certificate/i.test(name.trim()));
-
-                                if (filtered.length > 0) {
-                                    servicesText = filtered.join(", ");
-                                }
-                            }
-
-                            if (servicesText) {
-                                doc.text(
-                                    "The patient underwent the following dental procedure(s):",
-                                    20, y, { maxWidth: 170 }
-                                );
-                                y += 8;
-                                const serviceLines = doc.splitTextToSize(servicesText, 160);
-                                doc.text(serviceLines, 30, y);
-                                y += serviceLines.length * 8 + 10;
-                            }
-
-                            // ===== FITNESS STATUS =====
-                            const fitness = data.fitness_status && data.fitness_status.trim() !== "" ? data.fitness_status : "Fit for dental procedures.";
+                            // ===== SERVICES RENDERED =====
                             doc.setFont("helvetica", "bold");
-                            doc.text("Fitness Status:", 20, y);
+                            doc.text("The patient has undergone the following dental procedure(s):", 20, y);
+                            y += 8;
+
                             doc.setFont("helvetica", "normal");
-                            doc.text(fitness, 60, y);
-                            y += 10;
+
+                            services.forEach(service => {
+                                const bullet = `• ${service}`;
+                                const wrapped = doc.splitTextToSize(bullet, 160);
+                                doc.text(wrapped, 25, y);
+                                y += wrapped.length * 7;
+                            });
+
+                            y += 12;
+
+                            // ===== PERIOD OF REST =====
+                            doc.setFont("helvetica", "bold");
+                            doc.text("Period of Rest:", 20, y);
+                            y += 7;
+
+                            doc.setFont("helvetica", "normal");
+                            const restLines = doc.splitTextToSize(restText, 160);
+                            doc.text(restLines, 25, y);
+                            y += restLines.length * 7 + 12;
 
                             // ===== REMARKS =====
-                            const remarks = data.remarks && data.remarks.trim() !== "" ? data.remarks : "No additional remarks.";
                             doc.setFont("helvetica", "bold");
                             doc.text("Remarks:", 20, y);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(remarks, 60, y);
-                            y += 20;
+                            y += 7;
 
-                            // ===== RECOMMENDATION =====
                             doc.setFont("helvetica", "normal");
-                            doc.text(
-                                "It is hereby recommended that the patient take adequate rest and avoid strenuous activity as advised by the attending dentist.",
-                                20, y, { maxWidth: 170, align: "justify" }
-                            );
-                            y += 20;
+                            const remarkLines = doc.splitTextToSize(remarks, 160);
+                            doc.text(remarkLines, 25, y);
+                            y += remarkLines.length * 7 + 12;
 
+                            // ===== FOOTER =====
+                            doc.setFont("helvetica", "normal");
                             doc.text(
                                 "This certificate is issued upon the patient’s request for whatever legal or personal purpose it may serve.",
-                                20, y, { maxWidth: 170, align: "justify" }
+                                20, y,
+                                { maxWidth: 170, align: "justify" }
                             );
+
                             y += 20;
 
-                            doc.text(
-                                `Issued this ${formattedDate} at Arriesgado Dental Clinic.`,
-                                20, y, { maxWidth: 170 }
-                            );
+                            doc.text(`Issued this ${formattedDate}.`, 20, y);
 
                             // ===== SIGNATURE =====
                             if (data.dentist_last_name || data.dentist_first_name) {
-                                let sigY = y + 5;
-                                if (sigY < 60) sigY = 60;
 
-                                if (sigY > pageHeight - 80) {
-                                    doc.addPage();
-                                    sigY = 50;
-                                }
-
-                                const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
-                                let hasSignature = false;
+                                let sigY = 230;
 
                                 if (data.signature_image) {
                                     try {
+                                        const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
                                         const sigBase64 = await getBase64ImageFromUrl(sigUrl);
-                                        doc.addImage(sigBase64, "PNG", 125, sigY, 50, 30);
-                                        hasSignature = true;
+                                        doc.addImage(sigBase64, "PNG", 125, sigY - 25, 50, 25);
                                     } catch (err) {
                                         console.warn("Could not load signature", err);
                                     }
                                 }
 
-                                const lineY = hasSignature ? sigY + 35 : sigY + 25;
-                                doc.line(120, lineY, 200, lineY);
-
-                                const nameY = lineY + 10;
-                                const licenseY = lineY + 20;
+                                doc.line(120, sigY, 200, sigY);
 
                                 const dentistFullName = `${data.dentist_last_name}, ${data.dentist_first_name} ${
                                     data.dentist_middle_name ? data.dentist_middle_name[0] + '.' : ''
                                 }`;
 
-                                doc.text("Dr. " + dentistFullName, 160, nameY, { align: "center" });
-                                doc.text("License No: " + (data.license_number ?? "-"), 160, licenseY, { align: "center" });
-                            }
-
-                            // ===== PAGE NUMBER =====
-                            const pageCount = doc.internal.getNumberOfPages();
-                            for (let i = 1; i <= pageCount; i++) {
-                                doc.setPage(i);
-                                doc.setFontSize(10);
-                                doc.text(`Page ${i} of ${pageCount}`, 105, pageHeight - 10, { align: "center" });
+                                doc.text("Dr. " + dentistFullName, 160, sigY + 10, { align: "center" });
+                                doc.text("License No: " + (data.license_number ?? "-"), 160, sigY + 20, { align: "center" });
                             }
 
                             // ===== SAVE FILE =====
@@ -737,112 +623,76 @@ document.addEventListener("DOMContentLoaded", () => {
                                 });
                             }
 
+                            const header = await addPdfHeader(doc, BASE_URL, getBase64ImageFromUrl, data);
+                            let y = header.y;
+
+                            // ===== PRESCRIPTIONS =====
                             const pageHeight = doc.internal.pageSize.getHeight();
-                            // ===== HEADER =====
-                            const logoUrl = `${BASE_URL}/images/logo/logo_default.png`;
-                            const logoBase64 = await getBase64ImageFromUrl(logoUrl);
-                            doc.addImage(logoBase64, "PNG", 10, 10, 50, 30);
 
-                            doc.setFontSize(14);
                             doc.setFont("helvetica", "bold");
-                            doc.text("Arriesgado Dental Clinic", 105, 15, { align: "center" });
+                            doc.text("Prescription:", 10, y + 5);
 
-                            // Branches
-                            const response = await fetch(`${BASE_URL}/Admin/processes/manage_patient/get_branches.php`);
-                            const branchesData = await response.json();
-                            const branchesText = branchesData.branches ? branchesData.branches.join(" • ") : "-";
-
-                            doc.setFontSize(11);
-                            doc.setFont("helvetica", "normal");
-                            doc.text(branchesText, 105, 22, { align: "center" });
-                            doc.text("Contact Us: 09955446451", 105, 28, { align: "center" });
-                            doc.text("Smile-ify@gmail.com", 105, 34, { align: "center" });
-                            doc.text("Clinic Hours: 9AM - 3PM | Mon–Sun (All Branches)", 105, 40, { align: "center" });
-
-                            doc.line(10, 45, 200, 45);
-
-                            // ===== PATIENT INFO =====
-                            const patientFullName = `${data.patient_last_name}, ${data.patient_first_name} ${data.patient_middle_name ? data.patient_middle_name[0] + '.' : ''}`;
-                            let patientAge = "-";
-                            if (data.patient_dob) {
-                                const dob = new Date(data.patient_dob);
-                                const diff = Date.now() - dob.getTime();
-                                patientAge = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25)) + " yrs";
-                            }
+                            doc.setFontSize(26);
+                            doc.setFont("helvetica", "bolditalic");
+                            doc.text("Rx", 10, y + 22);
 
                             doc.setFontSize(12);
-                            const leftLabelX = 10;
-                            const leftValueX = 45;
-                            const leftLineEndX = 115;
-
-                            const rightLabelX = 125;
-                            const rightValueX = 145;
-                            const rightLineEndX = 190;
-
-                            // === Row 1: Patient Name & Age ===
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Patient Name:", leftLabelX, 55);
-                            doc.line(leftValueX, 55, leftLineEndX, 55);
-
-                            doc.text("Age:", rightLabelX, 55);
-                            doc.line(rightValueX, 55, rightLineEndX, 55);
-
                             doc.setFont("helvetica", "normal");
-                            doc.text(patientFullName || "-", leftValueX + 2, 54);
-                            doc.text(patientAge || "-", rightValueX + 2, 54);
 
-                            // === Row 2: Date Issued & Branch ===
-                            const row2Y = 67;
-                            doc.setFont("helvetica", "bold");
-                            doc.text("Date Issued:", leftLabelX, row2Y);
-                            doc.line(leftValueX, row2Y, leftLineEndX, row2Y);
+                            y += 35;
 
-                            doc.text("Branch:", rightLabelX, row2Y);
-                            doc.line(rightValueX, row2Y, rightLineEndX, row2Y);
-
-                            doc.setFont("helvetica", "normal");
-                            const formattedDate = data.date_created
-                                ? new Date(data.date_created).toLocaleDateString("en-US", {
-                                    year: "numeric",
-                                    month: "long",
-                                    day: "numeric"
-                                })
-                                : "-";
-                            doc.text(formattedDate, leftValueX + 2, row2Y - 1);
-                            doc.text(data.branch || "-", rightValueX + 2, row2Y - 1);
-
-                                // ===== PRESCRIPTIONS =====
-                                const prescripY = row2Y + 15;
-                                doc.setFont("helvetica", "bold");
-                                doc.text("Prescription:", 10, prescripY);
-
-                                doc.setFontSize(22);
-                                doc.setFont("helvetica", "bolditalic");
-                                doc.text("Rx", 12, prescripY + 15);
-                                doc.setFontSize(12);
-                                doc.setFont("helvetica", "normal");
-
-                                let y = prescripY + 25;
-
-                            doc.setFont("helvetica", "normal");
                             if (data.prescriptions && data.prescriptions.length > 0) {
-                                data.prescriptions.forEach((p, index) => {
-                                    if (y > pageHeight - 40) {
-                                        doc.addPage();
-                                        y = 20;
-                                    }
 
-                                    doc.text(`${index + 1}. ${p.drug} | ${p.dosage} | ${p.frequency} | ${p.duration} | Qty: ${p.quantity}`, 10, y);
-                                    y += 6;
+                            data.prescriptions.forEach((p, index) => {
 
-                                    if (p.instructions) {
-                                        doc.text(`   Notes: ${p.instructions}`, 15, y);
-                                        y += 6;
+                                if (y > pageHeight - 50) {
+                                    doc.addPage();
+                                    y = 20;
+                                }
+
+                                const dosageText = p.dosage ? ` ${p.dosage}` : "";
+
+                                const qtyText = p.quantity ? ` – Qty: ${p.quantity}` : "";
+
+                                const mainLine = `${index + 1}. ${p.drug}${dosageText}${qtyText}`;
+                                doc.text(mainLine, 10, y);
+                                y += 9;
+
+                                let freqText = "";
+                                if (p.frequency) {
+                                    if (isNaN(p.frequency)) {
+                                        freqText = p.frequency;
+                                    } else {
+                                        freqText = `${p.frequency} times a day`;
                                     }
-                                    y += 3;
-                                });
+                                }
+
+                                let durationText = "";
+                                if (p.duration) {
+                                    if (isNaN(p.duration)) {
+                                        durationText = p.duration;
+                                    } else {
+                                        durationText = `${p.duration} day/s`;
+                                    }
+                                }
+
+                                if (freqText || durationText) {
+                                    doc.text(`Take ${freqText}${durationText ? " for " + durationText : ""}`, 15, y);
+                                    y += 9;
+                                }
+
+                                if (p.instructions) {
+                                    const wrapped = doc.splitTextToSize(`Notes: ${p.instructions}`, 170);
+                                    doc.text(wrapped, 15, y);
+                                    y += wrapped.length * 7;
+                                }
+
+                                y += 7;
+                            });
+
                             } else {
                                 doc.text("No prescriptions recorded.", 10, y);
+                                y += 10;
                             }
 
                             // ===== SIGNATURE =====
@@ -1091,7 +941,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ${
                                     isPdf
                                     ? `<iframe src="${fileUrl}" style="width:80%; height:500px; border:none;"></iframe>`
-                                    : `<img src="${fileUrl}" style="width:50%; border-radius:5px; display:block; margin:auto;">`
+                                    : `<img src="${fileUrl}" style="width:100%; border-radius:5px; display:block; margin:auto;">`
                                 }
                             </div>
                         `;

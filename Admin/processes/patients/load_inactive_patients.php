@@ -39,7 +39,7 @@ $sql = "
         ON at.appointment_transaction_id = dt.appointment_transaction_id
 
     WHERE u.role = 'patient'
-    AND u.status = 'Active'
+    AND u.status = 'Inactive'
 
     GROUP BY u.user_id
     ORDER BY u.user_id ASC
