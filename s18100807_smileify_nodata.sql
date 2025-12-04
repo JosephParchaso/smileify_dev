@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 25, 2025 at 02:40 AM
+-- Generation Time: Dec 04, 2025 at 08:31 PM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 8.2.29
 
@@ -424,8 +424,9 @@ CREATE TABLE `supply` (
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `guardian_id` int(11) DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `last_name` varchar(50) NOT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) NOT NULL,
@@ -433,7 +434,7 @@ CREATE TABLE `users` (
   `date_of_birth` varchar(255) DEFAULT NULL,
   `date_of_birth_iv` text DEFAULT NULL,
   `date_of_birth_tag` text DEFAULT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `contact_number` varchar(255) DEFAULT NULL,
   `contact_number_iv` text DEFAULT NULL,
   `contact_number_tag` text DEFAULT NULL,
@@ -630,7 +631,8 @@ ALTER TABLE `supply`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `index_username_unique` (`username`),
-  ADD KEY `fk_users_branch` (`branch_id`);
+  ADD KEY `fk_users_branch` (`branch_id`),
+  ADD KEY `fk_guardian_user` (`guardian_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -883,6 +885,12 @@ ALTER TABLE `dentist_service`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_guardian_user` FOREIGN KEY (`guardian_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

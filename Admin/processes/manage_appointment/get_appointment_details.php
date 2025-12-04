@@ -19,6 +19,8 @@ if (!$appointmentId) {
 
 $sql = "
     SELECT 
+        u.user_id,
+        u.guardian_id,
         u.first_name, 
         u.middle_name, 
         u.last_name, 
@@ -79,6 +81,11 @@ if ($row = $result->fetch_assoc()) {
     $checkVit->execute();
     $hasVitals = $checkVit->get_result()->fetch_assoc()['c'];
 
+    $checkPres = $conn->prepare("SELECT COUNT(*) AS c FROM dental_prescription WHERE appointment_transaction_id = ?");
+    $checkPres->bind_param("i", $appointmentId);
+    $checkPres->execute();
+    $hasPrescriptions = $checkPres->get_result()->fetch_assoc()['c'];
+
     $decryptedDOB = null;
     if (!empty($row['date_of_birth']) && !empty($row['date_of_birth_iv']) && !empty($row['date_of_birth_tag'])) {
         $decryptedDOB = decryptField(
@@ -104,6 +111,41 @@ if ($row = $result->fetch_assoc()) {
             $row['address_iv'],
             $row['address_tag']
         );
+    }
+
+    $isDependent = !empty($row['guardian_id']);
+    $guardianInfo = null;
+
+    if ($isDependent) {
+        $g = $conn->prepare("
+            SELECT 
+                first_name, middle_name, last_name, gender,
+                date_of_birth, date_of_birth_iv, date_of_birth_tag,
+                email, 
+                contact_number, contact_number_iv, contact_number_tag,
+                address, address_iv, address_tag
+            FROM users 
+            WHERE user_id = ?
+        ");
+        $g->bind_param("i", $row['guardian_id']);
+        $g->execute();
+        $gRes = $g->get_result();
+
+        if ($gRes && $gRow = $gRes->fetch_assoc()) {
+
+            $gDOB = decryptField($gRow['date_of_birth'], $gRow['date_of_birth_iv'], $gRow['date_of_birth_tag']);
+            $gContact = decryptField($gRow['contact_number'], $gRow['contact_number_iv'], $gRow['contact_number_tag']);
+            $gAddress = decryptField($gRow['address'], $gRow['address_iv'], $gRow['address_tag']);
+
+            $guardianInfo = [
+                "full_name" => trim(($gRow['first_name'] ?? '') . ' ' . ($gRow['middle_name'] ?? '') . ' ' . ($gRow['last_name'] ?? '')),
+                "gender" => ucfirst($gRow['gender']),
+                "dob" => $gDOB ? date("F j, Y", strtotime($gDOB)) : "-",
+                "email" => $gRow['email'] ?? "-",
+                "contact_number" => $gContact ?? "-",
+                "address" => $gAddress ?? "-"
+            ];
+        }
     }
 
     $serviceIds = [];
@@ -142,6 +184,10 @@ if ($row = $result->fetch_assoc()) {
 
         'has_transaction' => $hasTransaction,
         'has_vitals' => $hasVitals,
+        'has_prescriptions' => $hasPrescriptions,
+        
+        'guardian_info' => $guardianInfo,
+        'is_dependent' => $isDependent,
     ];
 
     header('Content-Type: application/json');

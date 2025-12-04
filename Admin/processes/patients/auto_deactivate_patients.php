@@ -23,10 +23,13 @@ $sql = "
         WHERE u.role = 'patient'
         GROUP BY u.user_id
     ) recent ON u.user_id = recent.user_id
+
     SET u.status = 'Inactive',
         u.date_updated = NOW()
+
     WHERE u.role = 'patient'
-    AND (recent.last_transaction_date IS NULL OR recent.last_transaction_date < ?)
+    AND recent.last_transaction_date IS NOT NULL
+    AND recent.last_transaction_date < ?
     AND u.status = 'Active';
 ";
 

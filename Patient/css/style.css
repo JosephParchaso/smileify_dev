@@ -97,6 +97,19 @@
     flex-wrap: wrap;
 }
 
+.back-button-container {
+    position: absolute;
+    z-index: 10;
+}
+
+.back-button-icon {
+    background: white;
+    border-bottom-right-radius: 4px;
+    color: #007bff;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
 .tabs-container {
     flex: 1;
     min-width: 350px;
@@ -110,15 +123,21 @@
     display: none;
 }
 
-#appointmentTable, #transactionTable {
+#appointmentTable, #transactionTable, #dependentTable {
     width: 100% !important;
 }
 
 #appointmentTable_filter input[type="search"], 
-#transactionTable_filter input[type="search"] {
+#transactionTable_filter input[type="search"],
+#dependentTable_filter input[type="search"] {
     height: 38px;
     padding: 6px 12px;
 }
+
+#dependentTable th:nth-child(1), #dependentTable td:nth-child(1) { width: 30% !important; }
+#dependentTable th:nth-child(2), #dependentTable td:nth-child(2) { width: 10% !important; text-align: center;}
+#dependentTable th:nth-child(3), #dependentTable td:nth-child(3) { width: 10% !important; text-align: center;}
+#dependentTable th:nth-child(4), #dependentTable td:nth-child(4) { width: 10% !important; text-align: center;}
 
 .transaction-table th:nth-child(1),.transaction-table td:nth-child(1) { width: 10% !important; }
 .transaction-table th:nth-child(2),.transaction-table td:nth-child(2) { width: 25% !important; }
@@ -129,12 +148,155 @@
 .transaction-table th:nth-child(7),.transaction-table td:nth-child(7) { width: 5% !important; text-align: center;}
 
 @media (max-width: 768px) {
+
     .profile-container {
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
+        padding: 10px;
     }
+
+    .profile-section {
+        margin-bottom: 20px;
+        margin-left: 20px;
+    }
+
+    .tabs-container {
+        width: 100%;
+    }
+
+    .tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .tab {
+        flex-shrink: 0;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    #appointmentTable_wrapper, #transactionTable_wrapper{
+        overflow: auto;
+    }
+
+    .transaction-table {
+        font-size: 12px;
+        overflow-x: hidden;
+        display: block;
+        white-space: nowrap;
+    }
+
+    .transaction-table th, .transaction-table td {
+        padding: 8px;
+    }
+
     .profile-card {
-        width: 90%;
+        width: 100%;
         max-width: 400px;
+    }
+
+    .edit-profile-modal-content,
+    .change-password-modal-content,
+    .manage-calendar-modal-content,
+    .transaction-record-modal-content,
+    .booking-modal-content {
+        width: 90%;
+        max-width: none;
+        margin: 10% auto;
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    #medCertModal img {
+        width: 150px;
+        height: 200px;
+    }
+
+    .toast {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .nav-container{
+        flex-direction: row;
+    }
+
+    .dashboard{
+        padding: 0rem 0rem;
+    }
+
+    .welcome h1{
+        margin-bottom: 0;
+        font-size: 2rem;
+    }
+
+    .cards {
+        flex-direction: column;
+    }
+
+    .card{
+        padding-top: 0;
+        flex: 1 1 100%;
+    }
+
+    .calendar-container {
+        flex-direction: column;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    #calendarLegend {
+        flex: none;
+        width: 100%;
+        order: 1;
+    }
+
+    #calendar {
+        flex: none;
+        width: 100%;
+        height: 400px;
+        order: 2;
+    }
+
+    .manage-calendar-modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+
+    #toastContainer {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        right: auto;
+    }
+
+    .toast {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .fc .fc-toolbar{
+        flex-direction: column;
     }
 }

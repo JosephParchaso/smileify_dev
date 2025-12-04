@@ -3,6 +3,7 @@ function attachBookingDateValidators() {
     if (!form) return;
 
     const dobInput = form.querySelector("#dateofBirth");
+    const childDobInput = form.querySelector("#childDob");
     const appointmentInput = form.querySelector("#appointmentDate");
     const dobError = form.querySelector("#dobError");
     const dateError = form.querySelector("#dateError");
@@ -51,6 +52,45 @@ function attachBookingDateValidators() {
                 this.value = "";
             } else {
                 dobError.style.display = "none";
+            }
+        });
+    }
+
+    if (childDobInput) {
+        const today = new Date();
+        childDobInput.max = today.toISOString().split("T")[0];
+
+        childDobInput.addEventListener("input", function () {
+
+            let errorSpan = document.getElementById("childDobError");
+
+            if (!errorSpan) {
+                errorSpan = document.createElement("span");
+                errorSpan.id = "childDobError";
+                errorSpan.className = "error-msg-calendar error";
+                errorSpan.style.display = "none";
+                childDobInput.parentNode.appendChild(errorSpan);
+            }
+
+            if (!this.value) {
+                errorSpan.style.display = "none";
+                return;
+            }
+
+            if (this.value === "0001-01-01" || this.value === "01/01/0001") {
+                errorSpan.textContent = "Please enter a valid date of birth.";
+                errorSpan.style.display = "block";
+                this.value = "";
+                return;
+            }
+
+            const d = new Date(this.value);
+            if (isNaN(d.getTime()) || d > today) {
+                errorSpan.textContent = "Please enter a valid date of birth.";
+                errorSpan.style.display = "block";
+                this.value = "";
+            } else {
+                errorSpan.style.display = "none";
             }
         });
     }

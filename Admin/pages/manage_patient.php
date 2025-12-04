@@ -117,52 +117,67 @@ $backTab = $_GET['tab'] ?? 'recent';
     <div class="manage-patient-modal-content">
         <h2>Dental Certificate</h2>
 
+        <?php
+            $medcertPrice = 150;
+            $stmt = $conn->prepare("SELECT price FROM service WHERE name='Dental Certificate' LIMIT 1");
+            $stmt->execute();
+            $stmt->bind_result($p);
+            $stmt->fetch();
+            $stmt->close();
+            if ($p !== null) $medcertPrice = $p;
+        ?>
+
         <form id="medCertForm" method="POST" action="<?= BASE_URL ?>/Admin/processes/manage_patient/upload_medcert.php" enctype="multipart/form-data" autocomplete="off">
-        <input type="hidden" name="dental_transaction_id" id="transactionIdInput">
+            
+            <input type="hidden" name="dental_transaction_id" id="transactionIdInput">
 
-        <div id="receiptPreview" style="text-align:center; margin:15px 0; display:flex; justify-content:center;">
-            <img id="receiptImage" alt="Payment QR Code" style="width: 250px; height: 440px;">
-        </div>
+            <?php if ($medcertPrice > 0): ?>
+                <p><strong>Dental Certificate Fee:</strong> ₱<?= number_format($medcertPrice) ?></p>
 
-        <div id="paymentSection" style="display: none;">
+                <div id="paymentSection">
+                    <div class="form-group">
+                        <select id="paymentMethod" name="payment_method" class="form-control" required>
+                            <option value="">Select Payment Method</option>
+                            <option value="cash">Cash</option>
+                            <option value="cashless">Cashless</option>
+                        </select>
+                        <label for="paymentMethod" class="form-label">Payment Method <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group" id="receiptUploadGroup" style="display:none;">
+                        <input type="file" id="receiptUpload" name="receipt_upload" class="form-control" accept="image/*">
+                        <label for="receiptUpload" class="form-label">Upload Receipt (Cashless Only)</label>
+                    </div>
+                </div>
+
+            <?php else: ?>
+                <!-- FREE -->
+                <p><strong>This Dental Certificate is FREE.</strong></p>
+            <?php endif; ?>
+
+            <div id="receiptPreview" style="text-align:center; margin:15px 0; display:none;">
+                <img id="receiptImage" style="width:250px; height:440px; border-radius:6px;">
+            </div>
+
+            <!-- Required Dentist Inputs -->
             <div class="form-group">
-                <select id="paymentMethod" name="payment_method" class="form-control" required>
-                    <option value="">Select Payment Method</option>
-                    <option value="cash">Cash</option>
-                    <option value="cashless">Cashless</option>
-                </select>
-                <label for="paymentMethod" class="form-label">Payment Method <span class="required">*</span></label>
-            </div>
-
-            <div class="form-group" id="receiptUploadGroup" style="display: none;">
-                <input type="file" id="receiptUpload" name="receipt_upload" class="form-control" accept="image/*">
-                <label for="receiptUpload" class="form-label">Upload Receipt (if Cashless)</label>
+                <input type="text" id="fitnessStatus" name="fitness_status" class="form-control" placeholder=" " required />
+                <label for="fitnessStatus" class="form-label">Period of Rest <span class="required">*</span></label>
             </div>
 
             <div class="form-group">
-                <textarea id="notesMedcert" name="medcert_notes" class="form-control" placeholder=" "></textarea>
-                <label for="notesMedcert" class="form-label">Notes</label>
+                <input type="text" id="diagnosis" name="diagnosis" class="form-control" placeholder=" " required />
+                <label for="diagnosis" class="form-label">Diagnosis <span class="required">*</span></label>
             </div>
-        </div>
 
-        <div class="form-group">
-            <input type="text" id="fitnessStatus" name="fitness_status" class="form-control" placeholder=" " required />
-            <label for="fitnessStatus" class="form-label">Period of Rest <span class="required">*</span></label>
-        </div>
+            <div class="form-group">
+                <textarea id="remarks" name="remarks" class="form-control" placeholder=" " required></textarea>
+                <label for="remarks" class="form-label">Remarks <span class="required">*</span></label>
+            </div>
 
-        <div class="form-group">
-            <input type="text" id="diagnosis" name="diagnosis" class="form-control" placeholder=" " required />
-            <label for="diagnosis" class="form-label">Diagnosis <span class="required">*</span></label>
-        </div>
-
-        <div class="form-group">
-            <textarea id="remarks" name="remarks" class="form-control" placeholder=" " required></textarea>
-            <label for="remarks" class="form-label">Remarks <span class="required">*</span></label>
-        </div>
-
-        <div class="button-group">
-            <button type="submit" class="confirm-btn">Save</button>
-        </div>
+            <div class="button-group">
+                <button type="submit" class="confirm-btn">Save</button>
+            </div>
         </form>
     </div>
 </div>
@@ -209,6 +224,70 @@ $backTab = $_GET['tab'] ?? 'recent';
         const modal = document.getElementById("medCertReceiptModal");
         if (e.target === modal) closeMedCertReceiptModal();
     });
-</script>
 
+    document.addEventListener("DOMContentLoaded", () => {
+        const paymentMethod = document.getElementById("paymentMethod");
+        const receiptGroup = document.getElementById("receiptUploadGroup");
+        const receiptUpload = document.getElementById("receiptUpload");
+        const preview = document.getElementById("receiptPreview");
+        const previewImg = document.getElementById("receiptImage");
+
+        if (paymentMethod) {
+            paymentMethod.addEventListener("change", () => {
+                if (paymentMethod.value === "cashless") {
+                    receiptGroup.style.display = "block";
+                    receiptUpload.required = true;
+                } else {
+                    receiptGroup.style.display = "none";
+                    receiptUpload.required = false;
+                    preview.style.display = "none";
+                }
+            });
+        }
+
+        if (receiptUpload) {
+            receiptUpload.addEventListener("change", () => {
+                const file = receiptUpload.files[0];
+                if (file) {
+                    preview.style.display = "flex";
+                    previewImg.src = URL.createObjectURL(file);
+                }
+            });
+        }
+    });
+</script>
+<style>
+    #servicesModal .booking-modal-content {
+        width: 500px;
+    }
+
+    .booking-type-selector {
+        margin-bottom: 20px;
+    }
+
+    .selection-label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .radio-row {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .radio-option input[type="radio"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+</style>
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>

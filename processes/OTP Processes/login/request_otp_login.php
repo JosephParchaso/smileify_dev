@@ -4,6 +4,11 @@ session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Smile-ify/includes/config.php';
 require_once BASE_PATH . '/includes/db.php';
 
+function isMobileDevice() {
+    return preg_match('/iphone|ipad|android|mobile|blackberry|opera mini|windows phone/i',
+                    $_SERVER['HTTP_USER_AGENT']);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['userName'], $_POST['passWord'])) {
     $username = trim($_POST['userName']);
     $password = trim($_POST['passWord']);
@@ -29,6 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['userName'], $_POST['p
             }
 
             if (password_verify($password, $user['password'])) {
+
+                if (strtolower($user['role']) === 'admin' && isMobileDevice()) {
+                    $_SESSION['login_error'] = "Secretaries cannot log in using mobile devices. Please use a desktop computer.";
+                    header("Location: " . BASE_URL . "/index.php");
+                    exit;
+                }
 
                 if ($user['force_logout'] == 1) {
                     $resetStmt = $conn->prepare("UPDATE users SET force_logout = 0 WHERE user_id = ?");

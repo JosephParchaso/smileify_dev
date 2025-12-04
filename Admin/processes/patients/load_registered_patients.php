@@ -41,7 +41,15 @@ $sql = "
     WHERE u.role = 'patient'
     AND u.status = 'Active'
 
-    GROUP BY u.user_id
+    GROUP BY 
+        u.user_id, 
+        u.first_name, 
+        u.middle_name, 
+        u.last_name, 
+        u.branch_id, 
+        u.status, 
+        b.name
+
     ORDER BY u.user_id ASC
 ";
 
@@ -51,7 +59,9 @@ $result = $stmt->get_result();
 
 $patients = [];
 while ($row = $result->fetch_assoc()) {
-    $recent = $row['recent_transaction'] ?: 'No Transactions Yet';
+    $recent = ($row['recent_transaction'] === "0000-00-00 00:00" || $row['recent_transaction'] === null)
+            ? '-'
+            : $row['recent_transaction'];
 
     $patients[] = [
         $row['user_id'],

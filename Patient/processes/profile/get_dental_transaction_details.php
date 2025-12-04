@@ -16,13 +16,15 @@ if (!isset($_GET['id'])) {
 }
 
 $transactionId = intval($_GET['id']);
-$userId = $_SESSION['user_id'];
+$loggedInUser  = $_SESSION['user_id'];
 
 $sql = "
     SELECT 
+        a.user_id AS appointment_user_id,
+        u.guardian_id,
         b.name AS branch,
         GROUP_CONCAT(DISTINCT CONCAT(s.name, ' × ', dts.quantity) ORDER BY s.name SEPARATOR '\n') AS services,
-        CONCAT('Dr. ', d.last_name, ', ', d.first_name, ' ', IFNULL(d.middle_name, '')) AS dentist,
+        CONCAT('Dr. ', d.first_name, ' ', IF(d.middle_name IS NOT NULL AND d.middle_name != '', CONCAT(LEFT(d.middle_name, 1), '. '), ''), d.last_name) AS dentist,
         d.last_name AS dentist_last_name,
         d.first_name AS dentist_first_name,
         d.middle_name AS dentist_middle_name,
@@ -78,17 +80,24 @@ $sql = "
         ON dv.appointment_transaction_id = a.appointment_transaction_id
     LEFT JOIN users u 
         ON a.user_id = u.user_id
-    WHERE dt.dental_transaction_id = ? 
-        AND a.user_id = ?
+    WHERE dt.dental_transaction_id = ?
     GROUP BY dt.dental_transaction_id
 ";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ii", $transactionId, $userId);
+$stmt->bind_param("i", $transactionId);
 $stmt->execute();
 $result = $stmt->get_result();
 
 if (!$row = $result->fetch_assoc()) {
+    echo json_encode(["error" => "Transaction not found"]);
+    exit();
+}
+
+$ownerId    = (int) $row['appointment_user_id'];
+$guardianId = isset($row['guardian_id']) ? (int) $row['guardian_id'] : 0;
+
+if ($ownerId !== $loggedInUser && $guardianId !== $loggedInUser) {
     echo json_encode(["error" => "Transaction not found"]);
     exit();
 }
@@ -135,7 +144,7 @@ $row['prescriptions'] = $prescriptions;
 if (!empty($row['xray_file'])) {
     $row['xray_results'] = [
         [
-            "file_path" => $row['xray_file'],
+            "file_path"    => $row['xray_file'],
             "service_name" => null,
             "date_created" => $row["date_created"]
         ]

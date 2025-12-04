@@ -15,6 +15,8 @@ require_once BASE_PATH . '/Mail/phpmailer/PHPMailerAutoload.php';
 function sendMail($to, $subject, $body, $fromName = 'Smile-ify Notifications')
 {
     $mail = new PHPMailer;
+    $mail->CharSet  = 'UTF-8';
+    $mail->Encoding = 'base64';
     $mail->isSMTP();
     $mail->Host       = SMTP_HOST;
     $mail->Port       = SMTP_PORT;

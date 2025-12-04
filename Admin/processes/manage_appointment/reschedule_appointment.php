@@ -78,11 +78,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $stmt->close();
 
-        $msg = "Your appointment has been rescheduled to $appointment_date at $appointment_time.";
+        $formattedDate = date("F j, Y", strtotime($appointment_date));
+        $formattedTime = date("g:i A", strtotime($appointment_time));
+
+        $msg = "Your appointment has been rescheduled to $formattedDate at $formattedTime.";
         $notif = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
         $notif->bind_param("is", $user_id, $msg);
         $notif->execute();
         $notif->close();
+
+        $guardianQuery = $conn->prepare("SELECT guardian_id FROM users WHERE user_id = ?");
+        $guardianQuery->bind_param("i", $user_id);
+        $guardianQuery->execute();
+        $guardianRes = $guardianQuery->get_result();
+        $guardianRow = $guardianRes->fetch_assoc();
+        $guardianQuery->close();
+
+        if (!empty($guardianRow['guardian_id'])) {
+            $guardianId = intval($guardianRow['guardian_id']);
+            $guardianMessage = 
+                "The appointment for your dependent has been rescheduled to $formattedDate at $formattedTime.";
+
+            $guardianNotif = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+            $guardianNotif->bind_param("is", $guardianId, $guardianMessage);
+            $guardianNotif->execute();
+            $guardianNotif->close();
+        }
 
         $conn->commit();
 

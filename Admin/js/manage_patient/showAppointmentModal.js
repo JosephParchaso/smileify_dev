@@ -45,12 +45,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function renderAppointmentForm() {
         bookingBody.innerHTML = `
+        
             <h2>Book Appointment</h2>
             <form id="manageAppointmentForm" 
                 action="${BASE_URL}/Admin/processes/manage_patient/insert_appointment.php" 
                 method="POST" autocomplete="off">
 
                 <input type="hidden" name="user_id" value="${userId}">
+
+                <div class="booking-type-selector">
+                    <label class="selection-label">Booking For:</label>
+
+                    <div class="radio-row">
+                        <label class="radio-option">
+                            <input type="radio" name="bookingType" id="bookForSelf" value="self" checked>
+                            Patient
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="bookingType" id="bookForChild" value="child">
+                            Patient Child / Dependent (Minor)
+                        </label>
+                    </div>
+                </div>
+
+                <div id="childInfo" style="display:none; margin-top:20px;">
+                    <h3 class="section-title">Dependent Information</h3>
+
+                    <div class="form-group">
+                        <input type="text" id="childLastName" name="childLastName" class="form-control" placeholder=" ">
+                        <label for="childLastName" class="form-label">Child Last Name <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="childFirstName" name="childFirstName" class="form-control" placeholder=" ">
+                        <label for="childFirstName" class="form-label">Child First Name <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="childGender" name="childGender" class="form-control">
+                            <option value="" disabled selected hidden></option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <label for="childGender" class="form-label">Child Gender <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" id="childDob" name="childDob" class="form-control">
+                        <label for="childDob" class="form-label">Child Date of Birth <span class="required">*</span></label>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <select id="appointmentBranch" name="appointmentBranch" class="form-control" required>
@@ -97,6 +142,68 @@ document.addEventListener("DOMContentLoaded", function () {
             </form>
         `;
 
+        const bookingTypeSelector = bookingBody.querySelector(".booking-type-selector");
+        const childInfo = bookingBody.querySelector("#childInfo");
+        const selfRadio = document.getElementById("bookForSelf");
+        const childRadio = document.getElementById("bookForChild");
+
+        if (window.IS_DEPENDENT_ACCOUNT) {
+            bookingTypeSelector.style.display = "none";
+
+            selfRadio.checked = true;
+
+            selfRadio.disabled = true;
+            childRadio.disabled = true;
+
+            childInfo.style.display = "none";
+
+        } else {
+            bookingTypeSelector.style.display = "block";
+        }
+
+        const childFirst = document.getElementById("childFirstName");
+        const childLast = document.getElementById("childLastName");
+        const childDob = document.getElementById("childDob");
+        const childGender = document.getElementById("childGender");
+
+        if (childDob) {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, "0");
+            const dd = String(today.getDate()).padStart(2, "0");
+            childDob.max = `${yyyy}-${mm}-${dd}`;
+        }
+
+        function resetChildRequirements() {
+            childFirst.required = false;
+            childLast.required = false;
+            childDob.required = false;
+            childGender.required = false;
+        }
+
+        function hideAllBookingForms() {
+            childInfo.style.display = "none";
+
+            resetChildRequirements();
+        }
+
+        selfRadio.addEventListener("change", () => {
+            hideAllBookingForms();
+            loadAvailableTimes();
+        });
+
+        childRadio.addEventListener("change", () => {
+            hideAllBookingForms();
+            childInfo.style.display = "block";
+
+            childFirst.required = true;
+            childLast.required = true;
+            childDob.required = true;
+            childGender.required = true;
+
+            loadAvailableTimes();
+        });
+        
         const dateInput = bookingBody.querySelector("#appointmentDate");
         const errorMsg = bookingBody.querySelector("#dateError");
 

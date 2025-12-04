@@ -1,4 +1,30 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+    window.getSelectedBookingUserId = function () {
+        const selfRadio = document.getElementById("bookForSelf");
+        const childRadio = document.getElementById("bookForChild");
+        const existingRadio = document.getElementById("bookForExisting");
+
+        if (!selfRadio || !childRadio || !existingRadio) {
+            return window.LOGGED_IN_USER_ID;
+        }
+
+        let userId = window.LOGGED_IN_USER_ID;
+
+        if (existingRadio.checked) {
+            const depSelect = document.getElementById("existingDependentSelect");
+            if (depSelect && depSelect.value) {
+                userId = depSelect.value;
+            }
+        }
+
+        if (childRadio.checked) {
+            userId = 0;
+        }
+
+        return userId;
+    };
+
     setTimeout(() => {
         document.querySelectorAll(".flash-msg").forEach((el) => {
             el.style.transition = "opacity 1s ease";
@@ -106,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
         dateSelect.value = "";
     }
 
-    async function loadAvailableTimes() {
+    window.loadAvailableTimes = async function () {
         const branchId = branchSelect.value;
         const date = dateSelect.value;
 
@@ -135,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const form = new FormData();
             form.append('branch_id', branchId);
             form.append('appointment_date', date);
+            form.append('user_id', window.getSelectedBookingUserId());
 
             const res = await fetch(`${BASE_URL}/processes/load_available_times.php`, {
                 method: 'POST',

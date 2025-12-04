@@ -23,7 +23,7 @@ $sql = "
         CONCAT(u.first_name, ' ', u.last_name) AS patient,
         b.name AS branch,
         GROUP_CONCAT(s.name ORDER BY s.name SEPARATOR '\n') AS services,
-        CONCAT(d.last_name, ', ', d.first_name) AS dentist,
+        CONCAT(d.first_name, ' ', d.last_name) AS dentist,
         a.appointment_date,
         a.appointment_time,
         a.notes,

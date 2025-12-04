@@ -344,6 +344,106 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function updateServicesSummary() {
+        const serviceCheckboxes = document.querySelectorAll('#servicesContainer input[name="appointmentServices[]"]');
+        const services = [];
+
+        serviceCheckboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                const serviceId = checkbox.value;
+                const name = checkbox.parentElement.textContent.trim();
+
+                const price = parseFloat(
+                    checkbox.closest(".checkbox-item")
+                    .querySelector(".price").textContent.replace(/[₱,]/g, "")
+                ) || 0;
+
+                const quantityInput = document.querySelector(`input[name="serviceQuantity[${serviceId}]"]`);
+                const quantity = parseInt(quantityInput?.value || 1);
+
+                const extraInput = document.querySelector(`input[name="additional_payment[${serviceId}]"]`);
+                const extra = parseFloat(extraInput?.value || 0);
+
+                services.push({ name, price, quantity, extra });
+            }
+        });
+
+        const promoSelect = document.getElementById("transactionPromo");
+        const selectedPromo = promoSelect ? promoSelect.selectedOptions[0] : null;
+
+        const discountType = selectedPromo?.dataset.discountType || null;
+        const discountValue = parseFloat(selectedPromo?.dataset.discountValue || 0);
+
+        updateCheckoutSummary({
+            services,
+            discountType,
+            discountValue
+        });
+    }
+
+    function updateCheckoutSummary({ services = [], discountType = null, discountValue = 0 }) {
+        const servicesList = document.getElementById("servicesList");
+        const subtotalEl = document.getElementById("subtotalDisplay");
+        // const extraEl = document.getElementById("additionalPaymentDisplay");
+        const discountEl = document.getElementById("discountDisplay");
+        const totalEl = document.getElementById("totalDisplay");
+        const totalPaymentInput = document.getElementById("total_payment");
+
+        servicesList.innerHTML = "";
+
+        let subtotal = 0;
+        let extrasSum = 0;
+
+        services.forEach(service => {
+            const lineTotal = service.price * service.quantity;
+
+            subtotal += lineTotal;
+            extrasSum += service.extra;
+
+            const item = document.createElement("div");
+            item.classList.add("summary-item");
+
+            item.innerHTML = `
+                <span>${service.name} × ${service.quantity}</span>
+                <span class="service-price-group">
+                    <span class="service-price">
+                        ₱${lineTotal % 1 === 0 ? lineTotal : lineTotal.toFixed(2)}
+                    </span>
+                    ${service.extra > 0 ? `
+                        <span class="service-extra">
+                            +₱${service.extra % 1 === 0 ? service.extra : service.extra.toFixed(2)}
+                        </span>
+                    ` : ""}
+                </span>
+            `;
+
+            servicesList.appendChild(item);
+        });
+
+        let discount = 0;
+
+        if (discountType === "fixed") {
+            discount = discountValue;
+        }
+
+        if (discountType === "percent" || discountType === "percentage") {
+            const discountBase = subtotal + extrasSum;
+            discount = discountBase * (discountValue / 100);
+        }
+
+        const total = Math.max(subtotal - discount + extrasSum, 0);
+
+        function formatMoney(val) {
+            return val % 1 === 0 ? val : val.toFixed(2);
+        }
+
+        subtotalEl.textContent = `₱${formatMoney(subtotal + extrasSum)}`;
+        // extraEl.textContent = `₱${formatMoney(extrasSum)}`;
+        discountEl.textContent = `₱-${discount.toFixed(2)}`;
+        totalEl.textContent = `₱${total.toFixed(2)}`;
+        totalPaymentInput.value = total.toFixed(2);
+    }
+
     function loadServices(branchId, container, transactionId = null, appointmentServiceIds = [], appointmentId = null, callback = null, editServiceIds = []) {
         container.innerHTML = '<p class="loading-text">Loading services</p>';
 
@@ -457,105 +557,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (callback) callback();
             }
         });
-    }
-
-    function updateServicesSummary() {
-        const serviceCheckboxes = document.querySelectorAll('#servicesContainer input[name="appointmentServices[]"]');
-        const services = [];
-
-        serviceCheckboxes.forEach(checkbox => {
-            if (checkbox.checked) {
-                const serviceId = checkbox.value;
-                const name = checkbox.parentElement.textContent.trim();
-
-                const price = parseFloat(
-                    checkbox.closest(".checkbox-item")
-                    .querySelector(".price").textContent.replace(/[₱,]/g, "")
-                ) || 0;
-
-                const quantityInput = document.querySelector(`input[name="serviceQuantity[${serviceId}]"]`);
-                const quantity = parseInt(quantityInput?.value || 1);
-
-                const extraInput = document.querySelector(`input[name="additional_payment[${serviceId}]"]`);
-                const extra = parseFloat(extraInput?.value || 0);
-
-                services.push({ name, price, quantity, extra });
-            }
-        });
-
-        const promoSelect = document.getElementById("transactionPromo");
-        const selectedPromo = promoSelect ? promoSelect.selectedOptions[0] : null;
-
-        const discountType = selectedPromo?.dataset.discountType || null;
-        const discountValue = parseFloat(selectedPromo?.dataset.discountValue || 0);
-
-        updateCheckoutSummary({
-            services,
-            discountType,
-            discountValue
-        });
-    }
-
-    function updateCheckoutSummary({ services = [], discountType = null, discountValue = 0 }) {
-        const servicesList = document.getElementById("servicesList");
-        const subtotalEl = document.getElementById("subtotalDisplay");
-        // const extraEl = document.getElementById("additionalPaymentDisplay");
-        const discountEl = document.getElementById("discountDisplay");
-        const totalEl = document.getElementById("totalDisplay");
-        const totalPaymentInput = document.getElementById("total_payment");
-
-        servicesList.innerHTML = "";
-
-        let subtotal = 0;
-        let extrasSum = 0;
-
-        services.forEach(service => {
-            const lineTotal = service.price * service.quantity;
-
-            subtotal += lineTotal;
-            extrasSum += service.extra;
-
-            const item = document.createElement("div");
-            item.classList.add("summary-item");
-
-            item.innerHTML = `
-                <span>${service.name} × ${service.quantity}</span>
-                <span class="service-price-group">
-                    <span class="service-price">
-                        ₱${lineTotal % 1 === 0 ? lineTotal : lineTotal.toFixed(2)}
-                    </span>
-                    ${service.extra > 0 ? `
-                        <span class="service-extra">
-                            +₱${service.extra % 1 === 0 ? service.extra : service.extra.toFixed(2)}
-                        </span>
-                    ` : ""}
-                </span>
-            `;
-
-            servicesList.appendChild(item);
-        });
-
-        let discount = 0;
-
-        if (discountType === "fixed") {
-            discount = discountValue;
-        }
-
-        if (discountType === "percent" || discountType === "percentage") {
-            discount = subtotal * (discountValue / 100);
-        }
-
-        const total = Math.max(subtotal - discount + extrasSum, 0);
-
-        function formatMoney(val) {
-            return val % 1 === 0 ? val : val.toFixed(2);
-        }
-
-        subtotalEl.textContent = `₱${formatMoney(subtotal + extrasSum)}`;
-        // extraEl.textContent = `₱${formatMoney(extrasSum)}`;
-        discountEl.textContent = `₱-${discount.toFixed(2)}`;
-        totalEl.textContent = `₱${total.toFixed(2)}`; 
-        totalPaymentInput.value = total.toFixed(2);
     }
 
     function loadDentists(branchId, serviceIds = [], dentistSelect, selectedId = null) {

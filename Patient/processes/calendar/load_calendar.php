@@ -12,51 +12,80 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'patient') {
 function stringToColorCode($str) {
     $code = dechex(crc32($str));
     $code = str_pad($code, 6, '0', STR_PAD_LEFT);
-    return '#' . substr($code, 0, 6);
+    return "#" . substr($code, 0, 6);
 }
 
-$userID = $_SESSION['user_id'];
+$guardian_id = $_SESSION['user_id'];
 
-$sql = "SELECT 
-            a.appointment_transaction_id,
-            b.name AS branch,
-            GROUP_CONCAT(s.name SEPARATOR '\n') AS services,
-            CONCAT(d.last_name, ', ', d.first_name) AS dentist,
-            a.appointment_date,
-            a.appointment_time,
-            a.notes,
-            a.date_created,
-            a.status
-        FROM appointment_transaction a
-        LEFT JOIN branch b ON a.branch_id = b.branch_id
-        LEFT JOIN appointment_services aps ON a.appointment_transaction_id = aps.appointment_transaction_id
-        LEFT JOIN service s ON aps.service_id = s.service_id
-        LEFT JOIN dentist d ON a.dentist_id = d.dentist_id
-        WHERE a.user_id = ?
-        GROUP BY a.appointment_transaction_id
-        ORDER BY a.appointment_date, a.appointment_time";
+$ids = [$guardian_id];
+$dependentNames = [];
+
+$dep_stmt = $conn->prepare("SELECT user_id, first_name, last_name FROM users WHERE guardian_id = ?");
+$dep_stmt->bind_param("i", $guardian_id);
+$dep_stmt->execute();
+$dep_result = $dep_stmt->get_result();
+
+while ($dep = $dep_result->fetch_assoc()) {
+    $ids[] = $dep['user_id'];
+    $dependentNames[$dep['user_id']] = $dep['first_name'] . " " . $dep['last_name'];
+}
+
+$guardianName_query = $conn->prepare("SELECT first_name, last_name FROM users WHERE user_id = ?");
+$guardianName_query->bind_param("i", $guardian_id);
+$guardianName_query->execute();
+$guardianData = $guardianName_query->get_result()->fetch_assoc();
+$dependentNames[$guardian_id] = $guardianData['first_name'] . " " . $guardianData['last_name'];
+
+$placeholders = implode(",", array_fill(0, count($ids), "?"));
+$types = str_repeat("i", count($ids));
+
+$sql = "
+    SELECT 
+        a.appointment_transaction_id,
+        a.user_id,
+        b.name AS branch,
+        GROUP_CONCAT(s.name SEPARATOR '\n') AS services,
+        CONCAT(d.first_name, ' ', d.last_name) AS dentist,
+        a.appointment_date,
+        a.appointment_time,
+        a.notes,
+        a.date_created,
+        a.status
+    FROM appointment_transaction a
+    LEFT JOIN branch b ON a.branch_id = b.branch_id
+    LEFT JOIN appointment_services aps ON a.appointment_transaction_id = aps.appointment_transaction_id
+    LEFT JOIN service s ON aps.service_id = s.service_id
+    LEFT JOIN dentist d ON a.dentist_id = d.dentist_id
+    WHERE a.user_id IN ($placeholders)
+    GROUP BY a.appointment_transaction_id
+    ORDER BY a.appointment_date, a.appointment_time
+";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $userID);
+$stmt->bind_param($types, ...$ids);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $events = [];
+
 while ($row = $result->fetch_assoc()) {
+
     $statusColor = '#fe9705';
-    if (strcasecmp($row['status'], 'Completed') === 0) $statusColor = '#3ac430';
-    elseif (strcasecmp($row['status'], 'Cancelled') === 0) $statusColor = '#d11313';
+    if ($row['status'] === 'Completed') $statusColor = '#3ac430';
+    elseif ($row['status'] === 'Cancelled') $statusColor = '#d11313';
 
     $branchColor = stringToColorCode($row['branch']);
     $serviceList = $row['services'] ?? '-';
+    $patientName = $dependentNames[$row['user_id']] ?? "Unknown";
 
     $events[] = [
         'id' => $row['appointment_transaction_id'],
-        'title' => $serviceList,
+        'title' => $patientName . ": " . $serviceList,
         'start' => $row['appointment_date'] . 'T' . $row['appointment_time'],
         'branch' => $row['branch'],
         'services' => $serviceList,
         'dentist' => $row['dentist'],
+        'patient' => $patientName,
         'notes' => $row['notes'],
         'status' => $row['status'],
         'date_created' => $row['date_created'],
@@ -65,7 +94,7 @@ while ($row = $result->fetch_assoc()) {
     ];
 }
 
-header('Content-Type: application/json');
+header("Content-Type: application/json");
 echo json_encode($events);
 $conn->close();
 ?>

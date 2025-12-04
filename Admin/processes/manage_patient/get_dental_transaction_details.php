@@ -55,7 +55,7 @@ $sql = "
         d.last_name AS dentist_last_name,
         d.first_name AS dentist_first_name,
         d.middle_name AS dentist_middle_name,
-        CONCAT('Dr. ', d.last_name, ', ', d.first_name, ' ', IFNULL(d.middle_name, '')) AS dentist_name,
+        CONCAT('Dr. ', d.first_name, ' ', IF(d.middle_name IS NOT NULL AND d.middle_name != '', CONCAT(LEFT(d.middle_name, 1), '. '), ''), d.last_name) AS dentist_name,
         d.license_number,
         d.license_number_iv,
         d.license_number_tag,

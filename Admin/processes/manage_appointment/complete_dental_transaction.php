@@ -243,12 +243,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $formattedDate = date("F j, Y", strtotime($row['appointment_date']));
         $formattedTime = date("g:i A", strtotime($row['appointment_time']));
+
         $message = "Your appointment ($formattedDate at $formattedTime) has been marked as completed. Thank you for visiting!";
         $patientId = $row['user_id'];
+
         $notif_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
         $notif_stmt->bind_param("is", $patientId, $message);
         $notif_stmt->execute();
         $notif_stmt->close();
+
+        $guardianQuery = $conn->prepare("SELECT guardian_id FROM users WHERE user_id = ?");
+        $guardianQuery->bind_param("i", $patientId);
+        $guardianQuery->execute();
+        $guardianRes = $guardianQuery->get_result();
+        $guardianRow = $guardianRes->fetch_assoc();
+        $guardianQuery->close();
+
+        if (!empty($guardianRow['guardian_id'])) {
+            $guardianId = $guardianRow['guardian_id'];
+            $guardianMessage = 
+                "The appointment for your dependent ($formattedDate at $formattedTime) has been marked as completed.";
+
+            $guardian_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+            $guardian_stmt->bind_param("is", $guardianId, $guardianMessage);
+            $guardian_stmt->execute();
+            $guardian_stmt->close();
+        }
 
         $conn->commit();
         $_SESSION['updateSuccess'] = "Appointment completed successfully. Supplies updated.";

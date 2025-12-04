@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 container.innerHTML = appts.map(a => `
                     <div class="appointment">
-                        <strong>${a.date}</strong> at ${a.time}<br>
-                        ${a.service ? `${a.service}` : ""}
+                        <strong>${a.date}</strong> at ${a.time} for ${a.for}
                         with ${a.dentist} in ${a.branch}
                     </div>
                 `).join("");

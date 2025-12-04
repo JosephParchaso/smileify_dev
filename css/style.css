@@ -2070,7 +2070,6 @@ nav {
     unicode-bidi: isolate;
 }
 
-
 .staff-performance {
     background: #fff;
     padding-top: 0.4rem;
@@ -2125,11 +2124,12 @@ nav {
     height: 400px;
 }
 
+/* 
 @media (max-width: 1000px) {
     .staff-performance-grid {
         grid-template-columns: 1fr;
     }
-}
+} */
 
 /* ===================== INSIGHTS GRID ===================== */
 .insights-grid {
@@ -2224,4 +2224,94 @@ nav {
 .chart-wrapper-income-trend {
     width: 100% !important;
     height: 50% !important;
+}
+
+/* ============================== MOB RES ==============================*/
+@media (max-width: 768px){
+    .main-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .motto-container {
+        margin-bottom: 20px;
+    }
+
+    .login-container {
+        margin-left: 0;
+        max-width: 100%;
+    }
+
+    .tagline-container {
+        flex-direction: column;
+        padding: 10px;
+        align-items: center;
+    }
+
+    .column1, .column2, .column3, .column4 {
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    .service-container .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .image-column {
+        text-align: center;
+    }
+
+    .booking-modal-content, .forgot-password-modal-content, .promo-modal-content, .educational-modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        margin-bottom: 10px;
+    }
+
+    .promo-slider {
+        width: 100%;
+    }
+
+    .motto{
+        font-size: 2rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        padding: 0 10px;
+        gap: 0;
+    }
+
+    .footer-column {
+        flex: none;
+        width: 100%;
+        margin: 15px 0;
+        text-align: left;
+    }
+
+    .footer-logo {
+        max-width: 175px; 
+    }
+
+    .footer-about {
+        font-size: 13px;
+    }
+
+    .footer-column h3 {
+        font-size: 16px;
+    }
+
+    .footerDes {
+        font-size: 13px;
+    }
 }

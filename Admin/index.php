@@ -53,6 +53,23 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
             <div class="booking-modal-content">
                 
                 <form action="<?= BASE_URL ?>/Admin/processes/index/insert_appointment.php" method="POST" autocomplete="off">
+                
+                    <div class="booking-type-selector">
+                        <label class="selection-label">Booking For:</label>
+
+                        <div class="radio-row">
+                            <label class="radio-option">
+                                <input type="radio" name="bookingType" id="bookForSelf" value="self" checked>
+                                Adult
+                            </label>
+
+                            <label class="radio-option">
+                                <input type="radio" name="bookingType" id="bookForChild" value="child">
+                                Child / Dependent (Minor)
+                            </label>
+                        </div>
+                    </div>
+                
                     <div class="form-group">
                         <input type="text" id="lastName" name="lastName" class="form-control" placeholder=" " required />
                         <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
@@ -97,6 +114,36 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
                         <label for="contactNumber" class="form-label">Mobile Number <span class="required">*</span></label>
                         <span class="phone-prefix">+63</span>
                     </div>
+
+                    <div id="childInfo" style="display:none; margin-top:20px;">
+                        <h3 class="section-title">Dependent Information</h3>
+
+                        <div class="form-group">
+                            <input type="text" id="childLastName" name="childLastName" class="form-control" placeholder=" ">
+                            <label for="childLastName" class="form-label">Child Last Name <span class="required">*</span></label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" id="childFirstName" name="childFirstName" class="form-control" placeholder=" ">
+                            <label for="childFirstName" class="form-label">Child First Name <span class="required">*</span></label>
+                        </div>
+
+                        <div class="form-group">
+                            <select id="childGender" name="childGender" class="form-control">
+                                <option value="" disabled selected hidden></option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <label for="childGender" class="form-label">Child Gender <span class="required">*</span></label>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="date" id="childDob" name="childDob" class="form-control">
+                            <label for="childDob" class="form-label">Child Date of Birth <span class="required">*</span></label>
+                        </div>
+                    </div>
+
+                    <h3 class="section-title">Appointment Information</h3>
 
                     <div class="form-group">
                         <select id="appointmentBranch" name="appointmentBranch" class="form-control" required>
@@ -365,6 +412,58 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
             setTimeout(() => { btn.disabled = true; }, 50);
         });
     });
+
+    document.getElementById("bookForSelf").addEventListener("change", () => {
+        document.getElementById("childInfo").style.display = "none";
+
+        document.getElementById("childFirstName").required = false;
+        document.getElementById("childLastName").required = false;
+        document.getElementById("childDob").required = false;
+        document.getElementById("childGender").required = false;
+    });
+
+    document.getElementById("bookForChild").addEventListener("change", () => {
+        document.getElementById("childInfo").style.display = "block";
+
+        document.getElementById("childFirstName").required = true;
+        document.getElementById("childLastName").required = true;
+        document.getElementById("childDob").required = true;
+        document.getElementById("childGender").required = true;
+    });
 </script>
+<style>
+    #servicesModal .booking-modal-content {
+        width: 500px;
+    }
+
+    .booking-type-selector {
+        margin-bottom: 20px;
+    }
+
+    .selection-label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .radio-row {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .radio-option input[type="radio"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+</style>
 
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>

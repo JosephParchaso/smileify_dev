@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    if (window.IS_DEPENDENT_PAGE) return;
     $('#appointmentTable').DataTable({
         "ajax": `${BASE_URL}/Patient/processes/profile/load_appointments.php`,
         "pageLength": 20,

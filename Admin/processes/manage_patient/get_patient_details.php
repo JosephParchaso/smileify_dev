@@ -23,6 +23,7 @@ if (!$userId) {
 $sql = "
     SELECT 
         user_id, 
+        guardian_id,
         first_name, 
         middle_name, 
         last_name, 
@@ -85,6 +86,64 @@ if ($row = $result->fetch_assoc()) {
         );
     }
 
+    $isDependent = !empty($row['guardian_id']);
+
+    $guardianInfo = null;
+    if ($isDependent) {
+        $g = $conn->prepare("
+            SELECT 
+                first_name,
+                middle_name,
+                last_name,
+                gender,
+                date_of_birth,
+                date_of_birth_iv,
+                date_of_birth_tag,
+                email,
+                contact_number,
+                contact_number_iv,
+                contact_number_tag,
+                address,
+                address_iv,
+                address_tag
+            FROM users 
+            WHERE user_id = ?
+        ");
+        $g->bind_param("i", $row['guardian_id']);
+        $g->execute();
+        $gRes = $g->get_result();
+
+        if ($gRes && $gRow = $gRes->fetch_assoc()) {
+
+            $gDOB = decryptField(
+                $gRow['date_of_birth'],
+                $gRow['date_of_birth_iv'],
+                $gRow['date_of_birth_tag']
+            );
+
+            $gContact = decryptField(
+                $gRow['contact_number'],
+                $gRow['contact_number_iv'],
+                $gRow['contact_number_tag']
+            );
+
+            $gAddress = decryptField(
+                $gRow['address'],
+                $gRow['address_iv'],
+                $gRow['address_tag']
+            );
+
+            $guardianInfo = [
+                "full_name" => trim(($gRow['first_name'] ?? '') . ' ' . ($gRow['middle_name'] ?? '') . ' ' . ($gRow['last_name'] ?? '')),
+                "gender" => ucfirst($gRow['gender']),
+                "dob" => $gDOB ? date("F j, Y", strtotime($gDOB)) : "-",
+                "email" => $gRow['email'] ?? "-",
+                "contact_number" => $gContact ?? "-",
+                "address" => $gAddress ?? "-"
+            ];
+        }
+    }
+
     $data = [
         'full_name'      => trim(($row['first_name'] ?? '') . ' ' . ($row['middle_name'] ?? '') . ' ' . ($row['last_name'] ?? '')),
         'gender'         => ucfirst($row['gender'] ?? '-'),
@@ -94,11 +153,14 @@ if ($row = $result->fetch_assoc()) {
         'address'        => $decryptedAddress ?? '-',
         'joined'         => !empty($row['date_created']) ? date("F j, Y", strtotime($row['date_created'])) : '-',
         'date_updated'   => !empty($row['date_updated']) ? date("F j, Y", strtotime($row['date_updated'])) : '-',
-        "status"         => ucfirst($row['status'])
+        "status"         => ucfirst($row['status']),
+        "is_dependent"   => $isDependent,
+        "guardian_info"  => $guardianInfo
     ];
 
     echo json_encode($data);
-} else {
+} 
+else {
     http_response_code(404);
     echo json_encode(['error' => 'Patient not found']);
 }

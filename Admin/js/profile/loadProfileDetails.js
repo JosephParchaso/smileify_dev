@@ -14,11 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 profileCard.innerHTML = `<p>${data.error}</p>`;
                 return;
             }
-
+            const age = calculateAge(data.date_of_birth);
             profileCard.innerHTML = `
                 <h3>${data.full_name}</h3>
                 <p><strong>Gender:</strong><span>${data.gender}</p></span> 
                 <p><strong>Date of Birth:</strong><span>${data.date_of_birth}</p></span> 
+                <p><strong>Age:</strong><span>${age}</span></p>
                 <p><strong>Email:</strong><span>${data.email}</p></span> 
                 <p><strong>Contact Number:</strong><span>${data.contact_number}</p></span> 
                 <p><strong>Address:</strong><span>${data.address}</p></span> 
@@ -67,4 +68,18 @@ function closeChangePasswordModal() {
 }
 function closeChangeEmailModal() {
     document.getElementById("changeEmailModal").style.display = "none";
+}
+function calculateAge(dobString) {
+    if (!dobString) return "-";
+    const dob = new Date(dobString);
+    if (isNaN(dob)) return "-";
+
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+    return age;
 }

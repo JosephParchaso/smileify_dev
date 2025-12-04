@@ -197,7 +197,242 @@
         align-items: center;
     }
     .profile-card {
-        width: 90%;
+        width: 100%;
         max-width: 400px;
+    }
+
+    .dashboard {
+        padding: 10px;
+    }
+
+    .cards {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        flex: 1 1 100%;
+        min-width: unset;
+        padding: 15px;
+    }
+
+    .card h2 {
+        font-size: 1em;
+    }
+
+    .announcement {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .quick-links {
+        gap: 8px;
+    }
+
+    .quick-links a {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .nav-container{
+        flex-direction: row;
+    }
+
+    .tabs-container {
+        padding: 10px;
+    }
+
+    .tabs-nomargin {
+        display: none;
+    }
+
+    .mobile-branch-select, .mobile-mode-select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .sub-tabs {
+        display: none;
+    }
+
+    .branch-growth-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .branch-growth-table {
+        font-size: 14px;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+
+    .branch-growth-table th, .branch-growth-table td {
+        padding: 6px;
+    }
+
+    .branch-growth-chart canvas {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .branch-growth-chart, .branch-growth-chart-decline{
+        justify-content: center;
+    }
+
+    .calendar-container {
+        padding: 10px;
+    }
+
+    #calendarLegend {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    #calendar {
+        height: 400px;
+        max-width: 100%;
+    }
+
+    .manage-calendar-modal-content {
+        width: 95%;
+        padding: 15px;
+        max-height: 90vh;
+    }
+
+    .manage-calendar-modal-content-body {
+        font-size: 14px;
+    }
+
+    .fc .fc-toolbar{
+        flex-direction: column;
+    }
+
+    .tabs-container {
+        padding: 5px;
+    }
+
+    .tab {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+
+    .tab-content {
+        padding: 5px;
+    }
+
+    .transaction-table {
+        font-size: 12px;
+    }
+
+    .transaction-table th, .transaction-table td {
+        padding: 5px;
+        min-width: 100px;
+    }
+
+    .manage-employee-modal-content {
+        width: 98%;
+        padding: 10px;
+    }
+
+    #servicesTable_wrapper, #adminsTable_wrapper, #dentistsTable_wrapper{
+        overflow: auto;
+    }
+
+    .schedule-row select{
+        width: 75%;
+    }
+
+    .schedule-row{
+        display: flex;
+        gap: 5px;
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .manage-service-modal-content {
+        width: 95%;
+        padding: 15px;
+        max-height: 90vh;
+    }
+
+    .promos-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #promosTable {
+        min-width: 600px;
+        font-size: 14px;
+    }
+
+    #managePromoModal .manage-promo-modal-content {
+        width: 95%;
+        max-width: none;
+        margin: 10% auto;
+    }
+
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-section {
+        gap: 15px;
+    }
+
+    .profile-card {
+        padding: 15px;
+    }
+
+    .tabs-branch {
+        flex-direction: column;
+    }
+
+    .tab {
+        padding: 8px 15px;
+    }
+
+    .branches-table {
+        margin-top: 15px;
+        overflow-x: auto;
+    }
+
+    .transaction-table th, .transaction-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .edit-profile-modal-content, .change-password-modal-content, .manage-branch-modal-content {
+        width: 95%;
+        padding: 15px;
+        max-height: 90vh;
+    }
+
+    .form-group.phone-group {
+        position: relative;
+    }
+
+    .phone-prefix {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .form-control {
+        padding-left: 50px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .form-button {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

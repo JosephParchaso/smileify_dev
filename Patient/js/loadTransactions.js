@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    if (window.IS_DEPENDENT_PAGE) return;
     $('#transactionTable').DataTable({
         "ajax": `${BASE_URL}/Patient/processes/profile/load_dental_transactions.php`,
         "pageLength": 20,

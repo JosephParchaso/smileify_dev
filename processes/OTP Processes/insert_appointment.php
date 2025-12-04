@@ -29,13 +29,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
     }
 
     if (isset($_SESSION['verified_data'])) {
-        $lastName = $_SESSION['verified_data']['lastName'];
-        $firstName = $_SESSION['verified_data']['firstName'];
-        $middleName = $_SESSION['verified_data']['middleName'];
-        $email = $_SESSION['verified_data']['email'];
-        $gender = $_SESSION['verified_data']['gender'];
-        $dateofBirth = $_SESSION['verified_data']['dateofBirth'];
-        $contactNumber = $_SESSION['verified_data']['contactNumber'];
+
+        $bookingType = $_SESSION['verified_data']['bookingType'];
+
+        $lastName       = $_SESSION['verified_data']['lastName'];
+        $firstName      = $_SESSION['verified_data']['firstName'];
+        $middleName     = $_SESSION['verified_data']['middleName'];
+        $email          = $_SESSION['verified_data']['email'];
+        $gender         = $_SESSION['verified_data']['gender'];
+        $dateofBirth    = $_SESSION['verified_data']['dateofBirth'];
+        $contactNumber  = $_SESSION['verified_data']['contactNumber'];
+
+        $childFirstName = $_SESSION['verified_data']['childFirstName'] ?? null;
+        $childLastName  = $_SESSION['verified_data']['childLastName'] ?? null;
+        $childGender    = $_SESSION['verified_data']['childGender'] ?? null;
+        $childDob       = $_SESSION['verified_data']['childDob'] ?? null;
 
         $appointmentBranch = $_SESSION['verified_data']['appointmentBranch'];
         $appointmentServices = $_SESSION['verified_data']['appointmentServices'];
@@ -44,91 +52,178 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
         $appointmentTime = $_SESSION['verified_data']['appointmentTime'];
         $notes = $_SESSION['verified_data']['notes'];
 
-        $username = generateUniqueUsername($lastName, $firstName, $conn);
-        $default_password = generatePassword($lastName);
-        $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
-
         try {
             $conn->begin_transaction();
 
-            [$dob_enc, $dob_iv, $dob_tag] = encryptField($dateofBirth, $ENCRYPTION_KEY);
-            [$contact_enc, $contact_iv, $contact_tag] = encryptField($contactNumber, $ENCRYPTION_KEY);
+            if ($bookingType === "self") {
 
-            $user_sql = "INSERT INTO users 
-                (username, password, last_name, middle_name, first_name, gender,
-                date_of_birth, date_of_birth_iv, date_of_birth_tag,
-                email,
-                contact_number, contact_number_iv, contact_number_tag,
-                role, branch_id)
+                $username = generateUniqueUsername($lastName, $firstName, $conn);
+                $default_password = generatePassword($lastName);
+                $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
+
+                [$dob_enc, $dob_iv, $dob_tag] = encryptField($dateofBirth, $ENCRYPTION_KEY);
+                [$contact_enc, $contact_iv, $contact_tag] = encryptField($contactNumber, $ENCRYPTION_KEY);
+
+                $user_sql = "INSERT INTO users 
+                    (username, password, last_name, middle_name, first_name, gender,
+                    date_of_birth, date_of_birth_iv, date_of_birth_tag,
+                    email,
+                    contact_number, contact_number_iv, contact_number_tag,
+                    role, branch_id, guardian_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'patient', ?, NULL)";
+
+                $stmt = $conn->prepare($user_sql);
+                $stmt->bind_param(
+                    "sssssssssssssi",
+                    $username,
+                    $hashed_password,
+                    $lastName,
+                    $middleName,
+                    $firstName,
+                    $gender,
+                    $dob_enc,
+                    $dob_iv,
+                    $dob_tag,
+                    $email,
+                    $contact_enc,
+                    $contact_iv,
+                    $contact_tag,
+                    $appointmentBranch
+                );
+                $stmt->execute();
+                $user_id = $stmt->insert_id;
+
+            }
+
+            else if ($bookingType === "child") {
+
+                $username = generateUniqueUsername($lastName, $firstName, $conn);
+                $default_password = generatePassword($lastName);
+                $hashed_password = password_hash($default_password, PASSWORD_DEFAULT);
+
+                [$dob_enc, $dob_iv, $dob_tag] = encryptField($dateofBirth, $ENCRYPTION_KEY);
+                [$contact_enc, $contact_iv, $contact_tag] = encryptField($contactNumber, $ENCRYPTION_KEY);
+
+                $g_sql = "INSERT INTO users 
+                    (username, password, last_name, middle_name, first_name, gender,
+                    date_of_birth, date_of_birth_iv, date_of_birth_tag,
+                    email, contact_number, contact_number_iv, contact_number_tag,
+                    role, branch_id)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'patient', ?)";
 
-            $user_stmt = $conn->prepare($user_sql);
-            $user_stmt->bind_param(
-                "sssssssssssssi",
-                $username,
-                $hashed_password,
-                $lastName,
-                $middleName,
-                $firstName,
-                $gender,
-                $dob_enc,
-                $dob_iv,
-                $dob_tag,
-                $email,
-                $contact_enc,
-                $contact_iv,
-                $contact_tag,
-                $appointmentBranch
-            );
+                $g_stmt = $conn->prepare($g_sql);
+                $g_stmt->bind_param(
+                    "sssssssssssssi",
+                    $username,
+                    $hashed_password,
+                    $lastName,
+                    $middleName,
+                    $firstName,
+                    $gender,
+                    $dob_enc,
+                    $dob_iv,
+                    $dob_tag,
+                    $email,
+                    $contact_enc,
+                    $contact_iv,
+                    $contact_tag,
+                    $appointmentBranch
+                );
+                $g_stmt->execute();
+                $guardian_id = $g_stmt->insert_id;
 
-            $user_stmt->execute();
+                [$cdob_enc, $cdob_iv, $cdob_tag] = encryptField($childDob, $ENCRYPTION_KEY);
 
-            $user_id = $user_stmt->insert_id;
+                $c_sql = "INSERT INTO users
+                                    (username, password, last_name, first_name, gender,
+                                    date_of_birth, date_of_birth_iv, date_of_birth_tag,
+                                    email, contact_number, contact_number_iv, contact_number_tag,
+                                    role, branch_id, guardian_id)
+                                VALUES (NULL, NULL, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, 'patient', ?, ?)";
 
-            if ($appointmentDentist === "none") {
-                $appointmentDentist = null;
+                $c_stmt = $conn->prepare($c_sql);
+                $c_stmt->bind_param(
+                    "ssssssii",
+                    $childLastName,
+                    $childFirstName,
+                    $childGender,
+                    $cdob_enc,
+                    $cdob_iv,
+                    $cdob_tag,
+                    $appointmentBranch,
+                    $guardian_id
+                );
+                $c_stmt->execute();
+                $user_id = $c_stmt->insert_id;
             }
+
+            if ($appointmentDentist === "none") $appointmentDentist = null;
 
             $appointment_sql = "INSERT INTO appointment_transaction 
                 (user_id, branch_id, dentist_id, appointment_date, appointment_time, notes, status)
                 VALUES (?, ?, ?, ?, ?, ?, 'Booked')";
+
             $appointment_stmt = $conn->prepare($appointment_sql);
-            $appointment_stmt->bind_param("iiisss", $user_id, $appointmentBranch, $appointmentDentist, $appointmentDate, $appointmentTime, $notes);
+            $appointment_stmt->bind_param("iiisss", 
+                $user_id, 
+                $appointmentBranch, 
+                $appointmentDentist, 
+                $appointmentDate, 
+                $appointmentTime, 
+                $notes
+            );
             $appointment_stmt->execute();
 
             $appointment_transaction_id = $appointment_stmt->insert_id;
-
-            if (!empty($_SESSION['verified_data']['appointmentServices']) && is_array($_SESSION['verified_data']['appointmentServices'])) {
-                $service_ids = $_SESSION['verified_data']['appointmentServices'];
-                $service_ids = $_SESSION['verified_data']['appointmentServices'];
-
+            if (!empty($appointmentServices)) {
                 $service_sql = "INSERT INTO appointment_services 
-                    (appointment_transaction_id, service_id, quantity) 
+                    (appointment_transaction_id, service_id, quantity)
                     VALUES (?, ?, ?)";
                 $service_stmt = $conn->prepare($service_sql);
 
-                foreach ($service_ids as $service_id) {
+                foreach ($appointmentServices as $service_id) {
                     $qty = 1;
                     $service_stmt->bind_param("iii", $appointment_transaction_id, $service_id, $qty);
                     $service_stmt->execute();
                 }
-            } else {
-                throw new Exception("No services selected for appointment.");
+            }
+            $conn->commit();
+
+            $welcomeMsg = "Welcome to Smile-ify! Your account has been created.";
+            $childMsg   = "Your appointment on $appointmentDate at $appointmentTime was successfully booked.";
+            $guardianMsg = "Your dependent's appointment on $appointmentDate at $appointmentTime was successfully booked.";
+
+            if ($bookingType === "self") {
+
+                $notif1 = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+                $notif1->bind_param("is", $user_id, $welcomeMsg);
+                $notif1->execute();
+                $notif1->close();
+
+                $notif2 = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+                $notif2->bind_param("is", $user_id, $childMsg);
+                $notif2->execute();
+                $notif2->close();
             }
 
-            $welcome_msg = "Welcome to Smile-ify! Your account was successfully created.";
-            $welcome_sql = "INSERT INTO notifications (user_id, message) VALUES (?, ?)";
-            $welcome_stmt = $conn->prepare($welcome_sql);
-            $welcome_stmt->bind_param("is", $user_id, $welcome_msg);
-            $welcome_stmt->execute();
+            if ($bookingType === "child") {
 
-            $msg = "Your appointment on $appointmentDate at $appointmentTime was successfully booked!";
-            $notif_sql = "INSERT INTO notifications (user_id, message) VALUES (?, ?)";
-            $notif_stmt = $conn->prepare($notif_sql);
-            $notif_stmt->bind_param("is", $user_id, $msg);
-            $notif_stmt->execute();
+                $notifChild = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+                $notifChild->bind_param("is", $user_id, $childMsg);
+                $notifChild->execute();
+                $notifChild->close();
 
-            $conn->commit();
+                $notifGuardian = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+                $notifGuardian->bind_param("is", $guardian_id, $guardianMsg);
+                $notifGuardian->execute();
+                $notifGuardian->close();
+
+                $notifWelcome = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+                $notifWelcome->bind_param("is", $guardian_id, $welcomeMsg);
+                $notifWelcome->execute();
+                $notifWelcome->close();
+            }
+
         } catch (Exception $e) {
             $conn->rollback();
             error_log("Transaction failed: " . $e->getMessage());
@@ -146,15 +241,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
             $types = str_repeat('i', count($appointmentServices));
 
             $stmt = $conn->prepare("SELECT service_id, name, price, duration_minutes 
-                        FROM service 
-                        WHERE service_id IN ($placeholders)");
+                FROM service WHERE service_id IN ($placeholders)");
             $stmt->bind_param($types, ...$appointmentServices);
             $stmt->execute();
             $result = $stmt->get_result();
 
             $servicesHtml .= "<ul>";
             while ($row = $result->fetch_assoc()) {
-
                 $linePrice = $row['price'];
                 $lineDuration = $row['duration_minutes'];
 
@@ -198,6 +291,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
         $mail->setFrom('smileify.web@gmail.com', 'Smile-ify Team');
         $mail->addAddress($email);
 
+        $childSection = "";
+        if ($bookingType === "child") {
+            $childSection = "
+                <hr>
+                <p><strong>Dependent Information:</strong></p>
+                <p>
+                    <strong>Name:</strong> {$childFirstName} {$childLastName}<br>
+                    <strong>Gender:</strong> " . ucfirst($childGender) . "<br>
+                    <strong>Date of Birth:</strong> {$childDob}
+                </p>
+            ";
+        }
+
         $mail->isHTML(true);
         $mail->Subject = "Smile-ify Login Credentials and Appointment Details";
         $mail->Body = "
@@ -208,9 +314,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
                 <strong>Username:</strong> $username<br>
                 <strong>Password:</strong> $default_password
             </p>
-                <p style='color:#c0392b; font-weight:bold;'>
-                    NOTE: Kindly change your password after your first login to ensure account security.
-                </p>
+
+            <p style='color:#c0392b; font-weight:bold;'>
+                NOTE: Kindly change your password after your first login to ensure account security.
+            </p>
             <hr>
             <p><strong>Appointment Details:</strong></p>
             <p>
@@ -220,6 +327,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
                 <strong>Estimated End Time:</strong> $formattedEndTime<br>
                 <strong>Location:</strong> $branchAddress
             </p>
+
+            $childSection
+
             <p><strong>Selected Services:</strong></p>
             $servicesHtml
             <p><strong>Total:</strong> ₱{$totalFormatted} ({$totalDuration} mins total)</p>
@@ -229,13 +339,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
         ";
 
         try {
-            if (!$mail->send()) {
-                throw new Exception("Mailer Error: " . $mail->ErrorInfo);
-            }
+            $mail->send();
 
             $_SESSION['login_success'] = "Email has been sent with your login credentials.";
             header("Location: " . BASE_URL . "/index.php");
             exit;
+
         } catch (Exception $e) {
             error_log("PHPMailer Exception: " . $e->getMessage());
             $_SESSION['otp_error'] = "Failed to send email. Please try again.";
@@ -246,6 +355,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
 
     $conn->close();
 }
+
 
 function generateUniqueUsername($lastName, $firstName, $conn) {
     $username_base = $lastName . '_' . strtoupper(substr($firstName, 0, 1));

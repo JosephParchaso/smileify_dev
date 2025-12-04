@@ -21,7 +21,9 @@ require_once BASE_PATH . '/includes/header.php';
 require_once BASE_PATH . '/Patient/includes/navbar.php';
 
 ?>
-
+<script>
+    window.LOGGED_IN_USER_ID = <?= json_encode($_SESSION['user_id']) ?>;
+</script>
 <body>
     <title>Home</title>
 
@@ -176,6 +178,95 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
         <div class="booking-modal-content">
             
             <form action="<?= BASE_URL ?>/Patient/processes/insert_appointment.php" method="POST" autocomplete="off">
+            
+                <div class="booking-type-selector">
+                    <label class="selection-label">Booking For:</label>
+
+                    <div class="radio-row">
+                        <label class="radio-option">
+                            <input type="radio" name="bookingType" id="bookForSelf" value="self" checked>
+                            Myself (Adult)
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="bookingType" id="bookForChild" value="child">
+                            My Child / Dependent (Minor)
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="bookingType" id="bookForExisting" value="existing">
+                            My Registered Dependent
+                        </label>
+                    </div>
+                </div>
+
+                <div id="childInfo" style="display:none; margin-top:20px;">
+                    <h3 class="section-title">Dependent Information</h3>
+
+                    <div class="form-group">
+                        <input type="text" id="childLastName" name="childLastName" class="form-control" placeholder=" ">
+                        <label for="childLastName" class="form-label">Child Last Name <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" id="childFirstName" name="childFirstName" class="form-control" placeholder=" ">
+                        <label for="childFirstName" class="form-label">Child First Name <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="childGender" name="childGender" class="form-control">
+                            <option value="" disabled selected hidden></option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <label for="childGender" class="form-label">Child Gender <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="date" id="childDob" name="childDob" class="form-control">
+                        <label for="childDob" class="form-label">Child Date of Birth <span class="required">*</span></label>
+                    </div>
+                </div>
+
+                <div id="existingDependentInfo" style="display:none; margin-top:20px;">
+                    <h3 class="section-title">Select Dependent</h3>
+
+                    <div class="form-group">
+                        <select id="existingDependentSelect" name="existingDependentId" class="form-control">
+                            <option value="" disabled selected hidden></option>
+                            <?php
+                                $guardianId = $_SESSION['user_id'];
+
+                                $sqlDep = "SELECT user_id, first_name, last_name, gender, date_of_birth
+                                        FROM users
+                                        WHERE guardian_id = ? 
+                                        AND username IS NULL 
+                                        AND password IS NULL
+                                        AND role = 'patient'
+                                        AND status = 'Active'";
+
+                                $stmtDep = $conn->prepare($sqlDep);
+                                $stmtDep->bind_param("i", $guardianId);
+                                $stmtDep->execute();
+                                $depResult = $stmtDep->get_result();
+
+                                if ($depResult->num_rows > 0) {
+                                    while ($d = $depResult->fetch_assoc()) {
+                                        echo "<option value='{$d['user_id']}'>
+                                                {$d['first_name']} {$d['last_name']} ({$d['gender']})
+                                            </option>";
+                                    }
+                                } else {
+                                    echo "<option disabled>No registered dependents</option>";
+                                }
+                            ?>
+                        </select>
+                        <label for="existingDependentSelect" class="form-label">Dependent <span class="required">*</span></label>
+                    </div>
+                </div>
+
+                <h3 class="section-title">Appointment Information</h3>
+
                 <div class="form-group">
                     <select id="appointmentBranch" class="form-control" name="appointmentBranch" required>
                         <option value="" disabled selected hidden></option>
@@ -288,11 +379,98 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
     </div>
 
     <?php require_once BASE_PATH . '/includes/footer.php'; ?>
-
-
-    <style>
-        #servicesModal .booking-modal-content {
-            width: 500px;
-        }
-    </style>
 </body>
+
+<script>
+    const selfRadio = document.getElementById("bookForSelf");
+    const childRadio = document.getElementById("bookForChild");
+    const existingRadio = document.getElementById("bookForExisting");
+
+    const childInfo = document.getElementById("childInfo");
+    const existingInfo = document.getElementById("existingDependentInfo");
+
+    const childFirst = document.getElementById("childFirstName");
+    const childLast = document.getElementById("childLastName");
+    const childDob = document.getElementById("childDob");
+    const childGender = document.getElementById("childGender");
+    const existingSelect = document.getElementById("existingDependentSelect");
+
+    function resetChildRequirements() {
+        childFirst.required = false;
+        childLast.required = false;
+        childDob.required = false;
+        childGender.required = false;
+    }
+
+    function hideAllBookingForms() {
+        childInfo.style.display = "none";
+        existingInfo.style.display = "none";
+
+        resetChildRequirements();
+        existingSelect.required = false;
+    }
+
+    selfRadio.addEventListener("change", () => {
+        hideAllBookingForms();
+        loadAvailableTimes();
+    });
+
+    childRadio.addEventListener("change", () => {
+        hideAllBookingForms();
+        childInfo.style.display = "block";
+
+        childFirst.required = true;
+        childLast.required = true;
+        childDob.required = true;
+        childGender.required = true;
+
+        loadAvailableTimes();
+    });
+
+    existingRadio.addEventListener("change", () => {
+        hideAllBookingForms();
+        existingInfo.style.display = "block";
+        existingSelect.required = true;
+
+        loadAvailableTimes();
+    });
+
+    existingSelect.addEventListener("change", () => {
+        loadAvailableTimes();
+    });
+</script>
+
+<style>
+    #servicesModal .booking-modal-content {
+        width: 500px;
+    }
+
+    .booking-type-selector {
+        margin-bottom: 20px;
+    }
+
+    .selection-label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .radio-row {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .radio-option input[type="radio"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+</style>

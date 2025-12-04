@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 25, 2025 at 02:40 AM
+-- Generation Time: Dec 04, 2025 at 08:30 PM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 8.2.29
 
@@ -142,7 +142,54 @@ INSERT INTO `appointment_services` (`appointment_services_id`, `appointment_tran
 (85, 21, 2, 1, '2025-11-24 10:41:40'),
 (86, 2, 18, 1, '2025-11-24 22:50:13'),
 (89, 59, 3, 1, '2025-11-24 22:53:35'),
-(90, 59, 6, 1, '2025-11-24 22:53:35');
+(90, 59, 6, 1, '2025-11-24 22:53:35'),
+(91, 60, 2, 1, '2025-11-25 06:34:23'),
+(92, 60, 4, 1, '2025-11-25 06:34:23'),
+(93, 61, 2, 1, '2025-11-27 14:03:23'),
+(94, 62, 2, 1, '2025-12-03 02:16:09'),
+(95, 62, 3, 1, '2025-12-03 02:16:09'),
+(96, 63, 2, 1, '2025-12-03 02:49:02'),
+(97, 63, 3, 1, '2025-12-03 02:49:02'),
+(98, 63, 4, 1, '2025-12-03 02:49:02'),
+(99, 63, 5, 1, '2025-12-03 02:49:02'),
+(100, 64, 2, 1, '2025-12-04 01:53:38'),
+(101, 64, 3, 1, '2025-12-04 01:53:38'),
+(102, 64, 5, 1, '2025-12-04 01:53:38'),
+(103, 64, 6, 1, '2025-12-04 01:53:38'),
+(104, 65, 2, 1, '2025-12-04 03:05:07'),
+(105, 65, 3, 1, '2025-12-04 03:05:07'),
+(106, 66, 15, 1, '2025-12-04 03:20:31'),
+(107, 67, 2, 1, '2025-12-04 05:11:53'),
+(108, 67, 4, 1, '2025-12-04 05:11:53'),
+(114, 70, 6, 1, '2025-12-04 06:11:35'),
+(118, 68, 2, 1, '2025-12-04 06:13:00'),
+(119, 68, 3, 1, '2025-12-04 06:13:00'),
+(120, 68, 4, 1, '2025-12-04 06:13:00'),
+(121, 69, 2, 1, '2025-12-04 06:14:42'),
+(122, 69, 3, 1, '2025-12-04 06:14:42'),
+(123, 69, 5, 1, '2025-12-04 06:14:42'),
+(124, 71, 2, 1, '2025-12-04 07:05:30'),
+(125, 71, 5, 1, '2025-12-04 07:05:30'),
+(126, 72, 2, 1, '2025-12-04 07:08:36'),
+(127, 72, 5, 1, '2025-12-04 07:08:37'),
+(128, 73, 2, 1, '2025-12-04 07:12:42'),
+(129, 73, 4, 1, '2025-12-04 07:12:42'),
+(130, 73, 5, 1, '2025-12-04 07:12:42'),
+(131, 74, 2, 1, '2025-12-04 07:20:45'),
+(132, 74, 4, 1, '2025-12-04 07:20:45'),
+(133, 74, 5, 1, '2025-12-04 07:20:45'),
+(134, 74, 8, 1, '2025-12-04 07:20:45'),
+(135, 75, 2, 1, '2025-12-04 08:31:02'),
+(136, 75, 5, 1, '2025-12-04 08:31:02'),
+(137, 76, 3, 1, '2025-12-04 08:33:20'),
+(138, 77, 9, 1, '2025-12-04 08:44:57'),
+(139, 78, 15, 1, '2025-12-04 08:49:45'),
+(140, 79, 4, 1, '2025-12-04 08:55:10'),
+(141, 80, 6, 1, '2025-12-04 08:58:45'),
+(142, 81, 6, 1, '2025-12-04 08:58:46'),
+(143, 82, 1, 1, '2025-12-04 09:10:50'),
+(144, 83, 21, 1, '2025-12-04 19:02:49'),
+(145, 84, 4, 1, '2025-12-04 19:05:11');
 
 -- --------------------------------------------------------
 
@@ -170,8 +217,8 @@ CREATE TABLE `appointment_transaction` (
 
 INSERT INTO `appointment_transaction` (`appointment_transaction_id`, `user_id`, `branch_id`, `dentist_id`, `appointment_date`, `appointment_time`, `notes`, `date_created`, `date_updated`, `status`, `reminder_sent`) VALUES
 (1, 5, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-19 11:16:06', '2025-11-24 23:19:45', 'Cancelled', 1),
-(2, 6, 1, 7, '2025-11-25', '09:00:00', '', '2025-11-19 11:16:08', '2025-11-24 22:50:13', 'Booked', 1),
-(3, 7, 1, 1, '2025-11-26', '10:00:00', '', '2025-11-19 11:18:41', NULL, 'Booked', 0),
+(2, 6, 1, 7, '2025-11-25', '09:00:00', '', '2025-11-19 11:16:08', '2025-12-04 03:06:37', 'Cancelled', 1),
+(3, 7, 1, 1, '2025-11-26', '10:00:00', '', '2025-11-19 11:18:41', '2025-12-04 03:07:06', 'Cancelled', 1),
 (4, 12, 1, 2, '2025-11-24', '10:00:00', '', '2025-11-20 14:35:52', '2025-11-22 13:47:17', 'Completed', 0),
 (5, 13, 1, 2, '2025-11-24', '14:00:00', '', '2025-11-20 15:10:33', '2025-11-21 04:55:13', 'Cancelled', 0),
 (6, 14, 1, 2, '2025-11-28', '15:00:00', 'qasds', '2025-11-20 16:51:46', '2025-11-21 09:57:48', 'Cancelled', 0),
@@ -182,49 +229,74 @@ INSERT INTO `appointment_transaction` (`appointment_transaction_id`, `user_id`, 
 (11, 13, 4, 3, '2025-11-21', '09:00:00', '', '2025-11-20 18:46:18', NULL, 'Booked', 0),
 (12, 13, 1, 2, '2025-11-21', '13:30:00', '', '2025-11-20 20:58:37', '2025-11-21 05:00:52', 'Completed', 0),
 (13, 13, 1, 2, '2025-11-27', '14:30:00', '', '2025-11-20 21:12:44', '2025-11-21 05:22:51', 'Completed', 0),
-(14, 13, 1, 9, '2025-11-24', '11:30:00', '', '2025-11-20 21:19:41', NULL, 'Booked', 1),
+(14, 13, 1, 9, '2025-11-24', '11:30:00', '', '2025-11-20 21:19:41', '2025-12-04 03:06:12', 'Cancelled', 1),
 (15, 18, 1, 2, '2025-11-24', '09:00:00', '', '2025-11-21 00:25:29', '2025-11-21 10:07:12', 'Completed', 0),
 (16, 20, 3, 10, '2025-11-25', '09:00:00', 'sakit ngipon', '2025-11-21 01:44:39', NULL, 'Booked', 1),
 (17, 21, 1, 2, '2025-11-24', '09:00:00', '', '2025-11-21 02:31:38', '2025-11-21 10:38:13', 'Completed', 0),
-(18, 21, 1, 9, '2025-11-24', '09:30:00', '', '2025-11-21 02:33:19', NULL, 'Booked', 1),
+(18, 21, 1, 9, '2025-11-24', '09:30:00', '', '2025-11-21 02:33:19', '2025-11-25 08:29:55', 'Cancelled', 1),
 (19, 21, 1, 1, '2025-11-24', '10:30:00', 'notes', '2025-11-21 02:34:16', '2025-11-21 10:43:32', 'Completed', 0),
 (20, 24, 1, 2, '2025-11-24', '13:00:00', '', '2025-11-21 17:03:01', '2025-11-22 06:12:29', 'Completed', 0),
 (21, 25, 1, 1, '2025-11-27', '09:00:00', '', '2025-11-21 19:20:44', '2025-11-24 10:41:40', 'Booked', 1),
 (22, 26, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-21 19:20:48', '2025-11-24 23:24:47', 'Cancelled', 1),
 (23, 27, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-21 19:20:51', '2025-11-24 23:18:10', 'Cancelled', 1),
 (24, 28, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-21 19:20:55', '2025-11-24 02:17:57', 'Cancelled', 1),
-(25, 29, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-21 19:20:58', NULL, 'Booked', 1),
+(25, 29, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-21 19:20:58', '2025-11-25 06:41:15', 'Completed', 1),
 (26, 30, 1, 1, '2025-11-24', '09:00:00', '', '2025-11-21 19:21:01', '2025-11-22 11:44:30', 'Cancelled', 0),
 (27, 31, 1, 2, '2025-11-22', '09:00:00', '', '2025-11-21 19:26:07', '2025-11-22 10:42:14', 'Completed', 0),
-(28, 24, 1, 2, '2025-11-24', '13:00:00', '', '2025-11-22 03:48:07', NULL, 'Booked', 1),
+(28, 24, 1, 2, '2025-11-24', '13:00:00', '', '2025-11-22 03:48:07', '2025-12-04 03:06:20', 'Cancelled', 1),
 (29, 36, 5, 11, '2025-11-24', '14:30:00', 'test', '2025-11-22 04:34:40', NULL, 'Booked', 0),
-(30, 36, 1, 5, '2025-11-25', '09:30:00', 'aaaaa', '2025-11-22 04:39:52', NULL, 'Booked', 1),
+(30, 36, 1, 5, '2025-11-25', '09:30:00', 'aaaaa', '2025-11-22 04:39:52', '2025-12-04 03:06:49', 'Cancelled', 1),
 (31, 36, 2, 6, '2026-01-14', '10:30:00', '111', '2025-11-22 04:48:28', NULL, 'Booked', 0),
 (32, 37, 1, 1, '2025-11-27', '11:30:00', '', '2025-11-22 11:27:44', NULL, 'Booked', 0),
-(33, 38, 1, 5, '2025-11-25', '10:30:00', '', '2025-11-22 18:30:25', NULL, 'Booked', 1),
+(33, 38, 1, 5, '2025-11-25', '10:30:00', '', '2025-11-22 18:30:25', '2025-12-04 03:06:57', 'Cancelled', 1),
 (34, 39, 4, 7, '2025-12-17', '09:00:00', '', '2025-11-23 13:21:31', NULL, 'Booked', 0),
 (35, 40, 4, 3, '2025-12-17', '13:00:00', '', '2025-11-23 13:35:42', NULL, 'Booked', 0),
 (36, 41, 4, 7, '2025-11-28', '10:30:00', '', '2025-11-23 17:18:00', NULL, 'Booked', 0),
-(37, 42, 3, 5, '2025-12-04', '13:00:00', '', '2025-11-23 19:22:54', NULL, 'Booked', 0),
+(37, 42, 3, 5, '2025-12-04', '13:00:00', '', '2025-11-23 19:22:54', NULL, 'Booked', 1),
 (38, 43, 5, 11, '2025-11-25', '12:30:00', 'I don\'t like chewing', '2025-11-23 20:14:57', NULL, 'Booked', 1),
 (39, 38, 1, 2, '2025-11-24', '09:00:00', '', '2025-11-23 21:13:09', '2025-11-25 01:18:41', 'Completed', 0),
-(40, 38, 1, 9, '2025-12-01', '09:00:00', '', '2025-11-23 22:13:59', NULL, 'Booked', 0),
-(41, 44, 1, 2, '2025-11-24', '10:00:00', '', '2025-11-23 22:51:02', NULL, 'Booked', 0),
-(42, 45, 1, 1, '2025-11-24', '10:00:00', '', '2025-11-23 23:00:06', NULL, 'Booked', 0),
-(43, 45, 1, 1, '2025-11-24', '11:30:00', '', '2025-11-23 23:23:25', NULL, 'Booked', 0),
+(40, 38, 1, 9, '2025-12-01', '09:00:00', '', '2025-11-23 22:13:59', '2025-12-04 03:07:34', 'Cancelled', 0),
+(41, 44, 1, 2, '2025-11-24', '10:00:00', '', '2025-11-23 22:51:02', '2025-12-04 03:05:39', 'Completed', 0),
+(42, 45, 1, 1, '2025-11-24', '10:00:00', '', '2025-11-23 23:00:06', '2025-11-25 10:32:13', 'Completed', 0),
+(43, 45, 1, 1, '2025-11-24', '11:30:00', '', '2025-11-23 23:23:25', '2025-12-04 03:06:04', 'Cancelled', 0),
 (44, 46, 3, 6, '2025-11-25', '14:00:00', '', '2025-11-24 00:03:31', NULL, 'Booked', 1),
-(45, 47, 1, 9, '2025-11-24', '10:30:00', '', '2025-11-24 00:17:37', NULL, 'Booked', 0),
+(45, 47, 1, 9, '2025-11-24', '10:30:00', '', '2025-11-24 00:17:37', '2025-12-04 03:05:48', 'Cancelled', 0),
 (46, 48, 3, 8, '2025-11-25', '10:30:00', 'Test', '2025-11-24 00:20:27', NULL, 'Booked', 1),
-(47, 47, 2, 6, '2025-11-24', '11:30:00', '', '2025-11-24 00:45:08', NULL, 'Booked', 0),
-(48, 49, 1, 2, '2025-11-24', '11:30:00', '', '2025-11-24 01:41:10', NULL, 'Booked', 0),
-(52, 53, 1, 2, '2025-11-24', '13:30:00', '', '2025-11-24 01:49:31', NULL, 'Booked', 0),
+(47, 47, 2, 6, '2025-11-24', '11:30:00', '', '2025-11-24 00:45:08', '2025-11-25 06:38:07', 'Completed', 0),
+(48, 49, 1, 2, '2025-11-24', '11:30:00', '', '2025-11-24 01:41:10', '2025-12-04 03:05:56', 'Cancelled', 0),
+(52, 53, 1, 2, '2025-11-24', '13:30:00', '', '2025-11-24 01:49:31', '2025-12-04 03:06:28', 'Cancelled', 0),
 (53, 53, 2, 2, '2025-11-25', '09:30:00', '', '2025-11-24 01:53:14', NULL, 'Booked', 0),
 (54, 53, 5, 11, '2025-11-25', '09:00:00', '', '2025-11-24 01:55:28', '2025-11-24 10:34:24', 'Booked', 0),
 (55, 54, 3, 11, '2025-11-28', '10:00:00', '', '2025-11-24 01:58:00', NULL, 'Booked', 0),
 (56, 54, 3, 5, '2025-11-28', '09:00:00', '', '2025-11-24 01:59:23', NULL, 'Booked', 0),
 (57, 54, 5, 11, '2025-11-24', '10:30:00', '', '2025-11-24 02:08:52', NULL, 'Booked', 0),
 (58, 55, 3, 5, '2025-12-11', '16:00:00', '', '2025-11-24 02:30:09', NULL, 'Booked', 0),
-(59, 12, 1, 2, '2025-11-28', '11:30:00', '', '2025-11-24 14:52:55', '2025-11-24 23:25:41', 'Cancelled', 0);
+(59, 12, 1, 2, '2025-11-28', '11:30:00', '', '2025-11-24 14:52:55', '2025-11-24 23:25:41', 'Cancelled', 0),
+(60, 56, 4, 9, '2025-11-29', '14:00:00', '', '2025-11-24 22:34:23', NULL, 'Booked', 0),
+(61, 57, 3, 8, '2025-12-03', '14:00:00', '', '2025-11-27 06:03:23', NULL, 'Booked', 0),
+(62, 58, 1, 2, '2025-12-04', '09:00:00', 'Toothache', '2025-12-02 18:16:09', '2025-12-04 00:50:37', 'Completed', 1),
+(63, 62, 1, 11, '2025-12-04', '09:00:00', '11:30 AM mauss', '2025-12-02 18:49:02', '2025-12-03 22:30:48', 'Completed', 0),
+(64, 58, 1, 2, '2025-12-11', '09:00:00', '', '2025-12-03 17:53:38', '2025-12-04 02:00:50', 'Completed', 0),
+(65, 61, 1, 2, '2025-12-15', '09:00:00', '', '2025-12-03 19:05:07', '2025-12-04 06:07:04', 'Cancelled', 0),
+(66, 63, 1, 2, '2025-12-15', '10:30:00', '', '2025-12-03 19:20:31', '2025-12-04 06:07:36', 'Cancelled', 0),
+(67, 62, 1, 9, '2025-12-15', '09:00:00', '', '2025-12-03 21:11:53', '2025-12-04 05:47:10', 'Completed', 0),
+(68, 61, 3, 6, '2025-12-09', '13:00:00', '', '2025-12-03 22:08:02', '2025-12-04 06:13:00', 'Booked', 0),
+(69, 62, 1, 1, '2025-12-10', '14:00:00', '', '2025-12-03 22:09:02', '2025-12-04 06:16:37', 'Completed', 0),
+(70, 64, 1, 5, '2025-12-09', '10:30:00', '', '2025-12-03 22:11:35', '2025-12-04 06:14:17', 'Cancelled', 0),
+(71, 65, 1, 5, '2025-12-09', '09:00:00', '', '2025-12-03 23:05:30', NULL, 'Booked', 0),
+(72, 66, 1, 7, '2025-12-09', '09:00:00', '', '2025-12-03 23:08:36', NULL, 'Booked', 0),
+(73, 68, 1, 11, '2025-12-11', '09:00:00', '', '2025-12-03 23:12:42', NULL, 'Booked', 0),
+(74, 70, 1, 1, '2025-12-11', '09:00:00', '', '2025-12-03 23:20:45', NULL, 'Booked', 0),
+(75, 61, 1, 2, '2025-12-11', '09:00:00', '', '2025-12-04 00:31:02', NULL, 'Booked', 0),
+(76, 61, 1, 2, '2025-12-11', '10:00:00', '', '2025-12-04 00:33:20', NULL, 'Booked', 0),
+(77, 61, 1, 2, '2025-12-11', '11:00:00', '', '2025-12-04 00:44:57', NULL, 'Booked', 0),
+(78, 71, 1, 1, '2025-12-11', '13:30:00', '', '2025-12-04 00:49:45', NULL, 'Booked', 0),
+(79, 71, 1, 11, '2025-12-11', '15:00:00', '', '2025-12-04 00:55:10', NULL, 'Booked', 0),
+(80, 72, 1, 2, '2025-12-12', '09:00:00', '', '2025-12-04 00:58:45', NULL, 'Booked', 0),
+(81, 73, 1, 2, '2025-12-12', '09:00:00', '', '2025-12-04 00:58:46', NULL, 'Booked', 0),
+(82, 12, 1, 2, '2025-12-05', '10:30:00', '', '2025-12-04 01:10:50', NULL, 'Booked', 0),
+(83, 72, 5, 11, '2025-12-05', '09:00:00', '', '2025-12-04 11:02:49', NULL, 'Booked', 1),
+(84, 74, 1, 2, '2025-12-05', '09:00:00', '', '2025-12-04 11:05:11', NULL, 'Booked', 1);
 
 -- --------------------------------------------------------
 
@@ -444,20 +516,20 @@ INSERT INTO `branch_service` (`branch_services_id`, `branch_id`, `service_id`, `
 (136, 3, 23, 'Active', '2025-11-22 19:57:12', '2025-11-22 19:57:12'),
 (137, 2, 23, 'Active', '2025-11-22 19:57:12', '2025-11-22 19:57:12'),
 (138, 6, 23, 'Active', '2025-11-22 19:57:12', '2025-11-22 19:57:12'),
-(139, 1, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
-(140, 2, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
-(141, 3, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
-(142, 4, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
-(143, 5, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
-(144, 6, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
-(145, 7, 1, 'Active', '2025-11-23 04:04:11', '2025-11-23 04:04:11'),
 (146, 1, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
 (147, 2, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
 (148, 3, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
 (149, 4, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
 (150, 5, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
 (151, 6, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
-(152, 7, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52');
+(152, 7, 21, 'Active', '2025-11-23 05:19:52', '2025-11-23 05:19:52'),
+(167, 1, 1, 'Active', '2025-12-03 23:41:58', '2025-12-03 23:41:58'),
+(168, 2, 1, 'Active', '2025-12-03 23:41:58', '2025-12-03 23:41:58'),
+(169, 3, 1, 'Active', '2025-12-03 23:41:59', '2025-12-03 23:41:59'),
+(170, 4, 1, 'Active', '2025-12-03 23:41:59', '2025-12-03 23:41:59'),
+(171, 5, 1, 'Active', '2025-12-03 23:41:59', '2025-12-03 23:41:59'),
+(172, 6, 1, 'Active', '2025-12-03 23:41:59', '2025-12-03 23:41:59'),
+(173, 7, 1, 'Active', '2025-12-03 23:41:59', '2025-12-03 23:41:59');
 
 -- --------------------------------------------------------
 
@@ -482,11 +554,12 @@ CREATE TABLE `branch_supply` (
 --
 
 INSERT INTO `branch_supply` (`branch_supplies_id`, `branch_id`, `supply_id`, `quantity`, `reorder_level`, `expiration_date`, `status`, `date_created`, `date_updated`) VALUES
-(1, 1, 1, 100, 3, '2028-12-30', 'Available', '2025-11-21 04:28:55', '2025-11-25 01:18:41'),
-(2, 1, 2, 12, 5, '2028-11-30', 'Available', '2025-11-21 05:39:54', '2025-11-25 01:18:41'),
-(3, 1, 3, 450, 3, NULL, 'Available', '2025-11-22 11:57:07', '2025-11-22 13:47:17'),
-(4, 1, 4, 500, 50, '2026-02-22', 'Available', '2025-11-22 22:26:56', '2025-11-25 01:18:41'),
-(5, 1, 5, 500, 50, NULL, 'Available', '2025-11-22 22:27:32', '2025-11-22 22:27:32');
+(1, 1, 1, 95, 3, '2028-12-30', 'Available', '2025-11-21 04:28:55', '2025-11-25 06:41:15'),
+(2, 1, 2, 492, 5, '2028-11-30', 'Available', '2025-11-21 05:39:54', '2025-12-04 06:16:36'),
+(3, 1, 3, 250, 3, NULL, 'Available', '2025-11-22 11:57:07', '2025-12-04 06:16:36'),
+(4, 1, 4, 500, 50, '2026-02-22', 'Available', '2025-11-22 22:26:56', '2025-12-04 06:16:36'),
+(5, 1, 5, 500, 50, NULL, 'Available', '2025-11-22 22:27:32', '2025-12-04 06:16:36'),
+(6, 2, 6, 49, 5, NULL, 'Available', '2025-11-25 06:33:46', '2025-11-25 06:38:07');
 
 -- --------------------------------------------------------
 
@@ -519,7 +592,16 @@ INSERT INTO `dental_prescription` (`prescription_id`, `appointment_transaction_i
 (3, 13, 8, 'Immune Pro', NULL, '1', '50', '7 days', '7', '', '2025-11-20 21:22:47', '2025-11-21 05:22:47'),
 (4, 15, 8, 'Amoxc', NULL, 'once a day', '60', '7 days', '7', '', '2025-11-21 02:00:59', '2025-11-21 10:00:59'),
 (5, 26, 35, 'Amoxicillin 500 mg', NULL, '3x a day', '1 capsule per dose', '7 days', '21 capsules', 'Take after meals', '2025-11-22 03:44:00', '2025-11-22 11:44:00'),
-(6, 32, 8, 'Amoxicillin', NULL, '3', '500', '7', '49', 'Eat before you take this.', '2025-11-22 14:17:02', '2025-11-22 22:17:02');
+(6, 32, 8, 'Amoxicillin', NULL, '3', '500', '7', '49', 'Eat before you take this.', '2025-11-22 14:17:02', '2025-11-22 22:17:02'),
+(7, 41, 8, 'Amox', NULL, 'once', '50mg', '7 days', '90', 'words', '2025-11-25 03:10:23', '2025-11-25 11:11:08'),
+(8, 41, 8, 'mefenamic', NULL, '2', '120', '1', '100', 'numbers', '2025-11-25 03:10:58', '2025-11-25 11:10:58'),
+(9, 62, 8, 'Amox', NULL, 'twice a day', '50', '1 week', '14', '', '2025-12-03 16:25:49', '2025-12-04 00:25:49'),
+(10, 62, 8, 'mefenamic', NULL, 'once a day', '50', '1 week', '7', '', '2025-12-03 16:26:32', '2025-12-04 00:26:32'),
+(11, 64, 8, 'drug', NULL, '321', '2', '2', '23', '', '2025-12-03 18:00:35', '2025-12-04 02:00:35'),
+(12, 64, 8, '23', NULL, '23', '23', '23', '23', '', '2025-12-03 18:00:43', '2025-12-04 02:00:43'),
+(13, 67, 8, 'amox', NULL, 'once a day', '50', '7 days', '7', '', '2025-12-03 21:21:55', '2025-12-04 05:21:55'),
+(14, 67, 8, 'mefenamic', NULL, 'twice a day', '50', '3 days', '6', '', '2025-12-03 21:22:24', '2025-12-04 05:22:24'),
+(15, 69, 8, 'advil', NULL, 'once a day', '20', '3 days', '3', '', '2025-12-03 22:15:16', '2025-12-04 06:15:16');
 
 -- --------------------------------------------------------
 
@@ -573,19 +655,27 @@ CREATE TABLE `dental_transaction` (
 
 INSERT INTO `dental_transaction` (`dental_transaction_id`, `appointment_transaction_id`, `dentist_id`, `admin_user_id`, `promo_id`, `promo_name`, `promo_type`, `promo_value`, `payment_method`, `cashless_receipt`, `xray_file`, `total`, `additional_payment`, `notes`, `medcert_status`, `medcert_receipt`, `fitness_status`, `diagnosis`, `remarks`, `medcert_notes`, `medcert_requested_date`, `medcert_request_payment`, `date_created`, `date_updated`, `prescription_downloaded`) VALUES
 (1, 5, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 1600.00, 0.00, 'a', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-20 20:43:59', '2025-11-21 04:44:53', 0),
-(2, 12, 9, 8, 2, 'Christmas Dental Promo', 'fixed', 200.00, 'Cash', NULL, NULL, 0.00, 0.00, '', 'Issued', '/images/payments/medcert_payments/2_iway.png', 'fit', 'mild sinusitis', 'drink lots of water and to take vitamin c for immunity', '', '2025-11-21 05:09:14', 150.00, '2025-11-20 20:59:40', '2025-11-21 05:09:30', 1),
-(3, 13, 2, 8, 2, 'Christmas Dental Promo', 'fixed', 200.00, 'Cashless', '/images/payments/cashless_payments/3_iway.png', NULL, 700.00, 0.00, '', 'Eligible', '/images/payments/medcert_payments/3_iway.png', 'good', 'good', 'good', '', '2025-11-21 05:25:06', 150.00, '2025-11-20 21:21:40', '2025-11-21 05:25:06', 0),
-(4, 15, 2, 8, 1, 'Senior Citizen Discount', 'percentage', 20.00, 'Cashless', '/images/payments/cashless_payments/4_amores.png', NULL, 380.00, 100.00, '', 'Issued', NULL, '1 week', 'Impacted', 'none', NULL, '2025-11-21 10:07:12', NULL, '2025-11-21 02:06:23', '2025-11-21 10:22:29', 0),
-(5, 17, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 200.00, 0.00, '', 'Issued', '/images/payments/medcert_payments/5_potot.png', '1 day', 'diagnose', 'remarks', '', '2025-11-21 10:41:23', 150.00, '2025-11-21 02:37:29', '2025-11-21 10:42:07', 0),
-(6, 19, 1, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 70000.00, 0.00, '', 'Issued', NULL, '1 year', 'diagnoose', 'none', 'walkin den cert', '2025-11-21 10:44:30', 150.00, '2025-11-21 02:43:23', '2025-11-21 10:44:53', 0),
-(7, 20, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 450.00, 250.00, 'Hello :)', 'Requested', '/images/payments/medcert_payments/7_panimdim.png', '', '', '', NULL, '2025-11-22 12:14:50', NULL, '2025-11-21 22:11:43', '2025-11-22 12:14:50', 0),
+(2, 12, 9, 8, 2, 'Christmas Dental Promo', 'fixed', 200.00, 'Cash', NULL, NULL, 0.00, 0.00, '', 'Expired', '/images/payments/medcert_payments/2_iway.png', 'fit', 'mild sinusitis', 'drink lots of water and to take vitamin c for immunity', '', '2025-11-21 05:09:14', 150.00, '2025-11-20 20:59:40', '2025-12-04 07:51:43', 1),
+(3, 13, 2, 8, 2, 'Christmas Dental Promo', 'fixed', 200.00, 'Cashless', '/images/payments/cashless_payments/3_iway.png', NULL, 700.00, 0.00, '', 'Expired', '/images/payments/medcert_payments/3_iway.png', 'good', 'good', 'good', '', '2025-11-21 05:25:06', 150.00, '2025-11-20 21:21:40', '2025-12-04 07:51:43', 0),
+(4, 15, 2, 8, 1, 'Senior Citizen Discount', 'percentage', 20.00, 'Cashless', '/images/payments/cashless_payments/4_amores.png', NULL, 380.00, 100.00, '', 'Expired', NULL, '1 week', 'Impacted', 'none', NULL, '2025-11-21 10:07:12', NULL, '2025-11-21 02:06:23', '2025-12-04 07:51:43', 0),
+(5, 17, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 200.00, 0.00, '', 'Expired', '/images/payments/medcert_payments/5_potot.png', '1 day', 'diagnose', 'remarks', '', '2025-11-21 10:41:23', 150.00, '2025-11-21 02:37:29', '2025-12-04 07:51:43', 0),
+(6, 19, 1, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 70000.00, 0.00, '', 'Expired', NULL, '1 year', 'diagnoose', 'none', 'walkin den cert', '2025-11-21 10:44:30', 150.00, '2025-11-21 02:43:23', '2025-12-04 07:51:43', 0),
+(7, 20, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 450.00, 250.00, 'Hello :)', 'Expired', '/images/payments/medcert_payments/7_panimdim.png', '', '', '', NULL, '2025-11-22 12:14:50', NULL, '2025-11-21 22:11:43', '2025-12-04 07:51:43', 0),
 (8, 27, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 700.00, 1.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-22 02:41:59', '2025-11-22 10:42:14', 0),
 (9, 26, 1, 35, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 700.00, 1.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-22 03:38:19', '2025-11-22 11:38:19', 0),
 (10, 4, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 900.00, 1.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-22 05:43:54', '2025-11-22 13:47:17', 0),
 (11, 32, 1, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 2100.00, 1.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-22 14:10:58', '2025-11-22 22:10:58', 0),
-(12, 25, 2, 8, 5, 'Anniversary Sale', 'percentage', 20.00, 'Cashless', '/images/payments/cashless_payments/12_fano.webp', 'images/transactions/xrays/12_fano.jpg', 4500.00, 500.00, 'note new new', 'None', NULL, '1 week', 'diagnose', 'remarks', NULL, NULL, NULL, '2025-11-23 16:20:16', '2025-11-24 01:26:27', 0),
+(12, 25, 2, 8, 5, 'Anniversary Sale', 'percentage', 20.00, 'Cash', NULL, 'images/transactions/xrays/12_fano.jpg', 12000.00, 0.00, 'note new new', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-23 16:20:16', '2025-11-25 06:41:15', 0),
 (13, 39, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 700.00, 0.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-24 02:36:19', '2025-11-25 01:18:41', 0),
-(14, 21, 1, 8, 5, 'Anniversary Sale', 'percentage', 20.00, 'Cash', NULL, NULL, 980.00, 500.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-24 02:42:56', '2025-11-24 10:42:56', 0);
+(14, 21, 1, 8, 5, 'Anniversary Sale', 'percentage', 20.00, 'Cash', NULL, NULL, 980.00, 500.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-24 02:42:56', '2025-11-24 10:42:56', 0),
+(15, 47, 6, 11, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 15000.00, 0.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-24 22:37:55', '2025-11-25 06:38:07', 0),
+(16, 42, 11, 8, 1, 'Senior Citizen Discount', 'percentage', 20.00, 'Cash', NULL, NULL, 123730.00, 210.00, '', 'None', NULL, '', '', '', NULL, NULL, NULL, '2025-11-25 02:32:04', '2025-11-25 10:32:14', 0),
+(17, 41, 2, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 1400.00, 0.00, '', 'None', NULL, '1 week', 'diagnose', 'remarks', '', '2025-11-25 11:29:21', 150.00, '2025-11-25 03:11:46', '2025-12-04 03:05:39', 0),
+(18, 63, 11, 8, 2, 'Christmas Dental Promo', 'fixed', 200.00, 'Cash', NULL, NULL, 2300.00, 200.00, '', 'Issued', '/images/payments/medcert_payments/18_parchaso.png', '1 week', 'diagnose', 'REMARKS', '', '2025-12-03 23:46:54', 100.00, '2025-12-03 14:30:37', '2025-12-04 00:20:35', 0),
+(19, 62, 2, 8, 1, 'Senior Citizen Discount', 'percentage', 20.00, 'Cash', NULL, NULL, 820.00, 100.00, '', 'Issued', '/images/payments/medcert_payments/19_parchaso.jpg', '1 day', 'diag', 'remar', '', '2025-12-04 01:14:46', 100.00, '2025-12-03 16:37:35', '2025-12-04 01:27:47', 1),
+(20, 64, 2, 8, 1, 'Senior Citizen Discount', 'percentage', 20.00, 'Cash', NULL, NULL, 800.00, 100.00, '', 'Issued', '/images/payments/medcert_payments/20_parchaso.png', '222', '22', '22', '', '2025-12-04 02:14:05', 100.00, '2025-12-03 17:59:38', '2025-12-04 02:15:00', 1),
+(21, 67, 9, 8, NULL, NULL, NULL, NULL, 'Cash', NULL, NULL, 900.00, 0.00, '', 'Issued', '/images/payments/medcert_payments/21_parchaso.png', '2 dyas', 'none', 'none', '', '2025-12-04 06:00:24', 100.00, '2025-12-03 21:46:59', '2025-12-04 06:00:44', 1),
+(22, 69, 1, 8, 1, 'Senior Citizen Discount', 'percentage', 20.00, 'Cash', NULL, NULL, 2456.00, 1370.00, '', 'Issued', NULL, '1 week', 'mild bleeding', 'pls be careful', NULL, '2025-12-04 06:16:37', NULL, '2025-12-03 22:16:23', '2025-12-04 06:24:44', 1);
 
 -- --------------------------------------------------------
 
@@ -626,10 +716,32 @@ INSERT INTO `dental_transaction_services` (`id`, `dental_transaction_id`, `servi
 (16, 11, 2, 'Check Up/Consultation', 200.00, 1, 0.00),
 (17, 11, 3, 'Cleaning', 700.00, 1, 0.00),
 (18, 11, 23, 'Pasta', 800.00, 1, 0.00),
-(24, 12, 1, 'Dental Certificate', 0.00, 1, 0.00),
-(25, 12, 22, 'Teeth Whitening', 5000.00, 1, 500.00),
 (26, 13, 3, 'Cleaning', 700.00, 1, 0.00),
-(27, 14, 2, 'Check Up/Consultation', 200.00, 3, 500.00);
+(27, 14, 2, 'Check Up/Consultation', 200.00, 3, 500.00),
+(28, 15, 19, 'Veneer', 15000.00, 1, 0.00),
+(29, 12, 19, 'Veneer', 15000.00, 1, 0.00),
+(30, 16, 2, 'Check Up/Consultation', 200.00, 1, 10.00),
+(31, 16, 3, 'Cleaning', 700.00, 1, 20.00),
+(32, 16, 5, 'Tooth Extraction', 700.00, 1, 30.00),
+(33, 16, 6, 'Wisdom Tooth Extraction', 1600.00, 1, 40.00),
+(34, 16, 20, 'Oral Surgery', 150000.00, 1, 50.00),
+(35, 16, 21, 'Extract', 1200.00, 1, 60.00),
+(36, 17, 3, 'Cleaning', 700.00, 1, 0.00),
+(37, 17, 5, 'Tooth Extraction', 700.00, 1, 0.00),
+(38, 18, 2, 'Check Up/Consultation', 200.00, 1, 50.00),
+(39, 18, 3, 'Cleaning', 700.00, 1, 50.00),
+(40, 18, 4, 'Tooth Filling', 700.00, 1, 50.00),
+(41, 18, 5, 'Tooth Extraction', 700.00, 1, 50.00),
+(42, 19, 2, 'Check Up/Consultation', 200.00, 1, 100.00),
+(43, 19, 3, 'Cleaning', 700.00, 1, 0.00),
+(44, 20, 2, 'Check Up/Consultation', 200.00, 1, 100.00),
+(45, 20, 3, 'Cleaning', 700.00, 1, 0.00),
+(46, 21, 2, 'Check Up/Consultation', 200.00, 1, 0.00),
+(47, 21, 4, 'Tooth Filling', 700.00, 1, 0.00),
+(48, 22, 1, 'Dental Certificate', 100.00, 1, 50.00),
+(49, 22, 2, 'Check Up/Consultation', 200.00, 1, 20.00),
+(50, 22, 3, 'Cleaning', 700.00, 1, 900.00),
+(51, 22, 5, 'Tooth Extraction', 700.00, 1, 400.00);
 
 -- --------------------------------------------------------
 
@@ -671,7 +783,15 @@ INSERT INTO `dental_vital` (`vitals_id`, `appointment_transaction_id`, `admin_us
 (10, 4, 8, 26.0, 654, 655, '65', 65.00, 65.00, 'No', 'No', 'No', '2025-11-22 05:44:05', '2025-11-22 13:44:05'),
 (11, 32, 8, 37.0, 70, 20, '120/80', 155.00, 57.00, 'No', 'No', 'No', '2025-11-22 14:14:13', '2025-11-22 22:14:13'),
 (12, 25, 8, 38.0, 100, 100, '120/80', 170.00, 80.00, 'No', 'No', 'No', '2025-11-22 19:02:26', '2025-11-23 03:02:26'),
-(13, 39, 8, 38.0, 100, 100, '128/80', 170.00, 80.00, 'No', 'No', 'No', '2025-11-24 02:35:52', '2025-11-24 10:35:52');
+(13, 39, 8, 38.0, 100, 100, '128/80', 170.00, 80.00, 'No', 'No', 'No', '2025-11-24 02:35:52', '2025-11-24 10:35:52'),
+(14, 47, 11, 38.0, 100, 100, '120/80', 170.00, 80.00, 'No', 'No', 'No', '2025-11-24 22:37:43', '2025-11-25 06:37:43'),
+(15, 42, 8, 38.0, 120, 120, '100', 100.00, 100.00, 'No', 'No', 'No', '2025-11-25 02:30:58', '2025-11-25 10:30:58'),
+(16, 41, 8, 38.0, 100, 100, '120/80', 170.00, 80.00, 'No', 'No', 'No', '2025-11-25 03:11:32', '2025-11-25 11:11:32'),
+(17, 63, 8, 38.0, 100, 100, '120/80', 170.00, 80.00, 'No', 'No', 'No', '2025-12-03 14:30:10', '2025-12-03 22:30:10'),
+(18, 62, 8, 38.0, 100, 100, '120/80', 170.00, 80.00, 'No', 'No', 'No', '2025-12-03 16:37:17', '2025-12-04 00:37:17'),
+(19, 64, 8, 35.0, 100, 100, '100/80', 170.00, 80.00, 'No', 'No', 'No', '2025-12-03 18:00:14', '2025-12-04 02:00:14'),
+(20, 67, 8, 38.0, 100, 100, '120/80', 170.00, 80.00, 'No', 'No', 'No', '2025-12-03 21:22:45', '2025-12-04 05:22:45'),
+(21, 69, 8, 35.0, 100, 100, '120/80', 170.00, 100.00, 'No', 'No', 'No', '2025-12-03 22:15:33', '2025-12-04 06:15:33');
 
 -- --------------------------------------------------------
 
@@ -1108,7 +1228,7 @@ INSERT INTO `notifications` (`notification_id`, `user_id`, `message`, `is_read`,
 (8, 8, 'Your admin account has been created. Branch Assignment: Babag 2, Lapu-Lapu City. Username: Juban_J', 1, '2025-11-20 11:20:13'),
 (9, 9, 'Your admin account has been created. Branch Assignment: Pajo, Lapu-Lapu City. Username: Benetiz_A', 0, '2025-11-20 11:23:11'),
 (10, 10, 'Your admin account has been created. Branch Assignment: Pakna-an, Mandaue City (Main Branch). Username: Narciso_A', 0, '2025-11-20 11:25:41'),
-(11, 11, 'Your admin account has been created. Branch Assignment: Pusok, Lapu-Lapu City. Username: Marcelo_R', 0, '2025-11-20 11:35:30'),
+(11, 11, 'Your admin account has been created. Branch Assignment: Pusok, Lapu-Lapu City. Username: Marcelo_R', 1, '2025-11-20 11:35:30'),
 (12, 12, 'Welcome to Smile-ify! Your account was successfully created.', 1, '2025-11-20 14:35:52'),
 (13, 12, 'Your appointment on 2025-11-24 at 10:00 was successfully booked!', 1, '2025-11-20 14:35:52'),
 (14, 13, 'Welcome to Smile-ify! Your account was successfully created.', 1, '2025-11-20 15:10:33'),
@@ -1273,7 +1393,149 @@ INSERT INTO `notifications` (`notification_id`, `user_id`, `message`, `is_read`,
 (219, 26, 'Your appointment (November 24, 2025 at 9:00 AM) has been cancelled.', 0, '2025-11-24 15:24:47'),
 (220, 12, 'Your appointment (November 28, 2025 at 11:30 AM) has been cancelled.', 1, '2025-11-24 15:25:41'),
 (221, 38, 'Your appointment (November 24, 2025 at 9:00 AM) has been marked as completed. Thank you for visiting!', 0, '2025-11-24 17:18:41'),
-(222, 12, 'Your email was successfully updated to 18108007@usc.edu.ph on November 25, 2025, 2:12 am. If this wasn’t you, please contact the clinic immediately.', 0, '2025-11-24 18:12:05');
+(222, 12, 'Your email was successfully updated to 18108007@usc.edu.ph on November 25, 2025, 2:12 am. If this wasn’t you, please contact the clinic immediately.', 1, '2025-11-24 18:12:05'),
+(223, 56, 'Welcome to Smile-ify! Your account was successfully created.', 0, '2025-11-24 22:34:23'),
+(224, 56, 'Your appointment on 2025-11-29 at 14:00 was successfully booked!', 0, '2025-11-24 22:34:23'),
+(225, 47, 'Your appointment (November 24, 2025 at 11:30 AM) has been marked as completed. Thank you for visiting!', 0, '2025-11-24 22:38:07'),
+(226, 29, 'Your appointment (November 24, 2025 at 9:00 AM) has been marked as completed. Thank you for visiting!', 0, '2025-11-24 22:41:15'),
+(227, 21, 'Your appointment (November 24, 2025 at 9:30 AM) has been cancelled.', 0, '2025-11-25 00:29:55'),
+(228, 45, 'Your appointment (November 24, 2025 at 10:00 AM) has been marked as completed. Thank you for visiting!', 0, '2025-11-25 02:32:14'),
+(229, 44, 'Your Dental Certificate request from your appointment on November 24, 2025 at 10:00 AM has been approved.', 0, '2025-11-25 03:29:21'),
+(230, 37, 'Your password was changed successfully on November 25, 2025, 12:46 pm. If this wasn’t you, please contact clinic immediately.', 0, '2025-11-25 04:46:48'),
+(231, 37, 'Your password was changed successfully on November 27, 2025, 4:17 am. If this wasn’t you, please contact clinic immediately.', 0, '2025-11-26 20:17:18'),
+(232, 8, 'Your password was changed successfully on November 27, 2025, 5:07 am. If this wasn’t you, please contact clinic immediately.', 1, '2025-11-26 21:07:41'),
+(233, 57, 'Welcome to Smile-ify! Your account was successfully created.', 0, '2025-11-27 06:03:23'),
+(234, 57, 'Your appointment on 2025-12-03 at 14:00 was successfully booked!', 0, '2025-11-27 06:03:23'),
+(235, 62, 'Your appointment (December 4, 2025 at 9:00 AM) has been marked as completed. Thank you for visiting!', 0, '2025-12-03 14:30:48'),
+(236, 4, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(237, 8, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 1, '2025-12-03 15:22:54'),
+(238, 17, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(239, 22, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(240, 23, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(241, 32, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(242, 34, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(243, 35, 'Patient #61 Lilian E. Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:22:54'),
+(251, 4, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(252, 8, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 1, '2025-12-03 15:28:40'),
+(253, 17, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(254, 22, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(255, 23, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(256, 32, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(257, 34, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(258, 35, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:28:40'),
+(266, 4, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(267, 8, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 1, '2025-12-03 15:30:45'),
+(268, 17, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(269, 22, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(270, 23, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(271, 32, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(272, 34, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(273, 35, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:30:45'),
+(281, 4, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(282, 8, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 1, '2025-12-03 15:44:05'),
+(283, 17, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(284, 22, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(285, 23, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(286, 32, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(287, 34, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(288, 35, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:44:05'),
+(296, 4, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(297, 8, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 1, '2025-12-03 15:45:56'),
+(298, 17, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(299, 22, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(300, 23, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(301, 32, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(302, 34, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(303, 35, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #18', 0, '2025-12-03 15:45:56'),
+(311, 62, 'Your Dental Certificate request from your appointment on December 4, 2025 at 9:00 AM has been approved.', 0, '2025-12-03 15:46:54'),
+(325, 58, 'Your password was changed successfully on December 4, 2025, 12:45 am. If this wasn’t you, please contact clinic immediately.', 1, '2025-12-03 16:45:38'),
+(339, 58, 'Your appointment (December 4, 2025 at 9:00 AM) has been marked as completed. Thank you for visiting!', 1, '2025-12-03 16:50:37'),
+(340, 4, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(341, 8, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 1, '2025-12-03 17:03:16'),
+(342, 17, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(343, 22, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(344, 23, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(345, 32, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(346, 34, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(347, 35, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #19', 0, '2025-12-03 17:03:16'),
+(355, 58, 'Your Dental Certificate request from your appointment on December 4, 2025 at 9:00 AM has been approved.', 1, '2025-12-03 17:14:46'),
+(356, 58, 'Your appointment on 2025-12-11 at 09:00 was successfully booked!', 1, '2025-12-03 17:53:39'),
+(357, 58, 'Your appointment (December 11, 2025 at 9:00 AM) has been marked as completed. Thank you for visiting!', 1, '2025-12-03 18:00:50'),
+(358, 4, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(359, 8, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 1, '2025-12-03 18:13:32'),
+(360, 17, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(361, 22, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(362, 23, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(363, 32, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(364, 34, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(365, 35, 'Patient #58 Jhon Joseph E. Parchaso has requested a Dental Certificate for transaction #20', 0, '2025-12-03 18:13:32'),
+(373, 58, 'Your Dental Certificate request from your appointment on December 11, 2025 at 9:00 AM has been approved.', 1, '2025-12-03 18:14:05'),
+(374, 61, 'Your appointment on 2025-12-15 at 09:00 was successfully booked!', 1, '2025-12-03 19:05:07'),
+(375, 44, 'Your appointment (November 24, 2025 at 10:00 AM) has been marked as completed. Thank you for visiting!', 0, '2025-12-03 19:05:39'),
+(376, 47, 'Your appointment (November 24, 2025 at 10:30 AM) has been cancelled.', 0, '2025-12-03 19:05:48'),
+(377, 49, 'Your appointment (November 24, 2025 at 11:30 AM) has been cancelled.', 0, '2025-12-03 19:05:56'),
+(378, 45, 'Your appointment (November 24, 2025 at 11:30 AM) has been cancelled.', 0, '2025-12-03 19:06:04'),
+(379, 13, 'Your appointment (November 24, 2025 at 11:30 AM) has been cancelled.', 0, '2025-12-03 19:06:12'),
+(380, 24, 'Your appointment (November 24, 2025 at 1:00 PM) has been cancelled.', 0, '2025-12-03 19:06:20'),
+(381, 53, 'Your appointment (November 24, 2025 at 1:30 PM) has been cancelled.', 0, '2025-12-03 19:06:28'),
+(382, 6, 'Your appointment (November 25, 2025 at 9:00 AM) has been cancelled.', 0, '2025-12-03 19:06:37'),
+(383, 36, 'Your appointment (November 25, 2025 at 9:30 AM) has been cancelled.', 0, '2025-12-03 19:06:50'),
+(384, 38, 'Your appointment (November 25, 2025 at 10:30 AM) has been cancelled.', 0, '2025-12-03 19:06:57'),
+(385, 7, 'Your appointment (November 26, 2025 at 10:00 AM) has been cancelled.', 0, '2025-12-03 19:07:06'),
+(386, 38, 'Your appointment (December 1, 2025 at 9:00 AM) has been cancelled.', 0, '2025-12-03 19:07:34'),
+(387, 63, 'Your appointment on 2025-12-15 at 10:30 was successfully booked!', 0, '2025-12-03 19:20:31'),
+(388, 62, 'Your appointment on 2025-12-15 at 09:00 was successfully booked!', 0, '2025-12-03 21:11:53'),
+(389, 62, 'Your appointment (December 15, 2025 at 9:00 AM) has been marked as completed. Thank you for visiting!', 0, '2025-12-03 21:47:11'),
+(390, 4, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(391, 8, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 1, '2025-12-03 21:58:17'),
+(392, 17, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(393, 22, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(394, 23, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(395, 32, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(396, 34, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(397, 35, 'Patient #62 JJ Parchaso has requested a Dental Certificate for transaction #21', 0, '2025-12-03 21:58:17'),
+(405, 62, 'Your Dental Certificate request from your appointment on December 15, 2025 at 9:00 AM has been approved.', 0, '2025-12-03 22:00:25'),
+(406, 61, 'Your appointment (December 15, 2025 at 9:00 AM) has been cancelled.', 1, '2025-12-03 22:07:04'),
+(407, 63, 'Your appointment (December 15, 2025 at 10:30 AM) has been cancelled.', 0, '2025-12-03 22:07:36'),
+(408, 61, 'The appointment for your dependent (December 15, 2025 at 10:30 AM) has been cancelled.', 1, '2025-12-03 22:07:37'),
+(409, 61, 'Your appointment on 2025-12-09 at 09:00 was successfully booked!', 1, '2025-12-03 22:08:02'),
+(410, 62, 'Your appointment on 2025-12-09 at 09:00 was successfully booked!', 0, '2025-12-03 22:09:03'),
+(411, 64, 'Your appointment on 2025-12-09 at 10:30 was successfully booked!', 0, '2025-12-03 22:11:36'),
+(412, 61, 'Your dependent\'s appointment on 2025-12-09 at 10:30 was successfully booked.', 1, '2025-12-03 22:11:36'),
+(413, 62, 'Your appointment has been rescheduled to December 9, 2025 at 1:00 PM.', 0, '2025-12-03 22:12:11'),
+(414, 61, 'The appointment for your dependent has been rescheduled to December 9, 2025 at 1:00 PM.', 1, '2025-12-03 22:12:11'),
+(415, 61, 'Your appointment has been rescheduled to December 9, 2025 at 1:00 PM.', 1, '2025-12-03 22:13:01'),
+(416, 64, 'Your appointment (December 9, 2025 at 10:30 AM) has been cancelled.', 0, '2025-12-03 22:14:17'),
+(417, 61, 'The appointment for your dependent (December 9, 2025 at 10:30 AM) has been cancelled.', 1, '2025-12-03 22:14:18'),
+(418, 62, 'Your appointment has been rescheduled to December 10, 2025 at 2:00 PM.', 0, '2025-12-03 22:14:43'),
+(419, 61, 'The appointment for your dependent has been rescheduled to December 10, 2025 at 2:00 PM.', 1, '2025-12-03 22:14:43'),
+(420, 62, 'Your appointment (December 10, 2025 at 2:00 PM) has been marked as completed. Thank you for visiting!', 0, '2025-12-03 22:16:37'),
+(421, 61, 'The appointment for your dependent (December 10, 2025 at 2:00 PM) has been marked as completed.', 1, '2025-12-03 22:16:37'),
+(422, 65, 'Welcome to Smile-ify! Your account was created.', 0, '2025-12-03 23:05:30'),
+(423, 65, 'Your appointment on 2025-12-09 at 09:00 was successfully booked!', 0, '2025-12-03 23:05:30'),
+(424, 66, 'Welcome to Smile-ify! Your account was created.', 0, '2025-12-03 23:08:37'),
+(425, 66, 'Your appointment on 2025-12-09 at 09:00 was successfully booked!', 0, '2025-12-03 23:08:37'),
+(426, 67, 'Welcome to Smile-ify! Your account was created.', 1, '2025-12-03 23:12:42'),
+(427, 67, 'Your appointment on 2025-12-11 at 09:00 was successfully booked!', 1, '2025-12-03 23:12:42'),
+(428, 69, 'Welcome to Smile-ify! Your account was created.', 1, '2025-12-03 23:20:45'),
+(429, 70, 'Your appointment on 2025-12-11 at 09:00 was successfully booked.', 0, '2025-12-03 23:20:45'),
+(430, 69, 'Your dependent\'s appointment on 2025-12-11 at 09:00 was successfully booked.', 1, '2025-12-03 23:20:46'),
+(431, 61, 'Your appointment on 2025-12-11 at 09:00 was successfully booked!', 1, '2025-12-04 00:31:02'),
+(432, 61, 'Your appointment on 2025-12-11 at 10:00 was successfully booked!', 1, '2025-12-04 00:33:20'),
+(433, 61, 'Your appointment on 2025-12-11 at 11:00 was successfully booked!', 1, '2025-12-04 00:44:58'),
+(434, 71, 'Your appointment on 2025-12-11 at 13:30 was successfully booked!', 0, '2025-12-04 00:49:45'),
+(435, 61, 'Your dependent\'s appointment on 2025-12-11 at 13:30 has been booked.', 1, '2025-12-04 00:49:46'),
+(436, 71, 'Your appointment on 2025-12-11 at 15:00 was successfully booked!', 0, '2025-12-04 00:55:10'),
+(437, 61, 'Your dependent\'s appointment on 2025-12-11 at 15:00 has been booked.', 1, '2025-12-04 00:55:11'),
+(438, 72, 'Your appointment on 2025-12-12 at 09:00 was successfully booked!', 0, '2025-12-04 00:58:45'),
+(439, 61, 'Your dependent\'s appointment on 2025-12-12 at 09:00 has been booked.', 1, '2025-12-04 00:58:46'),
+(440, 73, 'Your appointment on 2025-12-12 at 09:00 was successfully booked!', 0, '2025-12-04 00:58:46'),
+(441, 61, 'Your dependent\'s appointment on 2025-12-12 at 09:00 has been booked.', 1, '2025-12-04 00:58:47'),
+(442, 12, 'Your appointment on 2025-12-05 at 10:30 was successfully booked!', 1, '2025-12-04 01:10:50'),
+(443, 72, 'Your appointment on 2025-12-08 at 09:00 was successfully booked!', 0, '2025-12-04 11:02:50'),
+(444, 61, 'Your dependent\'s appointment on 2025-12-08 at 09:00 has been booked.', 1, '2025-12-04 11:02:50'),
+(445, 74, 'Your appointment on 2025-12-08 at 09:00 was successfully booked!', 0, '2025-12-04 11:05:11'),
+(446, 61, 'Your dependent\'s appointment on 2025-12-08 at 09:00 has been booked.', 1, '2025-12-04 11:05:12');
 
 -- --------------------------------------------------------
 
@@ -1322,7 +1584,7 @@ CREATE TABLE `qr_payment` (
 --
 
 INSERT INTO `qr_payment` (`id`, `file_name`, `file_path`, `uploaded_at`) VALUES
-(1, 'qr_payment.png', '/images/qr/qr_payment.png', '2025-11-22 12:12:29');
+(1, 'qr_payment.webp', '/images/qr/qr_payment.webp', '2025-12-03 14:54:46');
 
 -- --------------------------------------------------------
 
@@ -1345,7 +1607,7 @@ CREATE TABLE `service` (
 --
 
 INSERT INTO `service` (`service_id`, `name`, `price`, `duration_minutes`, `date_created`, `date_updated`, `requires_xray`) VALUES
-(1, 'Dental Certificate', 150, 0, '2025-11-20 18:28:52', '2025-11-25 02:35:50', 0),
+(1, 'Dental Certificate', 100, 0, '2025-11-20 18:28:52', '2025-12-03 23:44:31', 0),
 (2, 'Check Up/Consultation', 200, 15, '2025-11-20 18:21:54', '2025-11-20 18:49:52', 0),
 (3, 'Cleaning', 700, 45, '2025-11-20 18:22:17', '2025-11-21 05:46:00', 0),
 (4, 'Tooth Filling', 700, 60, '2025-11-20 18:22:36', '2025-11-20 18:50:13', 0),
@@ -1390,24 +1652,7 @@ CREATE TABLE `service_supplies` (
 --
 
 INSERT INTO `service_supplies` (`id`, `service_id`, `branch_id`, `supply_id`, `quantity_used`, `date_created`, `date_updated`) VALUES
-(1, 12, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(2, 9, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(3, 8, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(4, 3, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(5, 17, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(6, 15, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(7, 7, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(8, 14, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(9, 20, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(10, 13, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(11, 18, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(12, 16, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(13, 10, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(14, 11, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(15, 5, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(16, 4, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(17, 19, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
-(18, 6, 1, 1, '0', '2025-11-20 20:28:55', '2025-11-21 04:28:55'),
+(17, 19, 1, 1, '5', '2025-11-20 20:28:55', '2025-11-25 06:39:46'),
 (22, 3, 1, 2, '1', '2025-11-20 21:39:54', '2025-11-21 05:42:24'),
 (23, 17, 1, 2, '1', '2025-11-20 21:39:54', '2025-11-21 05:42:24'),
 (24, 15, 1, 2, '1', '2025-11-20 21:39:54', '2025-11-21 05:42:24'),
@@ -1425,7 +1670,8 @@ INSERT INTO `service_supplies` (`id`, `service_id`, `branch_id`, `supply_id`, `q
 (42, 6, 1, 4, '0', '2025-11-22 14:26:56', '2025-11-22 22:26:56'),
 (43, 8, 1, 5, '0', '2025-11-22 14:27:32', '2025-11-22 22:27:32'),
 (44, 5, 1, 5, '0', '2025-11-22 14:27:32', '2025-11-22 22:27:32'),
-(45, 4, 1, 5, '0', '2025-11-22 14:27:32', '2025-11-22 22:27:32');
+(45, 4, 1, 5, '0', '2025-11-22 14:27:32', '2025-11-22 22:27:32'),
+(47, 19, 2, 6, '1', '2025-11-24 22:36:14', '2025-11-25 06:36:14');
 
 -- --------------------------------------------------------
 
@@ -1450,7 +1696,8 @@ INSERT INTO `supply` (`supply_id`, `name`, `description`, `category`, `unit`) VA
 (2, 'Cotton', '', '', ''),
 (3, 'Forceps', '', '', ''),
 (4, 'Mask', '', '', ''),
-(5, 'Explorers', '', '', '');
+(5, 'Explorers', '', '', ''),
+(6, 'Amox', 'med', 'drugs', 'mg');
 
 -- --------------------------------------------------------
 
@@ -1460,8 +1707,9 @@ INSERT INTO `supply` (`supply_id`, `name`, `description`, `category`, `unit`) VA
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `guardian_id` int(11) DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `last_name` varchar(50) NOT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
   `first_name` varchar(50) NOT NULL,
@@ -1469,7 +1717,7 @@ CREATE TABLE `users` (
   `date_of_birth` varchar(255) DEFAULT NULL,
   `date_of_birth_iv` text DEFAULT NULL,
   `date_of_birth_tag` text DEFAULT NULL,
-  `email` varchar(50) NOT NULL,
+  `email` varchar(50) DEFAULT NULL,
   `contact_number` varchar(255) DEFAULT NULL,
   `contact_number_iv` text DEFAULT NULL,
   `contact_number_tag` text DEFAULT NULL,
@@ -1489,57 +1737,74 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `last_name`, `middle_name`, `first_name`, `gender`, `date_of_birth`, `date_of_birth_iv`, `date_of_birth_tag`, `email`, `contact_number`, `contact_number_iv`, `contact_number_tag`, `address`, `address_iv`, `address_tag`, `role`, `branch_id`, `date_started`, `status`, `date_created`, `date_updated`, `force_logout`) VALUES
-(3, 'smileify_owner', '$2y$10$ztP9PxeWoQ1xebbhT0ztneZF//6oHiDQMjxLHb8jDxOR/mbCFY07y', 'Arriesgado', NULL, 'Irish', 'Male', 'dpFnPzlFUzy54A==', 'RcZbZyejRp4dSJlj', 'I+SiyQJElPq3RGEpy0JKpw==', 'josephparchaso@gmail.com', 'dIG/JWw8OxS7+Cw=', 'f+vA6QnRdnPORrZN', 'hxq4sxxR8zWZfdUh37KX7g==', NULL, NULL, NULL, 'owner', NULL, '2025-11-19', 'Active', '2025-11-18 16:24:36', NULL, 0),
-(4, 'Potot_R', '$2y$10$AHkfLSKgjSUI/EdSvwkf8ORV51ch4nW4G0P.nJgI4jLooX273USE2', 'Potot', 'Travero', 'Rixielie', 'Male', 'RyRYccuXmYFSkQ==', 'md9KB1cF773cRmfC', '4LD5nRNuJo1W+ZmMLzbh3w==', '18102727@usc.edu.ph', 'rUxFAwCeceu1vQ==', 'GYD4S15mO0Z80tQt', 'NtgvbNMSCPRboi5mplXgXg==', 'YDRAWm+x7TnnKhpyZQ==', 'yeH0qllgFui+B+G2', '6PQeqkQMnKEDOAJWB3boPw==', 'admin', 1, '2025-11-20', 'Inactive', '2025-11-19 11:03:01', '2025-11-20 19:21:10', 1),
-(5, 'Castillo_A', '$2y$10$RhbUsibDKWIWyN0EUQ/CA.iQgV3Rdj23VtBbOMAhqVQpmorH7KrVe', 'Castillo', 'Potot', 'Athena', 'Female', 'I/9n2u5r5XcZxw==', 'jx14VxEtWd3nP+fJ', 'oHfUbubiWK6o2yG6mZg7tA==', '18102727@usc.edu.ph', 'OhKRvWL+V+kj3A==', 'AaQ4MyZc0Q8dFP+U', 'EW68ZRTAILc6TZd23z3xtg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-19 11:16:06', '2025-11-21 09:51:39', 0),
-(6, 'Castillo_A1', '$2y$10$GD9/KqAiQwulPzQyzfy7DeqIiBrEJLqBYqva7HnTsj/pUIsPsCkgu', 'Castillo', 'Potot', 'Athena', 'Female', 'AMIXwTnVAVznyQ==', 'Xvu1UMb9tcWy4jDm', 'jLPfl2fJ/iVLO6CzuksjxQ==', '18102727@usc.edu.ph', 'NquQqNZAsVaD1g==', 'gpDvHJ1rmd2QrNBz', '1QSDqVAz8kFyCGtzD55pXw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-19 11:16:08', NULL, 0),
-(7, 'Castillo_A2', '$2y$10$ol1lkJC3jP0dZJgl17ZPn.ACG1fzSx./5IUBtPxzHvolkuLHUOY8u', 'Castillo', 'Potot', 'Andrei', 'Male', 'UFlqlalBgFVsSQ==', 'OZPnRFSbJi8PUMKW', 'MPA5HseUQM3ylH+bSP+Wlw==', 'theartp1@gmail.com', 'TWcAhvqxqMRuOQ==', 'rcJ4d24lyRKFiY54', '2j3yKXZ0MeWiHVMt+9ICSg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-19 11:18:41', NULL, 0),
-(8, 'Juban_J', '$2y$10$Ml8o3zZKL26bnt7FotL3we1F/l6ceWugbIY3RYIho7zHH8UXfeMg2', 'Juban', '', 'Jay Marie', 'Female', 'W6gKRmdOedtgMw==', 'xvWwRpJ+7C1P89jT', '3J26tQybCTquA0epsbA3eg==', '18102727@usc.edu.ph', '2NA6GcZzf2twqA==', 'gHkDZU7Pg5M8awYE', 'nEneWyOoOKT2yAePPMNM4A==', 'E3+qg+KF3cTdu/AqgRl2oBPfqHky', 'JHKgOEd/jzmFe4I1', '/eLo6lb7SvghMuxD9BOy4Q==', 'admin', 1, '2025-11-21', 'Active', '2025-11-20 11:20:13', '2025-11-21 05:49:55', 0),
-(9, 'Benetiz_A', '$2y$10$7EzcfeVMnq7CjbkDU0/3G.Ot4ylMtifZ/GM7gXfkeDRSrBAAtZVPe', 'Benetiz', '', 'Aaron', 'Male', '++uCZISsBX3MNA==', 'WAKcRG+qo1Tfccqr', 'w7FPkjIVsoo9/6zjBu1nOg==', '18102727@usc.edu.ph', 'RXNk/LoWKpbN4w==', 'h8Bg22zwsSqMlXd5', 'Wyp+FWsmm3MHe+5agA7hVQ==', 'f5jGFyvjmaNg6piG6Op3jcoyqUEr', '9fCRtqSRZI9cx0d7', '9SZI1F9/H+c73nrZutsyzQ==', 'admin', 4, '2025-11-21', 'Active', '2025-11-20 11:23:11', NULL, 0),
-(10, 'Narciso_A', '$2y$10$BS6Ia9L2r7bvFYENocT1TuCGLW1sHWk4NZHNjE3QUiDo7q0X9sbra', 'Narciso', '', 'Angel', 'Female', 'WYY7zpBvUtVpog==', 'cPgPoHeLBrcTYWNG', '60B8gS78N231wsgcgskkUw==', '18102727@usc.edu.ph', 'hLGthgQF1CbMKg==', 'Za1wjW6BRDZp0X/O', 'MA/eRlOINePH7yIKmTY6gg==', 'LToBiPzyPnyFok6MUgG2k9FGhc138g==', '+XUjckIyj33tiU5p', 'h+33wC9t7jgaLdszUBlqxQ==', 'admin', 3, '2025-11-21', 'Active', '2025-11-20 11:25:41', NULL, 0),
-(11, 'Marcelo_R', '$2y$10$SrXzvZ2.2W3F4ooriduFHuCa0xjS28HV7F7NA1O8xbPiu9ewoYLfq', 'Marcelo', '', 'Riley', 'Female', 'yFoSOEuqlpr1+w==', 'geFTPDmws5uVGhQw', 'mKMKcxlD1bh2mGXiV3tO4Q==', '18102727@usc.edu.ph', 'kSo6ZNzyyu2BwA==', 'a+zjtSDJbiFQD0JQ', 'EzxAPii2TsJ3j2xEMc+nXg==', 'SRp61TbqJ9mXtLptMVmXqtwRZfdQoi/8', 'IRRuKAaRve8lmeMR', 'DFyQJHAyXaXWa693gjcmdg==', 'admin', 2, '2025-11-21', 'Active', '2025-11-20 11:35:30', NULL, 0),
-(12, 'Castillo_A3', '$2y$10$glwI4cvfn67yt858U0XAlemZ744ji0PZVn2S8p68c7xNsWBmE.8C2', 'Castillo', '', 'Athena', 'Female', 't/QAioZmH+m6bQ==', '+Hm2XAC29jHjhfZx', 'MmRzKIz7s9ScaeoQaDKd/g==', '18108007@usc.edu.ph', 'hcXs7F8piBTu0g==', 'jJU+36E1NFsw37ew', 'FemV2mGOiH6CHCI3EQqFpA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-20 14:35:52', '2025-11-25 02:12:05', 0),
-(13, 'Iway_E', '$2y$10$XPpE.CmrHLzsb2FOllR1zeqhy9fCfk0wzPr4mXPI04xKJaC1qkOb.', 'Iway', '', 'Eloise', 'Female', '08M8TEFRPQfPfA==', 'PkACFZ3rEqQ275cZ', '/56SrkYSpIRCOwrDBZOUGQ==', 'lizbetheastwood@gmail.com', '8BCXtJSAJGXbog==', '2/wJGe6+nWrf2Hib', 'H9cEm8Q6ajPk5m8voSoWXA==', 'jx7SqFmQ0TxO1E8bUOkjfWFRMZCyR4I=', '+HNEhlmNTbQZbslF', '4hXaKBIOlzKSwhENgqsoNQ==', 'patient', 1, NULL, 'Active', '2025-11-20 15:10:33', '2025-11-21 05:35:23', 0),
-(14, 'PAT_Y', '$2y$10$SjFarcchEzBVS144rkEYze8GVi.XOKm3xN3R1YU7vrYEBkm4TUtOy', 'PAT', 'RTAVERO', 'YEAH', 'Female', 'lz1ENqTUfzJs1Q==', 'LGK1FvvE49MK56vF', 'LrD4w0CyJwchgmzYIyVWfg==', 'annapotot27@gmail.com', 'g5GC7ICl0AUlSQ==', 'dsvktXn1vFCTf3Fs', 'DoXTO6bUZbCbq70jN9UkGA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-20 16:51:46', NULL, 0),
-(15, 'Summers_D', '$2y$10$d9PZS1r/4yhsFdsLcmBdVexf4KR/SKoLtBQNVSaKc26UlCVeNkibm', 'Summers', '', 'Dazey', 'Female', 'wESYnW5+GItr3Q==', 'm1Fv28agWgxfNVcs', 'QyuX5snhAW4gdjxsegmo3A==', 'dazeyyuh@gmail.com', 'LRQsKMTgym5E7g==', 'rmlt7kQRybkK3D7J', 'DoJZhH+2GR0Ul8XCORUtAQ==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-20 17:08:28', NULL, 0),
-(16, 'Summers_D1', '$2y$10$HomQVF321N8qYw6dHDCnNOnoIll.nhuYwJZzPoFgZgLA.R.UaWvuK', 'Summers', '', 'Dazey', 'Female', 'XHgFVLLnOBreRA==', '+JcIO85FD4Rm8qHD', 'Y9u+NkR/p8EZUWOi6PES1w==', 'dazeyyuh@gmail.com', 'H0/aHHYnfQwhMQ==', 'TDBocMfSK4Z628c4', 't/0PKCSzSGwEimpF6uiReQ==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-20 17:08:30', NULL, 0),
-(17, 'Doe_J', '$2y$10$ldxQnbuSGM4JUenB0T58B.lZFrnSQMD9QNjKeK3peoILifGNTd7h.', 'Doe', '', 'Jane', 'Female', 'amfETNkDGekewQ==', 'begSNFHAbLDBe8GB', 'bUm3uN9yGRB78FF3lpoHdg==', 'lizbetheastwood@gmail.com', 'rk6pIZaVPOJJbA==', '18I8Ac1Xp9z1ltRW', '5jtvKA6beos3WIV8KwGBXQ==', '9veUhYjP+qQa5TdYxYOFR8Q2oyc/', 'Ta4SaYv9fv0zCxnz', 'mtd6GK9z9+EpYIVEQuOHqQ==', 'admin', 1, '2025-11-24', 'Active', '2025-11-20 19:26:42', '2025-11-21 06:05:09', 0),
-(18, 'amores_J', '$2y$10$Ox9NA3eVyFEP4MT32MkKle6dRA0EVfiqVncurfWplFwkBSxHEZQyC', 'amores', '', 'jessa', 'Male', 'ST6f1g9RlKhYwA==', 'krkcE82JzsJWA7JR', 'NriJWJKlt7YJdFnDgpj2mQ==', 'josephparchaso@gmail.com', 'nM6fTtdEo8KFbg==', 'tN8Yj6R0Lx67uEGz', '3b7tNTlKrz6wG3tDyjrGfA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 00:25:29', NULL, 0),
-(19, 'Collado_J', '$2y$10$yipof7eg/j7BBnY0yVdBEOap4wVaw4J7ChFti0kmqyqZ5bLAlvq9u', 'Collado', '', 'Justin', 'Male', 'zlk0TP2uKqETpQ==', 'sJkjrYNdUDUXrKpg', 'MJbiANmzS1GgBGAevVLXWA==', 'josephparchaso@gmail.com', '0wBjc5cAbmNvVQ==', 'OHj8ET/9KHSud8tk', 'lQS4bX1SDq9H1AJGKnpcIA==', '+5v0v0q0', '9uF6mqWjohQUJRLY', 'F4VXtbPo4AL86h2zJ/iMXQ==', 'admin', 5, '2025-11-24', 'Active', '2025-11-21 00:59:56', NULL, 0),
-(20, 'Tan_P', '$2y$10$rqXovn3nb90w73Oe95LZWuTrjerFPTnpaPa839Q58.ud2vLNq7XrO', 'Tan', '', 'Phillipe', 'Male', '1+T50xXiuj+FNA==', '4LAMVLFwZOD+XigP', 'xtX5ulf/dlzA5uhrUbBVTw==', 'josephparchaso@gmail.com', 'FvV0jzq7Iz8Qfg==', 'dDMEh6ulIajv0HB5', 'DSIjkc8I2VAspFYBxNGeew==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-21 01:44:39', NULL, 0),
-(21, 'Potot_R1', '$2y$10$PXrlP81se5DF6Skyimmxzewg0o74UZA9eTVVblR.5BmU0N9AakE3i', 'Potot', '', 'Rix', 'Female', 'X5ZjghFVzldb5Q==', 'CEy64MvNNo4mA7Rr', '0ggGouYZdf1ivHbyebgOIg==', '18102727@usc.edu.ph', '79O+SfHlE2QG6A==', 'W4PWH9aUBpoH2Iz0', 'kgH5U24/GS9NbGfeLbo9Yg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 02:31:38', '2025-11-21 10:34:16', 0),
-(22, 'Parchaso_J', '$2y$10$9e/zpInP/J4d4Qmb6ucYOOQuvrSemt3BZYbrGJxNQ9RGWDTtRFU06', 'Parchaso', '', 'Jhoo', 'Female', 'OYxikR57Y8/FrQ==', 'E+CqJM35tj8tsfVA', '0J0afTaMMPxhsTW6hfnr2A==', 'parchasoresidence@gmail.com', 'gFwlXdqQgj8EyA==', 'SmCms86Pzxamhqoh', 'Z0kDbWNDCIK3QBO/0oByHw==', 'bf04I/2RKFVX8BKvZ0M=', 'syiiw872OEG8a9gN', '2QDTAx2hwP/G72qhpcwV1w==', 'admin', 1, '2025-11-22', 'Active', '2025-11-21 07:51:41', NULL, 0),
-(23, 'Castillo_J', '$2y$10$mphA2ewvgkYzV8HLLkNkau1VLUckIQ.q8tpnf2iljYBCRLR1dxoWK', 'Castillo', '', 'Jane', 'Female', 'VTSCQ4owxvsOtg==', 'fpd6NvGRSuoVlIjg', '1Fl0DnB1PEN8eBqroP08Kg==', 'jingkayl@yahoo.com', 'mLFdYIIr4jvi9w==', 'xbaS3LH/6UgxHiIh', 'gxN58MwsdOuGfBIDLCtNmg==', 'yI6IDqQmpZrXek/oj0begrbWOQq262Rj', 'EiKoAEMalUmwOtQC', 'MH+PJNt1FAbcDxBhGebbXw==', 'admin', 1, '2025-11-22', 'Active', '2025-11-21 15:54:16', NULL, 0),
-(24, 'Panimdim_C', '$2y$10$ZwaU/rsZGdO9KUUSzBIcc.CKyOBFRqGq1ct15B4.C4iZubjSkZDLq', 'Panimdim', '', 'Coleen', 'Female', 'B81jMOk2iAgRmQ==', 'Vp0W4Fnjpirr2B7P', 'csGZet47RQcI0vLINhj4tQ==', 'panimdimcoleen106@gmail.com', 'NuYlAWpWe23R7A==', 'yJpSUZ4UvOjkvbhw', '+fwrHdExiM4IaL+tXyVKJw==', 'GgN2Ga9isudEWRJc', 'bizbzPqNaLTYNNBc', 'NEq8h//O8Lm2SADYytEU+Q==', 'patient', 1, NULL, 'Active', '2025-11-21 17:03:01', '2025-11-22 11:48:07', 0),
-(25, 'Fano_L', '$2y$10$nOEf8feC3C9hi40nRrasMeJ92fPr42Pw1sQ0DwT/JsXw2jVOI3Cry', 'Fano', '', 'Ley', 'Male', 'c4UyVujfSuLRmg==', 's5XYywcpMFdSKqSY', 'g/7f90z9dN9477fMd+Kh+A==', 'josephparchaso@gmail.com', 'FkhAeU3WetkA0g==', 'KZZh2ONOVVufSoWg', 'JTbNntMLYL1fGj4eR6CXMg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:44', '2025-11-24 09:01:42', 0),
-(26, 'Fano_L1', '$2y$10$BIzKUH5J2UGsluz7NAWeZ.hc8xYKYVstyA/pujdYS/Pim38ZLFUcO', 'Fano', '', 'Ley', 'Male', 'bPL3m0qr+K3s3g==', 'xcNarQdWbCQyqvur', 'npL0C67TsU/gIJTlKlR0NQ==', 'josephparchaso@gmail.com', 'IaydOtYgfz6Ong==', 'bOQiiWW55WCj6Yfy', 'tdRshj5mz7BXp2v0b2Ak6Q==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:48', NULL, 0),
-(27, 'Fano_L2', '$2y$10$3nAGbvOzRuGShjNMFlLesu20rJeCuX/tjqtETBnc.F68C9NgPnpDy', 'Fano', '', 'Ley', 'Male', 'xe90UirI4ImUtA==', '6k+6jlYXDI0cv4b0', 'jiX1VqdskQT+2cqHZsvbSQ==', 'josephparchaso@gmail.com', 'utPNGQKgQGCFkw==', 'cwhEcPNo3nuLIDnk', 'X5FAaTaF2N8lKzT5XTCErg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:51', NULL, 0),
-(28, 'Fano_L3', '$2y$10$UF46zWvqFc8f5vVW//5qjOk2u5EVAJtqBCHxxII7.u5Eio6/3au6S', 'Fano', '', 'Ley', 'Male', 'E1JClKD7w/cdGg==', 'RChDabqzK68EaEYb', 'gHFEPW1A/UmHIn6rVxcIJA==', 'josephparchaso@gmail.com', 'R8uqoLInr2siCw==', '/xPwc0b9vg+vEhzs', 'DrL3W3yRz3MWmdJXLH7vyQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:55', NULL, 0),
-(29, 'Fano_L4', '$2y$10$8j/enXC.FKUJikppsJvIw.oxo2CBdFlsNsTkA038EqLtuDX/OSUVy', 'Fano', '', 'Ley', 'Male', 'vXHIXBD5CPlWCQ==', '5t2ewHtVEzB+xP/w', 'JqiyU8GhzJj8nb9Kclhc9g==', 'josephparchaso@gmail.com', 'tes+PlXZY5FK0Q==', '8zpAMXLyATiYxYaI', 'hRUsMFfSOb9gDRWuWphNqQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:58', NULL, 0),
-(30, 'Fano_L5', '$2y$10$Um.UDQM1vhP4B5LQnejF5uPMXG1tKubbD.KXSNsBOkl.Mx0dnDrM.', 'Fano', '', 'Ley', 'Male', 'CXHeulxmhTWMIQ==', '5e9D8yFNAex+luS+', '57o6hp2joHaf4HH2NBg7gg==', 'josephparchaso@gmail.com', 'xmlSt64pE7IoDQ==', 'pntutWM8eJvxJR+y', 'h2w3VVvlZz+CrbGC2XepvQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:21:01', NULL, 0),
-(31, 'Brain_R', '$2y$10$h2lOhRLQsldNMSxsozp1OueYhOEy0mGmjLYyLmt39FA2TFKe9OmQm', 'Brain', '', 'Ricky', 'Male', 'I3egD4G7WZt3bg==', '5Hsx8PTcPuRLJiTV', 'PShdYAmFrFNmVMAYcXafKQ==', '18100807@usc.edu.ph', 'Ts5xO1/xXLBJuw==', 'ipXbYi+WIaka+l8P', '0NyvdpV1HiR/g2Wn1wpMIA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:26:07', NULL, 0),
-(32, 'Chico_L', '$2y$10$jXQyg1d.H/Ubx8cVd/QBzev7QfIUw.3LO.U6Ph53kt3nBrfxwqjUG', 'Chico', '', 'Laroa', 'Male', 'a10qi+Ku6nt0Fg==', 'M7Tlya0yx+UBhKsD', '4W0i3MYN/jPo/enL9gN5Jg==', 'josephparchaso@gmail.com', 'HryE1vJkHwPJfg==', 'a+WKHcwdCz4jN15/', 'iYQoIpM2Nf+4TEf1UWJyjA==', '91y+mf5n', 'pSoRhYJ9yJL25Cxd', 'E1TAT0XrIZOYrQzfjlvyPg==', 'admin', 1, '2025-11-24', 'Inactive', '2025-11-21 20:04:36', NULL, 0),
-(33, 'bumanlag_G', '$2y$10$6svVvlRkv5OKkSdRW0BzyevcqQNNo7GIywGIRUB6Ep61ZxLbfFcoK', 'bumanlag', '', 'gab', 'Male', 'WvjIYf3h6PdSIQ==', 'qb4Mm/ue4d/vzOMh', 'ceJTNdjec7g3EvhtLgU7mQ==', 'josephparchaso@gmail.com', '5UeCnzOOKhY6nA==', '74QvyrTJ736O7NcQ', 'k9p4RnYl2lPIjaXOu6ZPaw==', 'RsFCxXJu', '9OdL3Tibm03Saujy', 'C+bycRQy6z+LTDGwa/Th+Q==', 'admin', 5, '2025-11-25', 'Inactive', '2025-11-22 01:13:05', '2025-11-22 09:13:37', 1),
-(34, 'Schmitz_L', '$2y$10$bBSO8PDV7YAcXfHGF7.avO9ZvKrGtFpiamYOQqCGLSVxcUbTqP0Ze', 'Schmitz', '', 'Lara', 'Female', 'aSRm0bPQKMvc5A==', '1hr8qA6MicOHcMKe', '+0ykU8kYxFctFUa4Q4RRDw==', 'laraschmitzel@gmail.com', 'IbuE36LWWYG/xA==', '4SouFuvmTD9haesz', 'ClzP4b9/MposQ/xVqbEtTQ==', 'u+z9KagMXHWg', 'NgQTR0qvhFdp7h2p', '7U3lxRsNEQGN6di60NGT1w==', 'admin', 1, '2025-11-24', 'Active', '2025-11-22 02:37:54', '2025-11-22 10:37:54', 0),
-(35, 'Imnida_C', '$2y$10$eq54VUcJ7Ovy4IGyvpEoy.u6mDQ3G9AWxrHPsQwpIYjYuZxMDUqzO', 'Imnida', '', 'Coyen', 'Female', 'W9GEnBWzaHGHeA==', 'oJTQPyDT5vZcbGKB', 'Z2GNJm/ssNBpiE41l/fwYA==', 'nochu728@gmail.com', 'RJHJ2/3VgZ+QiA==', 'BpFAdRa4ulQ5h+xn', '7JU9Cem3VYuZ5snxLuPvQg==', 'EP3hym1WLAefS3dLl0/zUxYfpA==', 'kfNLcdoI6RsRN60p', 'sIyu9b7crpVJMRrmyK1QPQ==', 'admin', 1, '2025-11-24', 'Active', '2025-11-22 03:23:15', '2025-11-22 12:03:34', 0),
-(36, 'Panimdim_J', '$2y$10$VNoermueszkjSVPpqphBN.r8dY/Ed3q7u5ZFIYLvrBpcBAm.SshZK', 'Panimdim', 'Menguito', 'Junie Klein', 'Male', 'LxJxjgxSXYtjcA==', 'IC75kGE4xtmkUf/3', 'kRirkKC0xUOX96CzOG/FaA==', 'jio.panimdim@gmail.com', 'lfsgUz6Mlo8vGg==', 'BGhKpAmcAnWlwLOn', 'BRm/1LD1K+2X7IUxwRWbfQ==', NULL, NULL, NULL, 'patient', 5, NULL, 'Active', '2025-11-22 04:34:40', '2025-11-22 12:48:28', 0),
-(37, 'Ulanday_P', '$2y$10$vjDrOtJ5xuX8IadzLxJwU.T0rBOZSH582Z4EKfqewCOuP0O8kAEwe', 'Ulanday', '', 'Precious', 'Female', 'CWz69SZRVHZ5MQ==', 'orLNG7M7qOI1V4vl', 'BGsZWwR/hBBSYkTX5SsF+g==', 'theartp1@gmail.com', '7pI+9i5EejM9qA==', 'W2M0tj3kl2h8fpHk', 'W3P8eFhttVVa4eAB7t/AwA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-22 11:27:44', NULL, 0),
-(38, 'jj_J', '$2y$10$qjg3F6bIIEbR0b7Z4q33e.nzFhhtRt61jRgVgF4Rqw1ueZRABPqPi', 'jj', '', 'jj', 'Male', '+u+EkryZSYUgOQ==', 'pzroc84PnSPUNwwF', 'xVLBGySvN0fPXYsZcpg07g==', 'jj@gmai.com', 'sV8Q+rZfkUX/wg==', 'XeHkcMcrXRqWG8Qa', 'C1JMLvl8juY9vElFvVg4BQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-22 18:30:24', '2025-11-24 06:13:59', 0),
-(39, 'Achas_H', '$2y$10$mF/G9X/aRnUDHk4m7FVxBe270d81vaOqn.esuDzh4haQS/SQsDVc6', 'Achas', 'Pallasigue', 'Helen', 'Female', '+1A0rqToNXNZiw==', 'gN6kE1ipG89FOpUa', 'GdFfXE2jMLfM/o5rJXzrdg==', 'gabbyachas99@gmail.com', '66M7uCc/smLktQ==', 'YPGWLfABGViK5Ng/', 'WN/wb5LQ0nAMxqgLvW1fpQ==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-23 13:21:31', NULL, 0),
-(40, 'Bhebo_S', '$2y$10$e602suykjB34TYN7gjFqFeO6Uh.R72V0zYbulOikPLWj0SLrCtOAi', 'Bhebo', 'Para', 'Sekrito', 'Female', 'Uwvz/aCq23Rk4Q==', 'DXkCR087kILSXoha', 'SnEIeIvXPN2j7AGa2KxXLw==', 'rawr3639@gmail.com', 'ww9xTx3u0ycHIA==', 'cMVaSLeCntW8EkLv', 'yNP9BJwCSEZ1K2gkeWw9KQ==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-23 13:35:42', NULL, 0),
-(41, 'Aniban_M', '$2y$10$rUtU3d2AJId5imhWp34D/eolQb1YdT2YaHuNzkZtubZ6ynWHEOkZy', 'Aniban', 'Burgos', 'Mypher', 'Male', 'URVE0UVfJ/JbVA==', 'axfddh6yEuMNVhZr', '1EJUClavhY8CMUFVDPMksw==', 'forprintscan@gmail.com', 'xxm6V6Mv5TljLA==', 'tLLvsJfaJGEijIES', 'DCkrLL9LA0SIGTJjxln6eg==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-23 17:18:00', NULL, 0),
-(42, 'Patalinghug_R', '$2y$10$Iw/icRyBLNLTGVfob9gTFON54KXHtMgFkwo3pe85EX14odx/47Zv2', 'Patalinghug', 'Emanuel', 'Ray', 'Male', 'zrWlxr7PuOu1GA==', 'xRoeJHKtXzHSR2Mk', 'nDKVRKbE2oFE280+wlxwPA==', '07200335@usc.edu.ph', 'chW6HiAe2d3/eA==', 'yhXOm1pgNS/8V+bu', 'GpOG9NjfAZNQik+xSqMAfw==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-23 19:22:54', NULL, 0),
-(43, 'Spring_C', '$2y$10$z472V2Wt//A49maEGYP4WuB1u/psVf8M/2PqGMatwypdnz2wW8zFO', 'Spring', 'Hates', 'Casper', 'Male', 'LIO4U+JOzjA+2g==', 'q7ZqZqUI+1sxGQWg', 'ruRglvx2APjnWVz9/e0TNA==', 'avatar.pio00@gmail.com', '+0RIv+69nbRBOw==', 'k2ey902bFlCU0yHB', 'oCSxnu0dJ+f/gZZUUd58Xw==', NULL, NULL, NULL, 'patient', 5, NULL, 'Active', '2025-11-23 20:14:57', NULL, 0),
-(44, 'Parchaso_J1', '$2y$10$Nts2SHBIxRUv88vzIDzxYu6WR2KrM.cGrVanWNfj2FnWEyj4zE1qC', 'Parchaso', '', 'JJ', 'Male', 'ABSyzlCzH5cgaQ==', 'kYCywyinLqw2lkjN', 'DF38DSLpruyiAa2000J+gA==', 'josephparchaso@gmail.com', 'MFkHVZanH+8/Hw==', '+MJxygreQLqvXdGf', 'BzQlCHALpijqUTZk5wvxeA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-23 22:51:02', NULL, 0),
-(45, 'parchaso_J', '$2y$10$fwLYKH29K8NhZT4kNkGvYuNf6yFjYmsF780ahs/ifKEERpdtrpgIO', 'parchaso', '', 'jj', 'Male', 'mZ6m208SuJBi9Q==', 'YvOkySWPaWtphxxI', 'uxEqTymblat88v2Eqt1Dpw==', 'josephparchaso@gmail.com', 'X4UIHo8foRUMCQ==', '4GVYjRBH7/6NVUkO', '9cszFwHG9g6oGbrCj6ifNg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-23 23:00:06', '2025-11-24 07:23:25', 0),
-(46, 'Talamisan_A', '$2y$10$X8mQEmC9n..VRuFZhQYvpu5QoRjwBCglrzXBZGzrlMi3z5q1bhmgK', 'Talamisan', 'Logador`', 'Aljon', 'Male', '/dtgsyz12bnQvw==', '2ZEIOiLMmQt6d6i6', '2R8F/DwBxS/T7F4JpRSw8w==', 'aljontalamisan1997@gmail.com', 'zBEcJgMGfqANxw==', 'ONdzHdBLB3+OFJbb', '6j6Xkij4sOXePTj7k51bTw==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 00:03:31', NULL, 0),
-(47, 'Parchasonew_N', '$2y$10$3nmEhvwLtEInzwzSCUbQbuU3rQQ4xtwoRU.54sWfthO6a1cRA3Evu', 'Parchasonew', '', 'new', 'Male', '4pigeV0lEcUZyA==', 'tsdgglUhSiEAOTHJ', 'riblt3bdebUQKv5JCHY9SQ==', 'josephparchaso@gmail.com', 'dhMLBQablkLsmw==', 'yCNp+nhrZpFnXL3y', 'ow/THb92puHMd0PD40F+yA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-24 00:17:37', '2025-11-24 08:45:09', 0),
-(48, 'Uy_R', '$2y$10$iZd2MLgdq9mnncP7pq83KeztejRqkTauK7awb3gh21mrcBAZ6w.u6', 'Uy', '', 'Rielle', 'Female', 'mH7RrpqCTStGUg==', 'oyrR369psP94FS+C', 'aJMTBQ3ytmKAs/szhN5AxA==', 'rielleuy@gmail.com', 'Le709q9JvJAOjA==', 'W9l2CURvuVJU3y4V', 'Q+Zj9Ig/c6Zy6taJX4/hvQ==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 00:20:27', NULL, 0),
-(49, 'balong _L', '$2y$10$p2VffRv2dDJoG/ZqwabnxO7.fV5/GvzWhw8U95M0mftG7sh/MUY9a', 'balong ', '', 'long', 'Male', 'uPT8OmxXJ4fLeg==', 'RpHSyO9wlz3FfyvO', 'pwkvs4rKLnGJSUio+MaRrQ==', '18102727@usc.edu.ph', 'sDnTVbFoISZgVQ==', 'A0cLpFq/k9JJx0J1', '2sycrgak3P2soKWaGPs35Q==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-24 01:41:10', '2025-11-24 09:41:10', 0),
-(53, 'sisid_S', '$2y$10$rXowzyaeM3ZwzKpl56We0Oi/7K25S5SD2KTa4CQpwlQ/af3FwR4NK', 'sisid', '', 'sisid', 'Male', 'BlUS3k5kv48Eqg==', 'NfmtQdtJj64G2ffq', 'waYYUjJP4hO+U+EpvrRTSQ==', 'josephparchaso@gmail.com', 'afFaRsTYDB/huA==', 'r3azi7dx5C5L0Zuz', 'jGNJJPRxZKf6iLdup0yNmw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-24 01:49:31', '2025-11-24 09:55:28', 0),
-(54, 'live _S', '$2y$10$1VPXhBSLU4Ie34IMlP7uSuV7V9sM8xwWMGQKvDx9p/ep2ia18z.6a', 'live ', '', 'sample', 'Male', 'qBz/WaVhqHUn7w==', '1CdCRYewNl0qyGFk', 'ZjueFBO8l8HVYJZ1yqrmnw==', 'josephparchaso@gmail.com', 'VVk/mPh3Pd0cvA==', 'g/dky6eESp3N+ywo', 'Rd2rO6uAo8Hz6hvn2w1fNA==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 01:58:00', '2025-11-24 10:08:52', 0),
-(55, 'Sarzuelo_R', '$2y$10$q21nxvWN6RqUYqg60mWgpumal0SZtl6ixtTEsxUOvRB5R4d/oVjOW', 'Sarzuelo', 'Cane', 'Rex', 'Male', '+wWenrotJPl23A==', 'VtklY6wlndg0ohs3', 'vp49JuS18XBNpTYtrs80NQ==', 'chloesarzuelo@gmail.com', 'xS47RjPvIumBuw==', 'Kx86OGAaBx90s0MG', '2+moQBZN8cvcug4T//qcyw==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 02:30:09', '2025-11-24 10:30:09', 0);
+INSERT INTO `users` (`user_id`, `guardian_id`, `username`, `password`, `last_name`, `middle_name`, `first_name`, `gender`, `date_of_birth`, `date_of_birth_iv`, `date_of_birth_tag`, `email`, `contact_number`, `contact_number_iv`, `contact_number_tag`, `address`, `address_iv`, `address_tag`, `role`, `branch_id`, `date_started`, `status`, `date_created`, `date_updated`, `force_logout`) VALUES
+(3, NULL, 'smileify_owner', '$2y$10$ztP9PxeWoQ1xebbhT0ztneZF//6oHiDQMjxLHb8jDxOR/mbCFY07y', 'Arriesgado', NULL, 'Irish', 'Male', 'dpFnPzlFUzy54A==', 'RcZbZyejRp4dSJlj', 'I+SiyQJElPq3RGEpy0JKpw==', 'josephparchaso@gmail.com', 'dIG/JWw8OxS7+Cw=', 'f+vA6QnRdnPORrZN', 'hxq4sxxR8zWZfdUh37KX7g==', NULL, NULL, NULL, 'owner', NULL, '2025-11-19', 'Active', '2025-11-18 16:24:36', NULL, 0),
+(4, NULL, 'Potot_R', '$2y$10$AHkfLSKgjSUI/EdSvwkf8ORV51ch4nW4G0P.nJgI4jLooX273USE2', 'Potot', 'Travero', 'Rixielie', 'Male', 'RyRYccuXmYFSkQ==', 'md9KB1cF773cRmfC', '4LD5nRNuJo1W+ZmMLzbh3w==', '18102727@usc.edu.ph', 'rUxFAwCeceu1vQ==', 'GYD4S15mO0Z80tQt', 'NtgvbNMSCPRboi5mplXgXg==', 'YDRAWm+x7TnnKhpyZQ==', 'yeH0qllgFui+B+G2', '6PQeqkQMnKEDOAJWB3boPw==', 'admin', 1, '2025-11-20', 'Inactive', '2025-11-19 11:03:01', '2025-11-20 19:21:10', 1),
+(5, NULL, 'Castillo_A', '$2y$10$RhbUsibDKWIWyN0EUQ/CA.iQgV3Rdj23VtBbOMAhqVQpmorH7KrVe', 'Castillo', 'Potot', 'Athena', 'Female', 'I/9n2u5r5XcZxw==', 'jx14VxEtWd3nP+fJ', 'oHfUbubiWK6o2yG6mZg7tA==', '18102727@usc.edu.ph', 'OhKRvWL+V+kj3A==', 'AaQ4MyZc0Q8dFP+U', 'EW68ZRTAILc6TZd23z3xtg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-19 11:16:06', '2025-11-21 09:51:39', 0),
+(6, NULL, 'Castillo_A1', '$2y$10$GD9/KqAiQwulPzQyzfy7DeqIiBrEJLqBYqva7HnTsj/pUIsPsCkgu', 'Castillo', 'Potot', 'Athena', 'Female', 'AMIXwTnVAVznyQ==', 'Xvu1UMb9tcWy4jDm', 'jLPfl2fJ/iVLO6CzuksjxQ==', '18102727@usc.edu.ph', 'NquQqNZAsVaD1g==', 'gpDvHJ1rmd2QrNBz', '1QSDqVAz8kFyCGtzD55pXw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-19 11:16:08', NULL, 0),
+(7, NULL, 'Castillo_A2', '$2y$10$ol1lkJC3jP0dZJgl17ZPn.ACG1fzSx./5IUBtPxzHvolkuLHUOY8u', 'Castillo', 'Potot', 'Andrei', 'Male', 'UFlqlalBgFVsSQ==', 'OZPnRFSbJi8PUMKW', 'MPA5HseUQM3ylH+bSP+Wlw==', 'theartp1@gmail.com', 'TWcAhvqxqMRuOQ==', 'rcJ4d24lyRKFiY54', '2j3yKXZ0MeWiHVMt+9ICSg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-19 11:18:41', NULL, 0),
+(8, NULL, 'Juban_J', '$2y$10$WRrn9zk2Cj1tW0DfhxB.i.ooZEnT4loEHjw1voc8sU.ZucWjWxV8i', 'Juban', '', 'Jay Marie', 'Female', 'W6gKRmdOedtgMw==', 'xvWwRpJ+7C1P89jT', '3J26tQybCTquA0epsbA3eg==', '18102727@usc.edu.ph', '2NA6GcZzf2twqA==', 'gHkDZU7Pg5M8awYE', 'nEneWyOoOKT2yAePPMNM4A==', 'E3+qg+KF3cTdu/AqgRl2oBPfqHky', 'JHKgOEd/jzmFe4I1', '/eLo6lb7SvghMuxD9BOy4Q==', 'admin', 1, '2025-11-21', 'Active', '2025-11-20 11:20:13', '2025-11-21 05:49:55', 0),
+(9, NULL, 'Benetiz_A', '$2y$10$7EzcfeVMnq7CjbkDU0/3G.Ot4ylMtifZ/GM7gXfkeDRSrBAAtZVPe', 'Benetiz', '', 'Aaron', 'Male', '++uCZISsBX3MNA==', 'WAKcRG+qo1Tfccqr', 'w7FPkjIVsoo9/6zjBu1nOg==', '18102727@usc.edu.ph', 'RXNk/LoWKpbN4w==', 'h8Bg22zwsSqMlXd5', 'Wyp+FWsmm3MHe+5agA7hVQ==', 'f5jGFyvjmaNg6piG6Op3jcoyqUEr', '9fCRtqSRZI9cx0d7', '9SZI1F9/H+c73nrZutsyzQ==', 'admin', 4, '2025-11-21', 'Active', '2025-11-20 11:23:11', NULL, 0),
+(10, NULL, 'Narciso_A', '$2y$10$BS6Ia9L2r7bvFYENocT1TuCGLW1sHWk4NZHNjE3QUiDo7q0X9sbra', 'Narciso', '', 'Angel', 'Female', 'WYY7zpBvUtVpog==', 'cPgPoHeLBrcTYWNG', '60B8gS78N231wsgcgskkUw==', '18102727@usc.edu.ph', 'hLGthgQF1CbMKg==', 'Za1wjW6BRDZp0X/O', 'MA/eRlOINePH7yIKmTY6gg==', 'LToBiPzyPnyFok6MUgG2k9FGhc138g==', '+XUjckIyj33tiU5p', 'h+33wC9t7jgaLdszUBlqxQ==', 'admin', 3, '2025-11-21', 'Active', '2025-11-20 11:25:41', NULL, 0),
+(11, NULL, 'Marcelo_R', '$2y$10$SrXzvZ2.2W3F4ooriduFHuCa0xjS28HV7F7NA1O8xbPiu9ewoYLfq', 'Marcelo', '', 'Riley', 'Female', 'yFoSOEuqlpr1+w==', 'geFTPDmws5uVGhQw', 'mKMKcxlD1bh2mGXiV3tO4Q==', '18102727@usc.edu.ph', 'kSo6ZNzyyu2BwA==', 'a+zjtSDJbiFQD0JQ', 'EzxAPii2TsJ3j2xEMc+nXg==', 'SRp61TbqJ9mXtLptMVmXqtwRZfdQoi/8', 'IRRuKAaRve8lmeMR', 'DFyQJHAyXaXWa693gjcmdg==', 'admin', 2, '2025-11-21', 'Active', '2025-11-20 11:35:30', NULL, 0),
+(12, NULL, 'Castillo_A3', '$2y$10$glwI4cvfn67yt858U0XAlemZ744ji0PZVn2S8p68c7xNsWBmE.8C2', 'Castillo', '', 'Athena', 'Female', 't/QAioZmH+m6bQ==', '+Hm2XAC29jHjhfZx', 'MmRzKIz7s9ScaeoQaDKd/g==', '18100807@usc.edu.ph', 'hcXs7F8piBTu0g==', 'jJU+36E1NFsw37ew', 'FemV2mGOiH6CHCI3EQqFpA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-20 14:35:52', '2025-12-04 09:10:50', 0),
+(13, NULL, 'Iway_E', '$2y$10$XPpE.CmrHLzsb2FOllR1zeqhy9fCfk0wzPr4mXPI04xKJaC1qkOb.', 'Iway', '', 'Eloise', 'Female', '08M8TEFRPQfPfA==', 'PkACFZ3rEqQ275cZ', '/56SrkYSpIRCOwrDBZOUGQ==', 'lizbetheastwood@gmail.com', '8BCXtJSAJGXbog==', '2/wJGe6+nWrf2Hib', 'H9cEm8Q6ajPk5m8voSoWXA==', 'jx7SqFmQ0TxO1E8bUOkjfWFRMZCyR4I=', '+HNEhlmNTbQZbslF', '4hXaKBIOlzKSwhENgqsoNQ==', 'patient', 1, NULL, 'Active', '2025-11-20 15:10:33', '2025-11-21 05:35:23', 0),
+(14, NULL, 'PAT_Y', '$2y$10$SjFarcchEzBVS144rkEYze8GVi.XOKm3xN3R1YU7vrYEBkm4TUtOy', 'PAT', 'RTAVERO', 'YEAH', 'Female', 'lz1ENqTUfzJs1Q==', 'LGK1FvvE49MK56vF', 'LrD4w0CyJwchgmzYIyVWfg==', 'annapotot27@gmail.com', 'g5GC7ICl0AUlSQ==', 'dsvktXn1vFCTf3Fs', 'DoXTO6bUZbCbq70jN9UkGA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-20 16:51:46', NULL, 0),
+(15, NULL, 'Summers_D', '$2y$10$d9PZS1r/4yhsFdsLcmBdVexf4KR/SKoLtBQNVSaKc26UlCVeNkibm', 'Summers', '', 'Dazey', 'Female', 'wESYnW5+GItr3Q==', 'm1Fv28agWgxfNVcs', 'QyuX5snhAW4gdjxsegmo3A==', 'dazeyyuh@gmail.com', 'LRQsKMTgym5E7g==', 'rmlt7kQRybkK3D7J', 'DoJZhH+2GR0Ul8XCORUtAQ==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-20 17:08:28', NULL, 0),
+(16, NULL, 'Summers_D1', '$2y$10$HomQVF321N8qYw6dHDCnNOnoIll.nhuYwJZzPoFgZgLA.R.UaWvuK', 'Summers', '', 'Dazey', 'Female', 'XHgFVLLnOBreRA==', '+JcIO85FD4Rm8qHD', 'Y9u+NkR/p8EZUWOi6PES1w==', 'dazeyyuh@gmail.com', 'H0/aHHYnfQwhMQ==', 'TDBocMfSK4Z628c4', 't/0PKCSzSGwEimpF6uiReQ==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-20 17:08:30', NULL, 0),
+(17, NULL, 'Doe_J', '$2y$10$ldxQnbuSGM4JUenB0T58B.lZFrnSQMD9QNjKeK3peoILifGNTd7h.', 'Doe', '', 'Jane', 'Female', 'amfETNkDGekewQ==', 'begSNFHAbLDBe8GB', 'bUm3uN9yGRB78FF3lpoHdg==', 'lizbetheastwood@gmail.com', 'rk6pIZaVPOJJbA==', '18I8Ac1Xp9z1ltRW', '5jtvKA6beos3WIV8KwGBXQ==', '9veUhYjP+qQa5TdYxYOFR8Q2oyc/', 'Ta4SaYv9fv0zCxnz', 'mtd6GK9z9+EpYIVEQuOHqQ==', 'admin', 1, '2025-11-24', 'Active', '2025-11-20 19:26:42', '2025-11-21 06:05:09', 0),
+(18, NULL, 'amores_J', '$2y$10$Ox9NA3eVyFEP4MT32MkKle6dRA0EVfiqVncurfWplFwkBSxHEZQyC', 'amores', '', 'jessa', 'Male', 'ST6f1g9RlKhYwA==', 'krkcE82JzsJWA7JR', 'NriJWJKlt7YJdFnDgpj2mQ==', 'josephparchaso@gmail.com', 'nM6fTtdEo8KFbg==', 'tN8Yj6R0Lx67uEGz', '3b7tNTlKrz6wG3tDyjrGfA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 00:25:29', NULL, 0),
+(19, NULL, 'Collado_J', '$2y$10$yipof7eg/j7BBnY0yVdBEOap4wVaw4J7ChFti0kmqyqZ5bLAlvq9u', 'Collado', '', 'Justin', 'Male', 'zlk0TP2uKqETpQ==', 'sJkjrYNdUDUXrKpg', 'MJbiANmzS1GgBGAevVLXWA==', 'josephparchaso@gmail.com', '0wBjc5cAbmNvVQ==', 'OHj8ET/9KHSud8tk', 'lQS4bX1SDq9H1AJGKnpcIA==', '+5v0v0q0', '9uF6mqWjohQUJRLY', 'F4VXtbPo4AL86h2zJ/iMXQ==', 'admin', 5, '2025-11-24', 'Active', '2025-11-21 00:59:56', NULL, 0),
+(20, NULL, 'Tan_P', '$2y$10$rqXovn3nb90w73Oe95LZWuTrjerFPTnpaPa839Q58.ud2vLNq7XrO', 'Tan', '', 'Phillipe', 'Male', '1+T50xXiuj+FNA==', '4LAMVLFwZOD+XigP', 'xtX5ulf/dlzA5uhrUbBVTw==', 'josephparchaso@gmail.com', 'FvV0jzq7Iz8Qfg==', 'dDMEh6ulIajv0HB5', 'DSIjkc8I2VAspFYBxNGeew==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-21 01:44:39', NULL, 0),
+(21, NULL, 'Potot_R1', '$2y$10$PXrlP81se5DF6Skyimmxzewg0o74UZA9eTVVblR.5BmU0N9AakE3i', 'Potot', '', 'Rix', 'Female', 'X5ZjghFVzldb5Q==', 'CEy64MvNNo4mA7Rr', '0ggGouYZdf1ivHbyebgOIg==', '18102727@usc.edu.ph', '79O+SfHlE2QG6A==', 'W4PWH9aUBpoH2Iz0', 'kgH5U24/GS9NbGfeLbo9Yg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 02:31:38', '2025-11-21 10:34:16', 0),
+(22, NULL, 'Parchaso_J', '$2y$10$9e/zpInP/J4d4Qmb6ucYOOQuvrSemt3BZYbrGJxNQ9RGWDTtRFU06', 'Parchaso', '', 'Jhoo', 'Female', 'OYxikR57Y8/FrQ==', 'E+CqJM35tj8tsfVA', '0J0afTaMMPxhsTW6hfnr2A==', 'parchasoresidence@gmail.com', 'gFwlXdqQgj8EyA==', 'SmCms86Pzxamhqoh', 'Z0kDbWNDCIK3QBO/0oByHw==', 'bf04I/2RKFVX8BKvZ0M=', 'syiiw872OEG8a9gN', '2QDTAx2hwP/G72qhpcwV1w==', 'admin', 1, '2025-11-22', 'Active', '2025-11-21 07:51:41', NULL, 0),
+(23, NULL, 'Castillo_J', '$2y$10$mphA2ewvgkYzV8HLLkNkau1VLUckIQ.q8tpnf2iljYBCRLR1dxoWK', 'Castillo', '', 'Jane', 'Female', 'VTSCQ4owxvsOtg==', 'fpd6NvGRSuoVlIjg', '1Fl0DnB1PEN8eBqroP08Kg==', 'jingkayl@yahoo.com', 'mLFdYIIr4jvi9w==', 'xbaS3LH/6UgxHiIh', 'gxN58MwsdOuGfBIDLCtNmg==', 'yI6IDqQmpZrXek/oj0begrbWOQq262Rj', 'EiKoAEMalUmwOtQC', 'MH+PJNt1FAbcDxBhGebbXw==', 'admin', 1, '2025-11-22', 'Active', '2025-11-21 15:54:16', NULL, 0),
+(24, NULL, 'Panimdim_C', '$2y$10$ZwaU/rsZGdO9KUUSzBIcc.CKyOBFRqGq1ct15B4.C4iZubjSkZDLq', 'Panimdim', '', 'Coleen', 'Female', 'B81jMOk2iAgRmQ==', 'Vp0W4Fnjpirr2B7P', 'csGZet47RQcI0vLINhj4tQ==', 'panimdimcoleen106@gmail.com', 'NuYlAWpWe23R7A==', 'yJpSUZ4UvOjkvbhw', '+fwrHdExiM4IaL+tXyVKJw==', 'GgN2Ga9isudEWRJc', 'bizbzPqNaLTYNNBc', 'NEq8h//O8Lm2SADYytEU+Q==', 'patient', 1, NULL, 'Active', '2025-11-21 17:03:01', '2025-11-22 11:48:07', 0),
+(25, NULL, 'Fano_L', '$2y$10$nOEf8feC3C9hi40nRrasMeJ92fPr42Pw1sQ0DwT/JsXw2jVOI3Cry', 'Fano', '', 'Ley', 'Male', 'c4UyVujfSuLRmg==', 's5XYywcpMFdSKqSY', 'g/7f90z9dN9477fMd+Kh+A==', 'josephparchaso@gmail.com', 'FkhAeU3WetkA0g==', 'KZZh2ONOVVufSoWg', 'JTbNntMLYL1fGj4eR6CXMg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:44', '2025-11-24 09:01:42', 0),
+(26, NULL, 'Fano_L1', '$2y$10$BIzKUH5J2UGsluz7NAWeZ.hc8xYKYVstyA/pujdYS/Pim38ZLFUcO', 'Fano', '', 'Ley', 'Male', 'bPL3m0qr+K3s3g==', 'xcNarQdWbCQyqvur', 'npL0C67TsU/gIJTlKlR0NQ==', 'josephparchaso@gmail.com', 'IaydOtYgfz6Ong==', 'bOQiiWW55WCj6Yfy', 'tdRshj5mz7BXp2v0b2Ak6Q==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:48', NULL, 0),
+(27, NULL, 'Fano_L2', '$2y$10$3nAGbvOzRuGShjNMFlLesu20rJeCuX/tjqtETBnc.F68C9NgPnpDy', 'Fano', '', 'Ley', 'Male', 'xe90UirI4ImUtA==', '6k+6jlYXDI0cv4b0', 'jiX1VqdskQT+2cqHZsvbSQ==', 'josephparchaso@gmail.com', 'utPNGQKgQGCFkw==', 'cwhEcPNo3nuLIDnk', 'X5FAaTaF2N8lKzT5XTCErg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:51', NULL, 0),
+(28, NULL, 'Fano_L3', '$2y$10$UF46zWvqFc8f5vVW//5qjOk2u5EVAJtqBCHxxII7.u5Eio6/3au6S', 'Fano', '', 'Ley', 'Male', 'E1JClKD7w/cdGg==', 'RChDabqzK68EaEYb', 'gHFEPW1A/UmHIn6rVxcIJA==', 'josephparchaso@gmail.com', 'R8uqoLInr2siCw==', '/xPwc0b9vg+vEhzs', 'DrL3W3yRz3MWmdJXLH7vyQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:55', NULL, 0),
+(29, NULL, 'Fano_L4', '$2y$10$8j/enXC.FKUJikppsJvIw.oxo2CBdFlsNsTkA038EqLtuDX/OSUVy', 'Fano', '', 'Ley', 'Male', 'vXHIXBD5CPlWCQ==', '5t2ewHtVEzB+xP/w', 'JqiyU8GhzJj8nb9Kclhc9g==', 'josephparchaso@gmail.com', 'tes+PlXZY5FK0Q==', '8zpAMXLyATiYxYaI', 'hRUsMFfSOb9gDRWuWphNqQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:20:58', NULL, 0),
+(30, NULL, 'Fano_L5', '$2y$10$Um.UDQM1vhP4B5LQnejF5uPMXG1tKubbD.KXSNsBOkl.Mx0dnDrM.', 'Fano', '', 'Ley', 'Male', 'CXHeulxmhTWMIQ==', '5e9D8yFNAex+luS+', '57o6hp2joHaf4HH2NBg7gg==', 'josephparchaso@gmail.com', 'xmlSt64pE7IoDQ==', 'pntutWM8eJvxJR+y', 'h2w3VVvlZz+CrbGC2XepvQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:21:01', NULL, 0),
+(31, NULL, 'Brain_R', '$2y$10$h2lOhRLQsldNMSxsozp1OueYhOEy0mGmjLYyLmt39FA2TFKe9OmQm', 'Brain', '', 'Ricky', 'Male', 'I3egD4G7WZt3bg==', '5Hsx8PTcPuRLJiTV', 'PShdYAmFrFNmVMAYcXafKQ==', '18100807@usc.edu.ph', 'Ts5xO1/xXLBJuw==', 'ipXbYi+WIaka+l8P', '0NyvdpV1HiR/g2Wn1wpMIA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-21 19:26:07', NULL, 0),
+(32, NULL, 'Chico_L', '$2y$10$jXQyg1d.H/Ubx8cVd/QBzev7QfIUw.3LO.U6Ph53kt3nBrfxwqjUG', 'Chico', '', 'Laroa', 'Male', 'a10qi+Ku6nt0Fg==', 'M7Tlya0yx+UBhKsD', '4W0i3MYN/jPo/enL9gN5Jg==', 'josephparchaso@gmail.com', 'HryE1vJkHwPJfg==', 'a+WKHcwdCz4jN15/', 'iYQoIpM2Nf+4TEf1UWJyjA==', '91y+mf5n', 'pSoRhYJ9yJL25Cxd', 'E1TAT0XrIZOYrQzfjlvyPg==', 'admin', 1, '2025-11-24', 'Inactive', '2025-11-21 20:04:36', NULL, 0),
+(33, NULL, 'bumanlag_G', '$2y$10$6svVvlRkv5OKkSdRW0BzyevcqQNNo7GIywGIRUB6Ep61ZxLbfFcoK', 'bumanlag', '', 'gab', 'Male', 'WvjIYf3h6PdSIQ==', 'qb4Mm/ue4d/vzOMh', 'ceJTNdjec7g3EvhtLgU7mQ==', 'josephparchaso@gmail.com', '5UeCnzOOKhY6nA==', '74QvyrTJ736O7NcQ', 'k9p4RnYl2lPIjaXOu6ZPaw==', 'RsFCxXJu', '9OdL3Tibm03Saujy', 'C+bycRQy6z+LTDGwa/Th+Q==', 'admin', 5, '2025-11-25', 'Inactive', '2025-11-22 01:13:05', '2025-11-22 09:13:37', 1),
+(34, NULL, 'Schmitz_L', '$2y$10$bBSO8PDV7YAcXfHGF7.avO9ZvKrGtFpiamYOQqCGLSVxcUbTqP0Ze', 'Schmitz', '', 'Lara', 'Female', 'aSRm0bPQKMvc5A==', '1hr8qA6MicOHcMKe', '+0ykU8kYxFctFUa4Q4RRDw==', 'laraschmitzel@gmail.com', 'IbuE36LWWYG/xA==', '4SouFuvmTD9haesz', 'ClzP4b9/MposQ/xVqbEtTQ==', 'u+z9KagMXHWg', 'NgQTR0qvhFdp7h2p', '7U3lxRsNEQGN6di60NGT1w==', 'admin', 1, '2025-11-24', 'Active', '2025-11-22 02:37:54', '2025-11-22 10:37:54', 0),
+(35, NULL, 'Imnida_C', '$2y$10$eq54VUcJ7Ovy4IGyvpEoy.u6mDQ3G9AWxrHPsQwpIYjYuZxMDUqzO', 'Imnida', '', 'Coyen', 'Female', 'W9GEnBWzaHGHeA==', 'oJTQPyDT5vZcbGKB', 'Z2GNJm/ssNBpiE41l/fwYA==', 'nochu728@gmail.com', 'RJHJ2/3VgZ+QiA==', 'BpFAdRa4ulQ5h+xn', '7JU9Cem3VYuZ5snxLuPvQg==', 'EP3hym1WLAefS3dLl0/zUxYfpA==', 'kfNLcdoI6RsRN60p', 'sIyu9b7crpVJMRrmyK1QPQ==', 'admin', 1, '2025-11-24', 'Active', '2025-11-22 03:23:15', '2025-11-22 12:03:34', 0),
+(36, NULL, 'Panimdim_J', '$2y$10$VNoermueszkjSVPpqphBN.r8dY/Ed3q7u5ZFIYLvrBpcBAm.SshZK', 'Panimdim', 'Menguito', 'Junie Klein', 'Male', 'LxJxjgxSXYtjcA==', 'IC75kGE4xtmkUf/3', 'kRirkKC0xUOX96CzOG/FaA==', 'jio.panimdim@gmail.com', 'lfsgUz6Mlo8vGg==', 'BGhKpAmcAnWlwLOn', 'BRm/1LD1K+2X7IUxwRWbfQ==', NULL, NULL, NULL, 'patient', 5, NULL, 'Active', '2025-11-22 04:34:40', '2025-11-22 12:48:28', 0),
+(37, NULL, 'Ulanday_P', '$2y$10$j3QkbX/XbHohXU8MtWs66O8IT4.NkcpqF1N9IS2rmzQKDUgcF5JLa', 'Ulanday', '', 'Precious', 'Female', 'CWz69SZRVHZ5MQ==', 'orLNG7M7qOI1V4vl', 'BGsZWwR/hBBSYkTX5SsF+g==', 'theartp1@gmail.com', '7pI+9i5EejM9qA==', 'W2M0tj3kl2h8fpHk', 'W3P8eFhttVVa4eAB7t/AwA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-22 11:27:44', NULL, 0),
+(38, NULL, 'jj_J', '$2y$10$qjg3F6bIIEbR0b7Z4q33e.nzFhhtRt61jRgVgF4Rqw1ueZRABPqPi', 'jj', '', 'jj', 'Male', '+u+EkryZSYUgOQ==', 'pzroc84PnSPUNwwF', 'xVLBGySvN0fPXYsZcpg07g==', 'jj@gmai.com', 'sV8Q+rZfkUX/wg==', 'XeHkcMcrXRqWG8Qa', 'C1JMLvl8juY9vElFvVg4BQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-22 18:30:24', '2025-11-24 06:13:59', 0),
+(39, NULL, 'Achas_H', '$2y$10$mF/G9X/aRnUDHk4m7FVxBe270d81vaOqn.esuDzh4haQS/SQsDVc6', 'Achas', 'Pallasigue', 'Helen', 'Female', '+1A0rqToNXNZiw==', 'gN6kE1ipG89FOpUa', 'GdFfXE2jMLfM/o5rJXzrdg==', 'gabbyachas99@gmail.com', '66M7uCc/smLktQ==', 'YPGWLfABGViK5Ng/', 'WN/wb5LQ0nAMxqgLvW1fpQ==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-23 13:21:31', NULL, 0),
+(40, NULL, 'Bhebo_S', '$2y$10$e602suykjB34TYN7gjFqFeO6Uh.R72V0zYbulOikPLWj0SLrCtOAi', 'Bhebo', 'Para', 'Sekrito', 'Female', 'Uwvz/aCq23Rk4Q==', 'DXkCR087kILSXoha', 'SnEIeIvXPN2j7AGa2KxXLw==', 'rawr3639@gmail.com', 'ww9xTx3u0ycHIA==', 'cMVaSLeCntW8EkLv', 'yNP9BJwCSEZ1K2gkeWw9KQ==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-23 13:35:42', NULL, 0),
+(41, NULL, 'Aniban_M', '$2y$10$rUtU3d2AJId5imhWp34D/eolQb1YdT2YaHuNzkZtubZ6ynWHEOkZy', 'Aniban', 'Burgos', 'Mypher', 'Male', 'URVE0UVfJ/JbVA==', 'axfddh6yEuMNVhZr', '1EJUClavhY8CMUFVDPMksw==', 'forprintscan@gmail.com', 'xxm6V6Mv5TljLA==', 'tLLvsJfaJGEijIES', 'DCkrLL9LA0SIGTJjxln6eg==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-23 17:18:00', NULL, 0),
+(42, NULL, 'Patalinghug_R', '$2y$10$Iw/icRyBLNLTGVfob9gTFON54KXHtMgFkwo3pe85EX14odx/47Zv2', 'Patalinghug', 'Emanuel', 'Ray', 'Male', 'zrWlxr7PuOu1GA==', 'xRoeJHKtXzHSR2Mk', 'nDKVRKbE2oFE280+wlxwPA==', '07200335@usc.edu.ph', 'chW6HiAe2d3/eA==', 'yhXOm1pgNS/8V+bu', 'GpOG9NjfAZNQik+xSqMAfw==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-23 19:22:54', NULL, 0),
+(43, NULL, 'Spring_C', '$2y$10$z472V2Wt//A49maEGYP4WuB1u/psVf8M/2PqGMatwypdnz2wW8zFO', 'Spring', 'Hates', 'Casper', 'Male', 'LIO4U+JOzjA+2g==', 'q7ZqZqUI+1sxGQWg', 'ruRglvx2APjnWVz9/e0TNA==', 'avatar.pio00@gmail.com', '+0RIv+69nbRBOw==', 'k2ey902bFlCU0yHB', 'oCSxnu0dJ+f/gZZUUd58Xw==', NULL, NULL, NULL, 'patient', 5, NULL, 'Active', '2025-11-23 20:14:57', NULL, 0),
+(44, NULL, 'Parchaso_J1', '$2y$10$Nts2SHBIxRUv88vzIDzxYu6WR2KrM.cGrVanWNfj2FnWEyj4zE1qC', 'Parchaso', '', 'JJ', 'Male', 'ABSyzlCzH5cgaQ==', 'kYCywyinLqw2lkjN', 'DF38DSLpruyiAa2000J+gA==', 'josephparchaso@gmail.com', 'MFkHVZanH+8/Hw==', '+MJxygreQLqvXdGf', 'BzQlCHALpijqUTZk5wvxeA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-23 22:51:02', NULL, 0),
+(45, NULL, 'parchaso_J', '$2y$10$fwLYKH29K8NhZT4kNkGvYuNf6yFjYmsF780ahs/ifKEERpdtrpgIO', 'parchaso', '', 'jj', 'Male', 'mZ6m208SuJBi9Q==', 'YvOkySWPaWtphxxI', 'uxEqTymblat88v2Eqt1Dpw==', 'josephparchaso@gmail.com', 'X4UIHo8foRUMCQ==', '4GVYjRBH7/6NVUkO', '9cszFwHG9g6oGbrCj6ifNg==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-23 23:00:06', '2025-11-24 07:23:25', 0),
+(46, NULL, 'Talamisan_A', '$2y$10$X8mQEmC9n..VRuFZhQYvpu5QoRjwBCglrzXBZGzrlMi3z5q1bhmgK', 'Talamisan', 'Logador`', 'Aljon', 'Male', '/dtgsyz12bnQvw==', '2ZEIOiLMmQt6d6i6', '2R8F/DwBxS/T7F4JpRSw8w==', 'aljontalamisan1997@gmail.com', 'zBEcJgMGfqANxw==', 'ONdzHdBLB3+OFJbb', '6j6Xkij4sOXePTj7k51bTw==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 00:03:31', NULL, 0),
+(47, NULL, 'Parchasonew_N', '$2y$10$3nmEhvwLtEInzwzSCUbQbuU3rQQ4xtwoRU.54sWfthO6a1cRA3Evu', 'Parchasonew', '', 'new', 'Male', '4pigeV0lEcUZyA==', 'tsdgglUhSiEAOTHJ', 'riblt3bdebUQKv5JCHY9SQ==', 'josephparchaso@gmail.com', 'dhMLBQablkLsmw==', 'yCNp+nhrZpFnXL3y', 'ow/THb92puHMd0PD40F+yA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-24 00:17:37', '2025-11-24 08:45:09', 0),
+(48, NULL, 'Uy_R', '$2y$10$iZd2MLgdq9mnncP7pq83KeztejRqkTauK7awb3gh21mrcBAZ6w.u6', 'Uy', '', 'Rielle', 'Female', 'mH7RrpqCTStGUg==', 'oyrR369psP94FS+C', 'aJMTBQ3ytmKAs/szhN5AxA==', 'rielleuy@gmail.com', 'Le709q9JvJAOjA==', 'W9l2CURvuVJU3y4V', 'Q+Zj9Ig/c6Zy6taJX4/hvQ==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 00:20:27', NULL, 0),
+(49, NULL, 'balong _L', '$2y$10$p2VffRv2dDJoG/ZqwabnxO7.fV5/GvzWhw8U95M0mftG7sh/MUY9a', 'balong ', '', 'long', 'Male', 'uPT8OmxXJ4fLeg==', 'RpHSyO9wlz3FfyvO', 'pwkvs4rKLnGJSUio+MaRrQ==', '18102727@usc.edu.ph', 'sDnTVbFoISZgVQ==', 'A0cLpFq/k9JJx0J1', '2sycrgak3P2soKWaGPs35Q==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-24 01:41:10', '2025-11-24 09:41:10', 0),
+(53, NULL, 'sisid_S', '$2y$10$rXowzyaeM3ZwzKpl56We0Oi/7K25S5SD2KTa4CQpwlQ/af3FwR4NK', 'sisid', '', 'sisid', 'Male', 'BlUS3k5kv48Eqg==', 'NfmtQdtJj64G2ffq', 'waYYUjJP4hO+U+EpvrRTSQ==', 'josephparchaso@gmail.com', 'afFaRsTYDB/huA==', 'r3azi7dx5C5L0Zuz', 'jGNJJPRxZKf6iLdup0yNmw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-11-24 01:49:31', '2025-11-24 09:55:28', 0),
+(54, NULL, 'live _S', '$2y$10$1VPXhBSLU4Ie34IMlP7uSuV7V9sM8xwWMGQKvDx9p/ep2ia18z.6a', 'live ', '', 'sample', 'Male', 'qBz/WaVhqHUn7w==', '1CdCRYewNl0qyGFk', 'ZjueFBO8l8HVYJZ1yqrmnw==', 'josephparchaso@gmail.com', 'VVk/mPh3Pd0cvA==', 'g/dky6eESp3N+ywo', 'Rd2rO6uAo8Hz6hvn2w1fNA==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 01:58:00', '2025-11-24 10:08:52', 0),
+(55, NULL, 'Sarzuelo_R', '$2y$10$q21nxvWN6RqUYqg60mWgpumal0SZtl6ixtTEsxUOvRB5R4d/oVjOW', 'Sarzuelo', 'Cane', 'Rex', 'Male', '+wWenrotJPl23A==', 'VtklY6wlndg0ohs3', 'vp49JuS18XBNpTYtrs80NQ==', 'chloesarzuelo@gmail.com', 'xS47RjPvIumBuw==', 'Kx86OGAaBx90s0MG', '2+moQBZN8cvcug4T//qcyw==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-24 02:30:09', '2025-11-24 10:30:09', 0),
+(56, NULL, 'Achas_J', '$2y$10$P6tpUPCrxkgVTIXu1kj.num/cltWt/qjPlIxb6ybrwUKxlF1fNI2y', 'Achas', 'Pallasigue', 'Joshua', 'Male', 'nj/jpnsoabIggA==', '+WLs2hjQM5y0KfLB', 'Ocj9R1IKihVdeZ7EsLTL5w==', 'gabbyachas99@gmail.com', 'Dh+5zCKcYdc2dQ==', 'hUAwhIBPOLW7gRfM', 'PDDaAwUKS6LUJt1ObnwKbw==', NULL, NULL, NULL, 'patient', 4, NULL, 'Active', '2025-11-24 22:34:23', '2025-11-25 06:34:23', 0),
+(57, NULL, 'Jos_A', '$2y$10$eV7f0LFIKanUu.G0Oa.Pq.78ZJxmV2.XX9rFn3170bTrdhtlmIgOO', 'Jos', 'Pallasigeu', 'Achas', 'Male', 'i+sM+3h/QwZUTA==', 'uycF5V67wuryfotH', 'VWNGIkqP4fi9oexmRb7Srg==', '18105953@usc.edu.ph', 'An0u+298MlG8qg==', 'B8C+HhRSjjDXkyLn', 'w/EZtzQrFmvcLGhqpCMeng==', NULL, NULL, NULL, 'patient', 3, NULL, 'Active', '2025-11-27 06:03:23', '2025-11-27 14:03:23', 0),
+(58, NULL, 'Parchaso_J2', '$2y$10$DhIzLj6.sSIu.csvGnoE/eXljZWMnp.dMzLyh4OIY.tinteZLrCo2', 'Parchaso', 'Espana', 'Jhon Joseph', 'Male', 'qdU3JlA6H7wueA==', 'Fu+SmM3VE/+PNjWX', '4TAmkghXkkdgTglXAkdw1w==', 'josephparchaso@gmail.com', 'd/r1SCCp0Np46w==', '307KsKNkBzy6z2Ww', 'lK38Stk0pWf8xIyBo1UIlw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-02 18:16:09', '2025-12-04 01:53:38', 0),
+(61, NULL, 'Parchaso_L', '$2y$10$zuY4.yR/Zzzh/89ztfmGl.RNH9KwzR5.2p92I4UTocQfXNK890fiC', 'Parchaso', 'Espana', 'Lilian', 'Female', 'kf1LSkxThC24BQ==', 'SKzeONauuBzspGpf', 'QhAqET86N+0JuSiW6CPhUQ==', 'josephparchaso@gmail.com', 'Z/zRbBTBj8zJuQ==', '9fAyvypxnW5Jfo9e', 'RTk1RWjWtXzC4s/McPNpsw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-02 18:49:02', '2025-12-04 08:44:58', 0),
+(62, 61, NULL, NULL, 'Parchaso', NULL, 'JJ', 'Male', 'lEgA+avW75BnAg==', 'LT7e8BdBLvIwyQrv', 'y2PPigCcPjNj+DF+3yH2ag==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-02 18:49:02', '2025-12-04 07:34:06', 0),
+(63, 61, NULL, NULL, 'Parchaso', NULL, 'Jhoo', 'Female', 'v1NuLTMatOTXVA==', 'lBH0U1ubiLhO2aeW', 'YtYEHeUf8WZ5Sfg6J1wBoA==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 19:20:31', '2025-12-04 07:34:06', 0),
+(64, 61, NULL, NULL, 'Parchaso', NULL, 'Harlene', 'Female', 'ZH2TGYKfDvRp5A==', 'LEmR49jasMACgFca', 'GdTPbET/JJ7UtR56AzEuzw==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 22:11:35', '2025-12-04 07:34:06', 0),
+(65, NULL, 'Parchaso_H', '$2y$10$.KWnHmfU3Pmxmp4KLOmPVuC/jOdAnB20jtsDbjlqcAltBV/XMScci', 'Parchaso', '', 'Honors', 'Male', '0YYnpkeo472Gqg==', 'dr2tOoOcmkQSFFb1', '2CECwlu/GI7EFBETHydfJQ==', 'josephparchaso@gmail.com', 'P2CkuDoVUHGxlQ==', 'GZAdCp/bj7leuSNQ', '/fq3TCh0OnXB5EzlkhaAZw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 23:05:29', '2025-12-04 07:05:29', 0),
+(66, NULL, 'Potot_R2', '$2y$10$VGLamn.P0HEvXa36DOPa0ug89hLgdGYDBCp8KuN5SKULto7Draixe', 'Potot', '', 'Richard', 'Male', 'oFOFwMYRjPkikQ==', 'zHGVzWK2nYx7qPKB', 'Nzf9unYuVrXbmjtpwKZSag==', 'josephparchaso@gmail.com', 'STQ24D6Inz3UKw==', 'SBe6SwbAHo6z8AL2', 'TRzhs1BK4gF5JOEealZ/Iw==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 23:08:36', '2025-12-04 07:08:36', 0),
+(67, NULL, 'Potot_R3', '$2y$10$lGKzQdUndZOENZ0/fNsAH.K4nqOBYqvQffmB8cvtBkhIMDsOTWMQG', 'Potot', '', 'Richard', 'Male', 'Qh4oRhVqEnfcfg==', 'chi4sYsMD5te9dfU', 'nFNtTycFdYpMBsCuVjz/uw==', 'josephparchaso@gmail.com', '4FObh4K/5PrrEw==', 'DMTEpfvVekCZVnRx', 'mmLyT2mPvSh0wN2UNvGSFQ==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 23:12:41', '2025-12-04 07:12:41', 0),
+(68, 67, NULL, NULL, 'Potot', NULL, 'Rix', 'Female', 'KHAy5Nqc7Xdovw==', '/Bdq8VJi7I55Zl0S', 'Feq68uuvQE9wjiQdnrQFWA==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 23:12:42', '2025-12-04 07:12:42', 0),
+(69, NULL, 'asda_A', '$2y$10$cPXWCskhhE.DoH3MfbGDyussD5tuHA0UiKxSJT4096tIF84ByZYum', 'asda', 'asd', 'asd', 'Male', 'IhnPhUImjaVhvg==', 'YpfcvkvCzHiK5t0T', 'xOHLppkXsL5VWAKeU1J/eQ==', 'josephparchaso@gmail.com', 'az/FiGoXLjQo7w==', 'fIPRE/ngtB+2xRym', 'h9fRFQsWJR22cKwvVGWqLA==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 23:20:45', '2025-12-04 07:20:45', 0),
+(70, 69, NULL, NULL, 'asad', NULL, 'asd', 'Male', 'e1Av1oqGtSw5qw==', 'aXxmInRXF70+K3gE', '75q96ax9rp4iHZhvAEsjTw==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-03 23:20:45', '2025-12-04 07:20:45', 0),
+(71, 61, NULL, NULL, 'parchaso', NULL, 'wix', 'Female', '2000-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', NULL, NULL, 'Active', '2025-12-04 00:49:44', '2025-12-04 08:55:10', 0),
+(72, 61, NULL, NULL, 'parchaso', NULL, 'wixielie', 'Female', '+fo+2AIiAPdoQQ==', 'pPQ5GI7DL4AztKcN', 'iTc/OU/T6ZUO/Xls1a4n0A==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', NULL, NULL, 'Active', '2025-12-04 00:58:45', '2025-12-04 19:02:50', 0),
+(73, 61, NULL, NULL, 'parchaso', NULL, 'wixielie', 'Female', '0kKi0QUR9IfD9g==', 'J7/8PRhC/li8MgsJ', 'TAYqmn9NAQ7P5HOw6aN3+Q==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', NULL, NULL, 'Active', '2025-12-04 00:58:46', '2025-12-04 08:58:46', 0),
+(74, 61, NULL, NULL, 'Parchaso', NULL, 'Loyloy', 'Male', 'Vh6V40Fac8B1Pg==', 'rg40zYX/3bxEWRXB', 'arR0lkCJYaJhDewgztU1yw==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-04 11:05:11', '2025-12-04 19:05:11', 0);
 
 --
 -- Indexes for dumped tables
@@ -1722,7 +1987,8 @@ ALTER TABLE `supply`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `index_username_unique` (`username`),
-  ADD KEY `fk_users_branch` (`branch_id`);
+  ADD KEY `fk_users_branch` (`branch_id`),
+  ADD KEY `fk_guardian_user` (`guardian_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1738,13 +2004,13 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `appointment_services`
 --
 ALTER TABLE `appointment_services`
-  MODIFY `appointment_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `appointment_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT for table `appointment_transaction`
 --
 ALTER TABLE `appointment_transaction`
-  MODIFY `appointment_transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `appointment_transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `branch`
@@ -1768,19 +2034,19 @@ ALTER TABLE `branch_promo`
 -- AUTO_INCREMENT for table `branch_service`
 --
 ALTER TABLE `branch_service`
-  MODIFY `branch_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `branch_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `branch_supply`
 --
 ALTER TABLE `branch_supply`
-  MODIFY `branch_supplies_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `branch_supplies_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `dental_prescription`
 --
 ALTER TABLE `dental_prescription`
-  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `prescription_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `dental_tips`
@@ -1792,19 +2058,19 @@ ALTER TABLE `dental_tips`
 -- AUTO_INCREMENT for table `dental_transaction`
 --
 ALTER TABLE `dental_transaction`
-  MODIFY `dental_transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `dental_transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `dental_transaction_services`
 --
 ALTER TABLE `dental_transaction_services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `dental_vital`
 --
 ALTER TABLE `dental_vital`
-  MODIFY `vitals_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `vitals_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `dentist`
@@ -1834,7 +2100,7 @@ ALTER TABLE `dentist_service`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=223;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=447;
 
 --
 -- AUTO_INCREMENT for table `promo`
@@ -1858,19 +2124,19 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `service_supplies`
 --
 ALTER TABLE `service_supplies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `supply`
 --
 ALTER TABLE `supply`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- Constraints for dumped tables
@@ -1975,6 +2241,12 @@ ALTER TABLE `dentist_service`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_guardian_user` FOREIGN KEY (`guardian_id`) REFERENCES `users` (`user_id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

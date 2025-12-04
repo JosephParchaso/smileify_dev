@@ -19,9 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $conn->begin_transaction();
 
         $check = $conn->prepare("
-            SELECT appointment_date, appointment_time, status, user_id 
-            FROM appointment_transaction 
-            WHERE appointment_transaction_id = ?
+            SELECT 
+                a.appointment_date, 
+                a.appointment_time, 
+                a.status, 
+                a.user_id,
+                u.guardian_id
+            FROM appointment_transaction a
+            INNER JOIN users u ON a.user_id = u.user_id
+            WHERE a.appointment_transaction_id = ?
         ");
         $check->bind_param("i", $appointmentId);
         $check->execute();
@@ -48,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             WHERE appointment_transaction_id = ?
         ");
         $stmt->bind_param("i", $appointmentId);
+
         if (!$stmt->execute()) {
             throw new Exception("Failed to update appointment: " . $stmt->error);
         }
@@ -58,13 +65,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Your appointment ($formattedDate at $formattedTime) has been cancelled.";
 
         $patientId = $row['user_id'];
+        $guardianId = $row['guardian_id'] ?? null;
 
         $notif_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
         $notif_stmt->bind_param("is", $patientId, $message);
+
         if (!$notif_stmt->execute()) {
-            throw new Exception("Failed to insert notification: " . $notif_stmt->error);
+            throw new Exception("Failed to insert notification for patient: " . $notif_stmt->error);
         }
         $notif_stmt->close();
+
+        if (!empty($guardianId)) {
+            $guardianMessage = 
+                "The appointment for your dependent ($formattedDate at $formattedTime) has been cancelled.";
+
+            $guardian_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+            $guardian_stmt->bind_param("is", $guardianId, $guardianMessage);
+
+            if (!$guardian_stmt->execute()) {
+                throw new Exception("Failed to insert guardian notification: " . $guardian_stmt->error);
+            }
+            $guardian_stmt->close();
+        }
 
         $conn->commit();
 
@@ -78,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: " . BASE_URL . "/Admin/pages/patients.php");
         exit;
     }
+
 } else {
     header("Location: " . BASE_URL . "/index.php");
     exit;
