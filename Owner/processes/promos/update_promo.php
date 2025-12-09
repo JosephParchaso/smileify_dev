@@ -149,10 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $updateDatesStmt->execute();
         $updateDatesStmt->close();
 
-        $hasChanges = true;
-        $conn->query("UPDATE promo SET date_updated = NOW() WHERE promo_id = $promo_id");
-
         if ($hasChanges) {
+            $conn->query("UPDATE promo SET date_updated = NOW() WHERE promo_id = $promo_id");
             $_SESSION['updateSuccess'] = "Promo updated successfully!";
         }
     } catch (Exception $e) {

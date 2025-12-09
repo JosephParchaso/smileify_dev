@@ -383,7 +383,12 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(branches => {
 
             const container = document.getElementById("branchAssignment");
-            container.innerHTML = "";
+            container.innerHTML = `
+                <div class="checkbox-item">
+                    <input type="checkbox" id="selectAllBranches">
+                    <label for="selectAllBranches"><strong>Select All Branches</strong></label>
+                </div>
+            `;
 
             branches.forEach(branch => {
                 const wrapper = document.createElement("div");
@@ -484,6 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     row.remove();
                     updateAddScheduleButton(day);
                     updateWholeDayVisibility(day);
+                    updateTimeDropdowns(day);
                 });
 
                 rowsContainer.appendChild(row);
@@ -492,6 +498,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 buildTimeOptions(startInput, startVal);
                 buildTimeOptions(endInput, endVal);
+
+                startInput.addEventListener("change", () => updateTimeDropdowns(day));
+                endInput.addEventListener("change", () => updateTimeDropdowns(day));
+
+                updateTimeDropdowns(day);
 
                 const branchSelect = row.querySelector("select[name$='[branch][]']");
                 branchSelect.addEventListener("change", updateBranchDropdowns);
@@ -536,6 +547,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateBranchDropdowns();
                 });
             });
+
+            const selectAllBranches = document.getElementById("selectAllBranches");
+            if (selectAllBranches) {
+                selectAllBranches.addEventListener("change", function () {
+                    const checked = this.checked;
+
+                    document.querySelectorAll("#branchAssignment input[name='branches[]']")
+                        .forEach(cb => cb.checked = checked);
+
+                    updateBranchDropdowns();
+
+                    document.querySelectorAll(".schedule-row").forEach(row => {
+                        const day = row.closest(".day-schedule-wrapper").querySelector("h4").textContent;
+                        updateTimeDropdowns(day);
+                        updateWholeDayVisibility(day);
+                    });
+                });
+            }
         });
 
         fetch(`${BASE_URL}/Owner/processes/employees/get_services.php`)
@@ -543,6 +572,15 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(services => {
             const container = document.getElementById("servicesCheckboxes");
             container.innerHTML = "";
+
+            const selectAllServices = document.createElement("div");
+            selectAllServices.innerHTML = `
+                <div class="checkbox-item">
+                    <input type="checkbox" id="selectAllServices">
+                    <label for="selectAllServices"><strong>Select All Services</strong></label>
+                </div>
+            `;
+            container.appendChild(selectAllServices);
 
             services.forEach(service => {
                 const wrapper = document.createElement("div");
@@ -555,6 +593,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 container.appendChild(wrapper);
             });
+            
+            function updateSelectAllServicesState() {
+                const all = document.querySelectorAll("#servicesCheckboxes input[name='services[]']");
+                const allChecked = [...all].every(cb => cb.checked);
+                document.getElementById("selectAllServices").checked = allChecked;
+            }
+
+            document.querySelectorAll("#servicesCheckboxes input[name='services[]']").forEach(cb => {
+                cb.addEventListener("change", () => {
+                    updateSelectAllServicesState();
+                });
+            });
+
+            updateSelectAllServicesState();
+
+            document.getElementById("selectAllServices").addEventListener("change", function () {
+                const checked = this.checked;
+
+                document.querySelectorAll("#servicesCheckboxes input[name='services[]']")
+                    .forEach(cb => cb.checked = checked);
+            });
         });
 
         setTimeout(() => {
@@ -566,6 +625,193 @@ document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById("dentistForm");
             if (form) attachDateValidators(form);
         }, 60);
+    }
+
+    function updateTimeDropdowns(day) {
+        const rows = document.querySelectorAll(`#rows_${day} .schedule-row`);
+
+        let takenRanges = [];
+
+        rows.forEach(row => {
+            const start = row.querySelector(".start-time")?.value;
+            const end   = row.querySelector(".end-time")?.value;
+
+            if (start && !end) {
+                takenRanges.push({ type: "single", start, row });
+            }
+            else if (start && end && start < end) {
+                takenRanges.push({ type: "range", start, end, row });
+            }
+        });
+
+        function isBlocked(time, currentRow) {
+            return takenRanges.some(range => {
+
+                if (range.row === currentRow) return false;
+
+                if (range.type === "single") {
+                    return time === range.start;
+                }
+
+                if (range.type === "range") {
+                    return time >= range.start && time <= range.end;
+                }
+
+                return false;
+            });
+        }
+
+        rows.forEach(row => {
+            const startSelect = row.querySelector(".start-time");
+            const endSelect   = row.querySelector(".end-time");
+
+            const startVal = startSelect.value;
+            const endVal   = endSelect.value;
+
+            [...startSelect.options].forEach(opt => {
+                if (!opt.value) return;
+
+                opt.disabled = isBlocked(opt.value, row);
+            });
+
+            [...endSelect.options].forEach(opt => {
+                if (!opt.value) return;
+
+                opt.disabled = isBlocked(opt.value, row) || (startVal && opt.value <= startVal);
+            });
+
+            if (endVal && (endVal <= startVal || endSelect.querySelector(`option[value="${endVal}"]`)?.disabled)) {
+                endSelect.value = "";
+            }
+
+            if (startVal && startSelect.querySelector(`option[value="${startVal}"]`)?.disabled) {
+                startSelect.value = "";
+                endSelect.value = "";
+            }
+        });
+    }
+
+    function updateBranchDropdowns() {
+        const allRows = document.querySelectorAll(".schedule-row");
+
+        const chosen = [];
+        allRows.forEach(row => {
+            const sel = row.querySelector("select[name$='[branch][]']");
+            if (sel && sel.value) chosen.push(sel.value);
+        });
+
+        allRows.forEach(row => {
+            const select = row.querySelector("select[name$='[branch][]']");
+            const currentValue = select.value;
+
+            const checkedBranches = Array.from(
+                document.querySelectorAll("#branchAssignment input[type=checkbox]:checked")
+            ).map(cb => ({
+                branch_id: cb.value,
+                name: cb.nextElementSibling.textContent
+            }));
+
+            select.innerHTML = `
+                <option value="" disabled ${currentValue === "" ? "selected" : ""}>Select Branch</option>
+                ${checkedBranches.map(b => `
+                    <option value="${b.branch_id}" 
+                        ${currentValue == b.branch_id ? "selected" : ""}
+                    >
+                        ${b.name}
+                    </option>
+                `).join("")}
+            `;
+        });
+    }
+
+    function toggleWholeDay(button) {
+        const row = button.closest(".schedule-row");
+        const rowsContainer = row.parentElement;
+
+        const start = row.querySelector(".start-time");
+        const end = row.querySelector(".end-time");
+
+        const day = row.closest(".day-schedule-wrapper")
+                    .querySelector("h4").textContent;
+
+        if (button.textContent === "Whole Day") {
+
+            rowsContainer.querySelectorAll(".schedule-row").forEach(r => {
+                if (r !== row) r.remove();
+            });
+
+            start.value = "09:00";
+            end.value   = "16:30";
+
+            start.disabled = true;
+            end.disabled = true;
+
+            start.value = "09:00";
+            end.value = "16:30";
+
+            start.insertAdjacentHTML("afterend",
+                `<input type="hidden" class="tmp-start-hidden" name="${start.name}" value="">`);
+            end.insertAdjacentHTML("afterend",
+                `<input type="hidden" class="tmp-end-hidden" name="${end.name}" value="">`);
+
+            button.textContent = "Undo";
+
+        } else {
+
+            start.disabled = false;
+            end.disabled = false;
+
+            start.value = "";
+            end.value = "";
+
+            row.querySelectorAll(".tmp-start-hidden, .tmp-end-hidden").forEach(h => h.remove());
+
+            button.textContent = "Whole Day";
+        }
+
+        updateAddScheduleButton(day);
+        updateWholeDayVisibility(day);
+    }
+
+    function updateAddScheduleButton(day) {
+        const rowsContainer = document.getElementById(`rows_${day}`);
+        const hasWholeDay = rowsContainer.querySelector(".start-time:disabled");
+
+        const addBtn = document.querySelector(`button.add-schedule-btn[data-day="${day}"]`);
+
+        if (hasWholeDay) {
+            addBtn.style.display = "none";
+        } else {
+            addBtn.style.display = "inline-block";
+        }
+    }
+
+    function updateWholeDayVisibility(day) {
+        const rowsContainer = document.getElementById(`rows_${day}`);
+        const rows = rowsContainer.querySelectorAll(".schedule-row");
+
+        rows.forEach(row => {
+            const wholeBtn = row.querySelector(".whole-day-btn");
+            const start = row.querySelector(".start-time");
+            const end = row.querySelector(".end-time");
+
+            if (rows.length > 1) {
+                wholeBtn.style.display = "none";
+            } else {
+                wholeBtn.style.display = "inline-block";
+            }
+        });
+    }
+
+    function hasStarted(dateStarted) {
+        if (!dateStarted) return false;
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        const started = new Date(dateStarted);
+        started.setHours(0,0,0,0);
+
+        return started <= today;
     }
 
     function attachEmailValidator(form) {
@@ -617,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
             hide();
             validating = true;
 
-            fetch(`/Smile-ify/processes/validate_email.php?email=${encodeURIComponent(email)}`)
+            fetch(`/processes/validate_email.php?email=${encodeURIComponent(email)}`)
                 .then(res => res.json())
                 .then(d => {
                     emailIsValid = d.valid;
@@ -777,130 +1023,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.disabled = true;
             }
         });
-    }
-
-    function updateBranchDropdowns() {
-        const allRows = document.querySelectorAll(".schedule-row");
-
-        const chosen = [];
-        allRows.forEach(row => {
-            const sel = row.querySelector("select[name$='[branch][]']");
-            if (sel && sel.value) chosen.push(sel.value);
-        });
-
-        allRows.forEach(row => {
-            const select = row.querySelector("select[name$='[branch][]']");
-            const currentValue = select.value;
-
-            const checkedBranches = Array.from(
-                document.querySelectorAll("#branchAssignment input[type=checkbox]:checked")
-            ).map(cb => ({
-                branch_id: cb.value,
-                name: cb.nextElementSibling.textContent
-            }));
-
-            select.innerHTML = `
-                <option value="" disabled ${currentValue === "" ? "selected" : ""}>Select Branch</option>
-                ${checkedBranches.map(b => `
-                    <option value="${b.branch_id}" 
-                        ${currentValue == b.branch_id ? "selected" : ""}
-                        ${currentValue !== b.branch_id && chosen.includes(b.branch_id) ? "disabled" : ""}
-                    >
-                        ${b.name}
-                    </option>
-                `).join("")}
-            `;
-        });
-    }
-
-    function toggleWholeDay(button) {
-        const row = button.closest(".schedule-row");
-        const rowsContainer = row.parentElement;
-
-        const start = row.querySelector(".start-time");
-        const end = row.querySelector(".end-time");
-
-        const day = row.closest(".day-schedule-wrapper")
-                    .querySelector("h4").textContent;
-
-        if (button.textContent === "Whole Day") {
-
-            rowsContainer.querySelectorAll(".schedule-row").forEach(r => {
-                if (r !== row) r.remove();
-            });
-
-            start.value = "09:00";
-            end.value   = "16:30";
-
-            start.disabled = true;
-            end.disabled = true;
-
-            start.value = "09:00";
-            end.value = "16:30";
-
-            start.insertAdjacentHTML("afterend",
-                `<input type="hidden" class="tmp-start-hidden" name="${start.name}" value="">`);
-            end.insertAdjacentHTML("afterend",
-                `<input type="hidden" class="tmp-end-hidden" name="${end.name}" value="">`);
-
-            button.textContent = "Undo";
-
-        } else {
-
-            start.disabled = false;
-            end.disabled = false;
-
-            start.value = "";
-            end.value = "";
-
-            row.querySelectorAll(".tmp-start-hidden, .tmp-end-hidden").forEach(h => h.remove());
-
-            button.textContent = "Whole Day";
-        }
-
-        updateAddScheduleButton(day);
-        updateWholeDayVisibility(day);
-    }
-
-    function updateAddScheduleButton(day) {
-        const rowsContainer = document.getElementById(`rows_${day}`);
-        const hasWholeDay = rowsContainer.querySelector(".start-time:disabled");
-
-        const addBtn = document.querySelector(`button.add-schedule-btn[data-day="${day}"]`);
-
-        if (hasWholeDay) {
-            addBtn.style.display = "none";
-        } else {
-            addBtn.style.display = "inline-block";
-        }
-    }
-
-    function updateWholeDayVisibility(day) {
-        const rowsContainer = document.getElementById(`rows_${day}`);
-        const rows = rowsContainer.querySelectorAll(".schedule-row");
-
-        rows.forEach(row => {
-            const wholeBtn = row.querySelector(".whole-day-btn");
-            const start = row.querySelector(".start-time");
-            const end = row.querySelector(".end-time");
-
-            if (rows.length > 1) {
-                wholeBtn.style.display = "none";
-            } else {
-                wholeBtn.style.display = "inline-block";
-            }
-        });
-    }
-
-    function hasStarted(dateStarted) {
-        if (!dateStarted) return false;
-        const today = new Date();
-        today.setHours(0,0,0,0);
-
-        const started = new Date(dateStarted);
-        started.setHours(0,0,0,0);
-
-        return started <= today;
     }
 });
 

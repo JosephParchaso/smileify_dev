@@ -2,7 +2,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#branchesTable')) {
         $('#branchesTable').DataTable({
             "ajax": `${BASE_URL}/Owner/processes/profile/branches/load_branches.php`,
-            "pageLength": 20,
+            "pageLength": 5,
             "lengthChange": false,
             "ordering": true,
             "searching": true,
@@ -13,7 +13,7 @@ $(document).ready(function() {
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[0, "asc"]],
+            "order": [[3, "desc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

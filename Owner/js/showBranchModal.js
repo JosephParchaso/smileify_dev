@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="form-group">
                     <input type="text" id="nickname" name="nickname" class="form-control"
                         value="${isEdit ? (data.nickname || "") : ""}" required placeholder=" " autocomplete="off">
-                    <label for="nickname" class="form-label">Display Name <span class="required">*</span></label>
+                    <label for="nickname" class="form-label">Nickname <span class="required">*</span></label>
                 </div>
 
                 <div class="form-group">

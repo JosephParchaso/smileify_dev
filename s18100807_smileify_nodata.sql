@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 04, 2025 at 08:31 PM
+-- Generation Time: Dec 09, 2025 at 05:19 PM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 8.2.29
 
@@ -447,7 +447,8 @@ CREATE TABLE `users` (
   `status` enum('Active','Inactive') NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime DEFAULT current_timestamp(),
-  `force_logout` tinyint(1) DEFAULT 0
+  `force_logout` tinyint(1) DEFAULT 0,
+  `owner_flag` tinyint(1) GENERATED ALWAYS AS (case when `role` = 'owner' then 1 else NULL end) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -631,6 +632,7 @@ ALTER TABLE `supply`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `index_username_unique` (`username`),
+  ADD UNIQUE KEY `unique_owner` (`owner_flag`),
   ADD KEY `fk_users_branch` (`branch_id`),
   ADD KEY `fk_guardian_user` (`guardian_id`);
 

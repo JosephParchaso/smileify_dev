@@ -2,7 +2,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#adminsTable')) {
         $('#adminsTable').DataTable({
             "ajax": `${BASE_URL}/Owner/processes/employees/load_admins.php`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,

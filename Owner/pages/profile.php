@@ -34,7 +34,7 @@ $updateError = $_SESSION['updateError'] ?? "";
         ?>
 
         <script>
-            const QR_IMAGE_URL = "<?= $qrImage ? htmlspecialchars($qrImage) : '' ?>";
+            const QR_IMAGE_URL = "<?= $qrImage ? htmlspecialchars($qrImage . '?v=' . time()) : '' ?>";
         </script>
 
         <?php if (!empty($updateSuccess) || !empty($updateError)): ?>

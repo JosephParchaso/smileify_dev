@@ -146,23 +146,23 @@ function renderBranchGrowthTable(branch_id, mode, branchGrowthData) {
     tbody.innerHTML = '';
 
     if (!branchGrowthData || branchGrowthData.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="3" style="text-align: center; color: #999;">No data available</td>
-            </tr>
-        `;
-        return;
+        return; 
     }
+    const formatOrBlank = (value) => {
+        const num = Number(value);
+        if (!value || isNaN(num) || num === 0) return '';
+        return num.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    };
 
     branchGrowthData.forEach(branch => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td><strong>${branch.branch_name}</strong></td>
-            <td style="text-align: right;">${Number(branch.revenue).toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            })}</td>
-            <td style="text-align: right;">${branch.percentage}</td>
+            <td style="text-align: right;">${formatOrBlank(branch.revenue)}</td>
+            <td style="text-align: right;">${branch.percentage && Number(branch.percentage) !== 0 ? branch.percentage : ''}</td>
         `;
         tbody.appendChild(row);
     });

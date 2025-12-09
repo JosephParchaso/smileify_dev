@@ -67,6 +67,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     errorEl.textContent = "Please enter a valid date.";
                     errorEl.style.display = "block";
                     startInput.value = "";
+
+                    endInput.value = "";
+                    endInput.removeAttribute("min");
+
                 } else {
                     errorEl.style.display = "none";
 
@@ -85,6 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         endInput.value = autoEnd;
                     }
                 }
+            } else {
+                errorEl.style.display = "none";
+                endInput.value = "";
+                endInput.removeAttribute("min");
             }
         }
 
@@ -142,7 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="form-group" style="position: relative; margin-bottom: 18px;">
-                    <input type="file" id="promoImage" name="promoImage" class="form-control" accept="image/*" required>
+                    <input 
+                        type="file" 
+                        id="promoImage" 
+                        name="promoImage" 
+                        class="form-control" 
+                        accept="image/*"
+                        ${!isEdit ? "required" : ""}
+                    >
                     <label for="promoImage" class="form-label" style="display: block; margin-top: 6px; margin-bottom: 4px;">Promo Image <span class="required">*</span></label>
 
                     ${isEdit && data.image_path 
@@ -228,6 +243,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     container.appendChild(wrapper);
                 });
             });
+
+            setTimeout(() => {
+                const promoForm = document.getElementById("promoForm");
+                const promoImageInput = document.getElementById("promoImage");
+                const clearedField = document.getElementById("promoImageCleared");
+
+                if (!promoForm) return;
+
+                promoForm.addEventListener("submit", function (e) {
+                    const removedImage = clearedField && clearedField.value === "1";
+                    const noImageSelected = promoImageInput.files.length === 0;
+
+                    const isAdding = !clearedField;
+
+                    if ((isAdding || removedImage) && noImageSelected) {
+                        promoImageInput.required = true;
+
+                        promoImageInput.reportValidity();
+
+                        e.preventDefault();
+                        return false;
+                    }
+                });
+            }, 80);
     }
 });
 

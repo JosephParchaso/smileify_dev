@@ -3202,3 +3202,71 @@ Reminders checked at 2025-12-04 20:00:02. Sent to 0 recipient(s).
 [2025-12-04 20:30:03] Checking between 2025-12-05 20:30:03 and 2025-12-05 21:00:03
 Reminders checked at 2025-12-04 20:30:03. Sent to 0 recipient(s).
 
+[2025-12-04 21:00:02] Script started
+[2025-12-04 21:00:02] Checking between 2025-12-05 21:00:02 and 2025-12-05 21:30:02
+Reminders checked at 2025-12-04 21:00:02. Sent to 0 recipient(s).
+
+[2025-12-04 21:30:03] Script started
+[2025-12-04 21:30:03] Checking between 2025-12-05 21:30:03 and 2025-12-05 22:00:03
+Reminders checked at 2025-12-04 21:30:03. Sent to 0 recipient(s).
+
+[2025-12-04 22:00:02] Script started
+[2025-12-04 22:00:02] Checking between 2025-12-05 22:00:02 and 2025-12-05 22:30:02
+Reminders checked at 2025-12-04 22:00:02. Sent to 0 recipient(s).
+
+[2025-12-04 22:30:02] Script started
+[2025-12-04 22:30:02] Checking between 2025-12-05 22:30:02 and 2025-12-05 23:00:02
+Reminders checked at 2025-12-04 22:30:02. Sent to 0 recipient(s).
+
+[2025-12-04 23:00:02] Script started
+[2025-12-04 23:00:02] Checking between 2025-12-05 23:00:02 and 2025-12-05 23:30:02
+Reminders checked at 2025-12-04 23:00:02. Sent to 0 recipient(s).
+
+[2025-12-04 23:30:02] Script started
+[2025-12-04 23:30:03] Checking between 2025-12-05 23:30:03 and 2025-12-06 00:00:03
+Reminders checked at 2025-12-04 23:30:03. Sent to 0 recipient(s).
+
+[2025-12-05 00:00:03] Script started
+[2025-12-05 00:00:03] Checking between 2025-12-06 00:00:03 and 2025-12-06 00:30:03
+Reminders checked at 2025-12-05 00:00:03. Sent to 0 recipient(s).
+
+[2025-12-05 00:30:04] Script started
+[2025-12-05 00:30:04] Checking between 2025-12-06 00:30:04 and 2025-12-06 01:00:04
+Reminders checked at 2025-12-05 00:30:04. Sent to 0 recipient(s).
+
+[2025-12-05 01:00:03] Script started
+[2025-12-05 01:00:03] Checking between 2025-12-06 01:00:03 and 2025-12-06 01:30:03
+Reminders checked at 2025-12-05 01:00:03. Sent to 0 recipient(s).
+
+[2025-12-05 01:30:02] Script started
+[2025-12-05 01:30:02] Checking between 2025-12-06 01:30:02 and 2025-12-06 02:00:02
+Reminders checked at 2025-12-05 01:30:02. Sent to 0 recipient(s).
+
+[2025-12-05 02:00:05] Script started
+[2025-12-05 02:00:05] Checking between 2025-12-06 02:00:05 and 2025-12-06 02:30:05
+Reminders checked at 2025-12-05 02:00:05. Sent to 0 recipient(s).
+
+[2025-12-05 02:30:06] Script started
+[2025-12-05 02:30:06] Checking between 2025-12-06 02:30:06 and 2025-12-06 03:00:06
+Reminders checked at 2025-12-05 02:30:06. Sent to 0 recipient(s).
+
+[2025-12-05 03:00:03] Script started
+[2025-12-05 03:00:03] Checking between 2025-12-06 03:00:03 and 2025-12-06 03:30:03
+Reminders checked at 2025-12-05 03:00:03. Sent to 0 recipient(s).
+
+[2025-12-05 03:30:03] Script started
+[2025-12-05 03:30:03] Checking between 2025-12-06 03:30:03 and 2025-12-06 04:00:03
+Reminders checked at 2025-12-05 03:30:03. Sent to 0 recipient(s).
+
+[2025-12-05 04:00:02] Script started
+[2025-12-05 04:00:02] Checking between 2025-12-06 04:00:02 and 2025-12-06 04:30:02
+Reminders checked at 2025-12-05 04:00:02. Sent to 0 recipient(s).
+
+[2025-12-05 04:30:03] Script started
+[2025-12-05 04:30:03] Checking between 2025-12-06 04:30:03 and 2025-12-06 05:00:03
+Reminders checked at 2025-12-05 04:30:03. Sent to 0 recipient(s).
+
+[2025-12-05 05:00:03] Script started
+[2025-12-05 05:00:03] Checking between 2025-12-06 05:00:03 and 2025-12-06 05:30:03
+Reminders checked at 2025-12-05 05:00:03. Sent to 0 recipient(s).
+
