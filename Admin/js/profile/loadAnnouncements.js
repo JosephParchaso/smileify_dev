@@ -2,7 +2,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#announcementsTable')) {
         $('#announcementsTable').DataTable({
             ajax: `${BASE_URL}/Admin/processes/profile/announcements/load_announcements.php`,
-            pageLength: 20,
+            pageLength: 5,
             lengthChange: false,
             ordering: true,
             searching: true,

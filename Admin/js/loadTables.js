@@ -2,7 +2,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#suppliesTable')) {
         $('#suppliesTable').DataTable({
             "ajax": `${BASE_URL}/Admin/processes/supplies/load_supplies.php`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,
@@ -34,7 +34,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#servicesTable')) {
         $('#servicesTable').DataTable({
             "ajax": `${BASE_URL}/Admin/processes/services/load_services.php`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,
@@ -62,7 +62,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#promosTable')) {
         $('#promosTable').DataTable({
             "ajax": `${BASE_URL}/Admin/processes/promos/load_promos.php`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,

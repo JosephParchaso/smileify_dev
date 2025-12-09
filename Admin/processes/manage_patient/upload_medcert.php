@@ -15,12 +15,6 @@ $remarks         = trim($_POST['remarks'] ?? '');
 $payment_method  = $_POST['payment_method'] ?? null;
 $medcert_notes   = trim($_POST['medcert_notes'] ?? '');
 
-if (!$transaction_id || $fitness_status === '' || $diagnosis === '' || $remarks === '') {
-    $_SESSION['updateError'] = "All fields are required.";
-    header("Location: " . BASE_URL . "/Admin/pages/patients.php");
-    exit();
-}
-
 $getPatient = $conn->prepare("
     SELECT at.user_id, at.appointment_date, at.appointment_time, u.first_name, u.middle_name, u.last_name, at.branch_id,
             dt.medcert_receipt

@@ -1,3 +1,294 @@
+====================================================================
+
+Smile ify Dashboard (Index)
+
+    Login Form
+        - for registered users and staffs (owner, secretaries)
+        - Secretaries are restricted from logging in on mobile
+        - Forgot Password  
+            - Username Field
+
+    Registration/Appointment Booking
+        - Adult And Dependent
+            - personal information
+                - email validator
+                    - only domain checker
+                    - email format
+                - dob validator
+                    - no future dates
+                    - 00/00/0000
+                - contact number validator
+                    - 10 digits (+63 is provided)
+
+            - Appointment information
+                - all data that are Active
+                - appointment date 
+                    - no past dates
+                    - closed dates (based on announcemnts)
+                    - no sundays
+                    - 00/00/0000
+                - apoointment time
+                    - all booked are grayed out
+                - services
+                    - calculate estimated end time
+                    - if exceeds 4:30, invalidate
+                - dentist
+                    - available dentist removed
+                        - to prevent if users booked multiple NULL dentists 
+                        - actual dentist on the transaction
+                    - all booked dentists are excluded
+        OTP verification
+            - for verification
+        Appointment Verification
+            - login credentials and booked appointment details
+
+    Available Dentist
+    Available Services
+    View Infographics
+
+    Footer
+        - all active data
+
+====================================================================
+
+OWNER
+
+	Profile setup
+		- qr
+		- password, email change
+
+	Branches
+		- add & edit
+			- google url
+
+	Home/Dashboard
+		- cards
+		- quick links
+
+	Reports
+
+	Calendar
+
+	Employees
+		Secretaries
+			- add
+				- email confirmation
+			- edit
+				- if start date passed, readonly
+
+		Dentists
+			- add
+				- license number - encrypted
+				- all branches and services prechecked
+				- schedule in week
+			- edit 
+				- remove images
+
+	Services
+		- add & edit
+			- price and durations can be 0 (free)
+			- for xray required xray image in transaction
+	
+	Promos
+		- add & edit
+			- image required to be displayed across the system
+			- start date & end date 
+				- cant be the same
+				- automatic 1 month time span
+
+====================================================================
+
+ADMIN/SECRETARY
+
+	Profile setup
+		- edit profile
+		- password, email change
+
+	Announcements
+        - add & edit
+            - start/end date 
+                - can be the same
+            - checkbox and notify owner's accounts
+
+        - displayed accross the system
+
+	Home/Dashboard
+		- cards
+		- quick links
+        - appointment (walkins)
+            - booking for adult & booking for dependent
+            - email confirmation with login credentials
+    
+	Calendar
+    
+    Reports
+
+    Patients
+        - Recent bookings
+            - all upcoming appointments 
+            - manage appointment
+                - profile info with guardian if dependent
+                    - if no data (transaction, vitals, prescription)
+                        - resched & cancel appointment
+                    - if has data either
+                        - complete transaction
+                
+                - resched
+                    - preselected values
+                    - notify patient
+
+                - cancel
+                    - confirmation
+                    - notify patient
+
+                - transaction
+                    - add & edit
+                        - preselected values depending on the appointment
+                        - additional payment for each service rendered
+                        - if service is xray required (optional file upload)
+                        - dental certificate 
+                            - period of rest
+                        - promo availed
+                        - payment method
+                            - cashless (optional file upload)
+                        - transaction summary
+
+                - vitals
+                - prescription
+
+                - complete
+                    - cant complete if no transaction or vital
+                    - auto update the supplies
+                    - notify patient
+
+        - Registered Patients 
+            - all patients active 
+            - if recent transaction past 5 years, auto deactivate
+            - manage patient
+                - can deactivate patient accounts
+                - can book for the patient or add dependent account booking(if dependent, only for the dependent booking)
+                - appointment view
+                - transaction view 
+                    - receipt
+                    - if cashless, view cashless receipt
+                    - view xray if there is result
+                    - prescription
+                - in dental certificate
+                    - can issue, if requested or none, for walkins
+                        - no payment method if free
+                    - after issuing, notify patient
+                    - verify receipt if requested thru online
+                        - input fields for dental certificate
+                
+        - Inactive / Archived
+            - all patient inactive
+            - manage patient
+                - can activate patient accounts
+    
+    Supplies 
+        - add & edit
+            - each services qty
+
+    Services 
+        - add & edit
+            - only status
+            - owner is notified
+            
+    Promos 
+        - add & edit
+            - only status
+            - owner is notified
+
+====================================================================
+
+PATIENT
+    Home/Dashboard
+        - cards 
+        - quick links
+        - appointment booking
+            - times are grayed out if booked for each user or dependent
+            - for self
+                - normal booking
+            - for dependent (new)
+                - dob validation
+            - registered dependent
+                - list of dependents
+
+	Calendar
+
+	Profile setup
+		- edit profile
+		- password, email change
+
+        - appointment view
+
+        - transaction 
+            - can request dental certificate
+                - if free, submit directly
+                - if not, file upload required
+            - dental certificate issued, can download 
+                - only once 
+            - prescription
+
+    Dependents
+        - manage dependents
+            - info
+            - appointment view
+            - transaction 
+                - behaves the same with patient/guardian
+
+====================================================================
+
+OVERALL
+	date pickers
+		no 00-00-0000
+		dob 
+			- no future dates
+		start date/bookings
+			- no past dates
+			- no sundays
+	emails
+		real time validation
+			- only domain checker
+			- email format
+
+OTPs / Email Confirmations
+	- no multiple otp request
+	- using brevo
+    - masked email for privacy
+    - in password, logout users if logged in
+
+RESEND OTP
+
+Email Reminder
+	24 hours before appointment
+
+Data Privacy
+	all passwords hashed
+	all users dob, contact number, address AND dentists license number
+		- using AES-256-GCM ENCRYPTION / DECRYPTION (to study)
+		- encryptField AND decryptField
+		- (en/decrypyt, en/decrypyt_iv, en/decrypyt_tag) 	.env = APP_ENC_KEY
+
+====================================================================
+
+3 adults bookings
+    - on the spot dental certificate
+    - walkin request for dental certificate
+    - online request for dental certificate
+
+
+Transactions
+without dental certificate
+with promo
+with/out xray 
+with cashless
+
+users with appointments
+users with 3 transactions
+
+====================================================================
+
 Error on change password OTP Fix 👍
 Validation for the Date of Birth, so that it will not accept 0000 👍
 In adding dentist for the owner, autocheck services all by default, and the owner will just uncheck on what the dentist's non specialty 👍

@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                     <div class="button-group button-group-profile" style="margin-top:10px;">
                                         ${
                                             data.xray_results && data.xray_results.length > 0
-                                                ? `<button class="confirm-btn" id="viewXrayResult" data-id="${data.dental_transaction_id}">View Results</button>`
+                                                ? `<button class="confirm-btn" id="viewXrayResult" data-id="${data.dental_transaction_id}">View Xray Results</button>`
                                                 : ``
                                         }
                                     </div>
@@ -309,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 let y = header.y + 20;
                                 let formattedDate = header.formattedDate;
 
-                                const diagnosis = data.diagnosis?.trim() || "not specified";
+                                const diagnosis = data.diagnosis?.trim() || "(not specified)";
 
                                 const services = Array.isArray(data.services)
                                     ? data.services.map(s => s.service_name)
@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                 const restText = data.fitness_status?.trim() || "No rest period necessary.";
 
-                                const remarks = data.remarks?.trim() || "None.";
+                                const remarks = data.remarks?.trim() || "None";
 
                                 // ===== MAIN CERTIFICATE BODY =====
                                 doc.setFont("helvetica", "normal");
@@ -405,16 +405,14 @@ document.addEventListener("DOMContentLoaded", () => {
                                 // ===== SIGNATURE =====
                                 if (data.dentist_last_name || data.dentist_first_name) {
 
-                                    let sigY = 230;
+                                    let sigY = 250;
 
                                     if (data.signature_image) {
                                         try {
                                             const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
                                             const sigBase64 = await getBase64ImageFromUrl(sigUrl);
                                             doc.addImage(sigBase64, "PNG", 125, sigY - 25, 50, 25);
-                                        } catch (err) {
-                                            console.warn("Could not load signature", err);
-                                        }
+                                        } catch (err) {}
                                     }
 
                                     doc.line(120, sigY, 200, sigY);
@@ -542,30 +540,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
                                 // ===== SIGNATURE =====
                                 if (data.dentist_last_name || data.dentist_first_name) {
-
-                                    let sigY = y + 20;
+                                    let sigY = y + 5;
+                                    if (sigY < 60) sigY = 60;
 
                                     if (sigY > pageHeight - 80) {
                                         doc.addPage();
-                                        sigY = 40;
+                                        sigY = 50;
                                     }
+
+                                    const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
+                                    let hasSignature = false;
 
                                     if (data.signature_image) {
                                         try {
-                                            const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
                                             const sigBase64 = await getBase64ImageFromUrl(sigUrl);
-                                            doc.addImage(sigBase64, "PNG", 125, sigY - 25, 50, 25);
-                                        } catch (_) {}
+                                            doc.addImage(sigBase64, "PNG", 125, sigY, 50, 30);
+                                            hasSignature = true;
+                                        } catch (err) {}
                                     }
 
-                                    doc.line(120, sigY, 200, sigY);
+                                    const lineY = hasSignature ? sigY + 35 : sigY + 25;
+                                    doc.line(120, lineY, 200, lineY);
+
+                                    const nameY = lineY + 10;
+                                    const licenseY = lineY + 20;
 
                                     const dentistFullName = `${data.dentist_first_name} ${
                                         data.dentist_middle_name ? data.dentist_middle_name[0] + '. ' : ''
                                     }${data.dentist_last_name}`;
 
-                                    doc.text("Dr. " + dentistFullName, 160, sigY + 10, { align: "center" });
-                                    doc.text("License No: " + (data.license_number ?? "-"), 160, sigY + 20, { align: "center" });
+                                    doc.text("Dr. " + dentistFullName, 160, nameY, { align: "center" });
+                                    doc.text("License No: " + (data.license_number ?? "-"), 160, licenseY, { align: "center" });
                                 }
 
                                 // ===== SAVE PDF =====
@@ -700,7 +705,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 ${
                                     isPdf
                                         ? `<iframe src="${fileUrl}" style="width:80%; height:500px; border:none;"></iframe>`
-                                        : `<img src="${fileUrl}" style="width:50%; border-radius:5px; display:block; margin:auto;">`
+                                        : `<img src="${fileUrl}" style="width:100%; border-radius:5px; display:block; margin:auto;">`
                                 }
                             </div>
                         `;

@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             let y = header.y + 20;
                             let formattedDate = header.formattedDate;
 
-                            const diagnosis = data.diagnosis?.trim() || "not specified";
+                            const diagnosis = data.diagnosis?.trim() || "(not specified)";
 
                             const services = Array.isArray(data.services)
                                 ? data.services.map(s => s.service_name)
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             const restText = data.fitness_status?.trim() || "No rest period necessary.";
 
-                            const remarks = data.remarks?.trim() || "None.";
+                            const remarks = data.remarks?.trim() || "None";
 
                             // ===== MAIN CERTIFICATE BODY =====
                             doc.setFont("helvetica", "normal");
@@ -574,16 +574,14 @@ document.addEventListener("DOMContentLoaded", () => {
                             // ===== SIGNATURE =====
                             if (data.dentist_last_name || data.dentist_first_name) {
 
-                                let sigY = 230;
+                                let sigY = 250;
 
                                 if (data.signature_image) {
                                     try {
                                         const sigUrl = `${BASE_URL}/images/dentists/signature/${data.signature_image}`;
                                         const sigBase64 = await getBase64ImageFromUrl(sigUrl);
                                         doc.addImage(sigBase64, "PNG", 125, sigY - 25, 50, 25);
-                                    } catch (err) {
-                                        console.warn("Could not load signature", err);
-                                    }
+                                    } catch (err) {}
                                 }
 
                                 doc.line(120, sigY, 200, sigY);
@@ -736,9 +734,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                         const sigBase64 = await getBase64ImageFromUrl(sigUrl);
                                         doc.addImage(sigBase64, "PNG", 125, sigY, 50, 30);
                                         hasSignature = true;
-                                    } catch (err) {
-                                        console.warn("Could not load signature", err);
-                                    }
+                                    } catch (err) {}
                                 }
 
                                 const lineY = hasSignature ? sigY + 35 : sigY + 25;

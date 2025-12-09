@@ -2,7 +2,7 @@ $(document).ready(function () {
     if (typeof userId !== "undefined" && userId !== "") {
         $('#appointmentTable').DataTable({
             "ajax": `${BASE_URL}/Admin/processes/manage_patient/load_appointments.php?id=${userId}`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
         $('#transactionTable').DataTable({
             "ajax": `${BASE_URL}/Admin/processes/manage_patient/load_dental_transactions.php?id=${userId}`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,

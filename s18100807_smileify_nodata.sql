@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 09, 2025 at 05:19 PM
+-- Generation Time: Dec 09, 2025 at 11:56 PM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 8.2.29
 
@@ -146,7 +146,7 @@ CREATE TABLE `branch_supply` (
   `quantity` int(11) DEFAULT 0,
   `reorder_level` int(11) DEFAULT 0,
   `expiration_date` date DEFAULT NULL,
-  `status` enum('Available','Unavailable') DEFAULT 'Available',
+  `status` enum('Available','Out of Stock') DEFAULT 'Available',
   `date_created` datetime DEFAULT current_timestamp(),
   `date_updated` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

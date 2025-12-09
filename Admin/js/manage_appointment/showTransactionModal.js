@@ -230,12 +230,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <div class="form-group">
                         <input class="form-control" name="diagnosis" value="${data?.diagnosis || ""}">
-                        <label class="form-label">Diagnosis <span class="required">*</span></label>
+                        <label class="form-label">Diagnosis </label>
                     </div>
 
                     <div class="form-group">
                         <textarea class="form-control" name="remarks" rows="2">${data?.remarks || ""}</textarea>
-                        <label class="form-label">Remarks <span class="required">*</span></label>
+                        <label class="form-label">Remarks </label>
                     </div>
                 `;
             } else {
@@ -647,13 +647,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="form-group">
                     <input type="number" id="respiratoryRate" class="form-control" name="respiratory_rate"
                         value="${isEdit ? data.respiratory_rate : ""}" placeholder=" " required />
-                    <label for="respiratoryRate" class="form-label">Respiratory Rate <span class="required">*</span></label>
+                    <label for="respiratoryRate" class="form-label">Respiratory Rate (rpm) <span class="required">*</span></label>
                 </div>
 
                 <div class="form-group">
                     <input type="text" id="bloodPressure" class="form-control" name="blood_pressure"
                         value="${isEdit ? data.blood_pressure : ""}" placeholder=" "  required autocomplete="off" />
-                    <label for="bloodPressure" class="form-label">Blood Pressure <span class="required">*</span></label>
+                    <label for="bloodPressure" class="form-label">Blood Pressure (e.g., 120/80)<span class="required">*</span></label>
                 </div>
 
                 <div class="form-group">

@@ -2,7 +2,7 @@ $(document).ready(function() {
     if (!$.fn.DataTable.isDataTable('#recentTable')) {
         $('#recentTable').DataTable({
             "ajax": `${BASE_URL}/Admin/processes/patients/load_recent_bookings.php`,
-            "pageLength": 20,
+            "pageLength": 10,
             "lengthChange": false,
             "ordering": true,
             "searching": true,

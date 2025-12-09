@@ -166,13 +166,13 @@ $backTab = $_GET['tab'] ?? 'recent';
             </div>
 
             <div class="form-group">
-                <input type="text" id="diagnosis" name="diagnosis" class="form-control" placeholder=" " required />
-                <label for="diagnosis" class="form-label">Diagnosis <span class="required">*</span></label>
+                <input type="text" id="diagnosis" name="diagnosis" class="form-control" placeholder=" " />
+                <label for="diagnosis" class="form-label">Diagnosis</label>
             </div>
 
             <div class="form-group">
-                <textarea id="remarks" name="remarks" class="form-control" placeholder=" " required></textarea>
-                <label for="remarks" class="form-label">Remarks <span class="required">*</span></label>
+                <textarea id="remarks" name="remarks" class="form-control" placeholder=" "></textarea>
+                <label for="remarks" class="form-label">Remarks</label>
             </div>
 
             <div class="button-group">
