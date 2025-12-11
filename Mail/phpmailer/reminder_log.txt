@@ -3348,3 +3348,7 @@ Reminders checked at 2025-12-11 08:30:09. Sent to 2 recipient(s).
 [2025-12-11 09:00:02] Checking between 2025-12-12 09:00:02 and 2025-12-12 09:30:02
 Reminders checked at 2025-12-11 09:00:03. Sent to 0 recipient(s).
 
+[2025-12-11 09:30:02] Script started
+[2025-12-11 09:30:02] Checking between 2025-12-12 09:30:02 and 2025-12-12 10:00:02
+Reminders checked at 2025-12-11 09:30:03. Sent to 0 recipient(s).
+
