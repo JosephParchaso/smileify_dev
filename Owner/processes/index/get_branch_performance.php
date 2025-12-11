@@ -7,11 +7,18 @@ header('Content-Type: application/json');
 try {
     $sql = "
         SELECT 
+            b.branch_id,
             b.name AS name,
-            IFNULL(SUM(dt.total), 0) AS total_revenue
+            COALESCE(SUM(
+                dt.total +
+                IFNULL(dt.additional_payment, 0) +
+                IFNULL(dt.medcert_request_payment, 0)
+            ), 0) AS total_revenue
         FROM branch b
-        LEFT JOIN appointment_transaction at ON b.branch_id = at.branch_id
-        LEFT JOIN dental_transaction dt ON at.appointment_transaction_id = dt.appointment_transaction_id
+        LEFT JOIN appointment_transaction at 
+            ON b.branch_id = at.branch_id AND at.status = 'Completed'
+        LEFT JOIN dental_transaction dt 
+            ON at.appointment_transaction_id = dt.appointment_transaction_id
         GROUP BY b.branch_id
         ORDER BY total_revenue DESC
     ";
@@ -20,10 +27,14 @@ try {
     $branches = [];
 
     while ($row = $result->fetch_assoc()) {
-        $branches[] = [
-            'name' => $row['name'],
-            'total_revenue' => (float)$row['total_revenue']
-        ];
+        $revenue = (float)$row['total_revenue'];
+
+        if ($revenue > 0) {
+            $branches[] = [
+                'name' => $row['name'],
+                'total_revenue' => $revenue
+            ];
+        }
     }
 
     echo json_encode(['branches' => $branches]);

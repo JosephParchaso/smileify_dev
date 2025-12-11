@@ -76,7 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($srvCount === 0)
             throw new Exception("No services found for this transaction. Please add services before completing.");
 
-        $lowSupplies = [];
+        $blockingSupplies = [];
+        $warningSupplies  = [];
+
         $srvQuery = $conn->prepare("
             SELECT service_id FROM dental_transaction_services
             WHERE dental_transaction_id = ?
@@ -99,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             while ($sup = $supplyResult->fetch_assoc()) {
                 $supplyId = $sup['supply_id'];
-                $qtyUsed = $sup['quantity_used'];
+                $qtyUsed  = $sup['quantity_used'];
 
                 $checkQty = $conn->prepare("
                     SELECT bs.quantity, bs.reorder_level, s.name
@@ -112,43 +114,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $checkRes = $checkQty->get_result();
 
                 if ($checkRes->num_rows === 0) {
-                    $lowSupplies[] = "Supply ID #$supplyId (not found in branch)";
+                    $blockingSupplies[] = "Supply ID #$supplyId (not found in branch)";
                     $checkQty->close();
                     continue;
                 }
 
-                $supplyRow = $checkRes->fetch_assoc();
-                $supplyName = $supplyRow['name'];
-                $currentQty = (float)$supplyRow['quantity'];
-                $reorderLevel = (float)$supplyRow['reorder_level'];
+                $row = $checkRes->fetch_assoc();
+                $supplyName = $row['name'];
+                $currentQty = (float)$row['quantity'];
+                $reorder    = (float)$row['reorder_level'];
                 $checkQty->close();
 
-                if ($currentQty < $qtyUsed) {
-                    $lowSupplies[] = "$supplyName – insufficient (Available: $currentQty, Needed: $qtyUsed)";
-                } elseif (($currentQty - $qtyUsed) <= $reorderLevel) {
-                    $lowSupplies[] = "$supplyName – low stock (Remaining after use: " . ($currentQty - $qtyUsed) . ")";
+                $remaining = $currentQty - $qtyUsed;
+
+                if ($currentQty <= 0 || $remaining < 0) {
+                    $blockingSupplies[] = "$supplyName – out of stock or insufficient (Available: $currentQty, Needed: $qtyUsed)";
+                } elseif ($remaining <= $reorder) {
+                    $warningSupplies[] = "$supplyName – low stock (Remaining after use: $remaining)";
                 }
             }
             $supplyQuery->close();
         }
         $srvQuery->close();
 
-        if (!empty($lowSupplies)) {
-            $adminMsg = "Appointment #$appointmentId cannot be completed due to low or insufficient supply:\n";
-            foreach ($lowSupplies as $msg) $adminMsg .= "- $msg\n";
+        if (!empty($warningSupplies)) {
+            $_SESSION['updateSuccess'] =
+                "Appointment completed successfully. Low stock warning: " . implode(", ", $warningSupplies);
+        }
 
-            $adminQuery = $conn->query("SELECT user_id FROM users WHERE role = 'admin'");
-            while ($admin = $adminQuery->fetch_assoc()) {
-                $adminId = $admin['user_id'];
-                $notif_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
-                $notif_stmt->bind_param("is", $adminId, $adminMsg);
-                $notif_stmt->execute();
-                $notif_stmt->close();
-            }
-            $adminQuery->close();
-
-            $errorList = implode(", ", $lowSupplies);
-            throw new Exception("Cannot complete appointment. The following supplies are low or insufficient: $errorList");
+        if (!empty($blockingSupplies)) {
+            $errorList = implode(", ", $blockingSupplies);
+            throw new Exception("Cannot complete appointment. Supplies unavailable: $errorList");
         }
 
         $srvQuery = $conn->prepare("
@@ -247,10 +243,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Your appointment ($formattedDate at $formattedTime) has been marked as completed. Thank you for visiting!";
         $patientId = $row['user_id'];
 
-        $notif_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
-        $notif_stmt->bind_param("is", $patientId, $message);
-        $notif_stmt->execute();
-        $notif_stmt->close();
+        if (!empty($patientId)) {
+            $notif_stmt = $conn->prepare("INSERT INTO notifications (user_id, message) VALUES (?, ?)");
+            $notif_stmt->bind_param("is", $patientId, $message);
+            $notif_stmt->execute();
+            $notif_stmt->close();
+        }
 
         $guardianQuery = $conn->prepare("SELECT guardian_id FROM users WHERE user_id = ?");
         $guardianQuery->bind_param("i", $patientId);
@@ -271,7 +269,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $conn->commit();
-        $_SESSION['updateSuccess'] = "Appointment completed successfully. Supplies updated.";
+        if (empty($_SESSION['updateSuccess'])) {
+            $_SESSION['updateSuccess'] = "Appointment completed successfully. Supplies updated.";
+        }
         header("Location: " . BASE_URL . "/Admin/pages/patients.php");
         exit;
 

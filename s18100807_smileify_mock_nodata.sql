@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 09, 2025 at 11:56 PM
+-- Generation Time: Dec 11, 2025 at 09:11 AM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 8.2.29
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `s18100807_smileify`
+-- Database: `s18100807_smileify_mock`
 --
 
 -- --------------------------------------------------------

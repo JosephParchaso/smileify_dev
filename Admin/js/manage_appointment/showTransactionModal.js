@@ -90,9 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     <label class="form-label">Dentist <span class="required">*</span></label>
                 </div>
 
-                <div id="serviceExtrasContainer"></div>
-                <div id="medicalCertFields"></div>
                 <div id="xrayFields"></div>
+                <div id="medicalCertFields"></div>
+                <div id="serviceExtrasContainer"></div>
 
                 <div class="form-group">
                     <select id="transactionPromo" class="form-control" name="promo_id">
@@ -221,21 +221,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function toggleMedicalCertFields() {
             const mc = getMedicalCertCheckbox();
+
             if (mc && mc.checked) {
                 mcFields.innerHTML = `
                     <div class="form-group">
-                        <input class="form-control" name="fitness_status" value="${data?.fitness_status || ""}">
-                        <label class="form-label">Period of Rest <span class="required">*</span></label>
+                        <input class="form-control"
+                            name="fitness_status"
+                            required
+                            value="${data?.fitness_status || ""}">
+                        <label class="form-label">
+                            Period of Rest <span class="required">*</span>
+                        </label>
                     </div>
 
                     <div class="form-group">
-                        <input class="form-control" name="diagnosis" value="${data?.diagnosis || ""}">
-                        <label class="form-label">Diagnosis </label>
+                        <input class="form-control"
+                            name="diagnosis"
+                            value="${data?.diagnosis || ""}">
+                        <label class="form-label">Diagnosis</label>
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control" name="remarks" rows="2">${data?.remarks || ""}</textarea>
-                        <label class="form-label">Remarks </label>
+                        <textarea class="form-control"
+                                name="remarks"
+                                rows="2">${data?.remarks || ""}</textarea>
+                        <label class="form-label">Remarks</label>
                     </div>
                 `;
             } else {
@@ -244,17 +254,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function renderXrayField(existingFile = null) {
-            const xrayContainer = document.getElementById("xrayFields");
+            const xrayContainer = modalBody.querySelector("#xrayFields");
 
             let preview = "";
+            const isRequired = !existingFile;
 
             if (existingFile) {
                 preview = `
                     <div class="xray-preview">
                         <p>Current file:</p>
-                        <img src="${BASE_URL}/${existingFile}" class="xray-img" style="max-width:200px;margin-top:10px;">
-                        <div style="margin:10px 0px 10px 0px;">
-                            <button type="button" class="confirm-btn" onclick="removeXrayFile('${existingFile}')">Remove</button>
+                        <img src="${BASE_URL}/${existingFile}" class="xray-img"
+                            style="max-width:200px;margin-top:10px;">
+                        <div style="margin:10px 0;">
+                            <button type="button" class="confirm-btn"
+                                onclick="removeXrayFile('${existingFile}')">Remove</button>
                         </div>
                     </div>
                 `;
@@ -262,8 +275,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             xrayContainer.innerHTML = `
                 <div class="form-group">
-                    <input type="file" name="xray_file" class="form-control" accept="image/*,.pdf">
-                    <label class="form-label">Upload X-Ray</label>
+                    <input type="file"
+                        name="xray_file"
+                        class="form-control"
+                        accept="image/*,.pdf"
+                        ${isRequired ? "required" : ""}>
+                    <label class="form-label">
+                        Upload X-Ray ${isRequired ? '<span class="required">*</span>' : ''}
+                    </label>
                 </div>
                 ${preview}
             `;

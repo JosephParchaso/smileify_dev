@@ -14,7 +14,7 @@ $query = $conn->query("
         ba.end_date,
         ba.status,
         ba.branch_id,
-        b.address
+        b.name
     FROM announcements a
     INNER JOIN branch_announcements ba 
         ON a.announcement_id = ba.announcement_id
@@ -460,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <small>
                             <?= $dateDisplay ?><br>
-                            Branch: <?= htmlspecialchars($item['address']) ?>
+                            Branch: <?= htmlspecialchars($item['name']) ?>
                         </small>
                     </div>
 

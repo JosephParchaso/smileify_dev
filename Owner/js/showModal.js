@@ -383,12 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(branches => {
 
             const container = document.getElementById("branchAssignment");
-            container.innerHTML = `
-                <div class="checkbox-item">
-                    <input type="checkbox" id="selectAllBranches">
-                    <label for="selectAllBranches"><strong>Select All Branches</strong></label>
-                </div>
-            `;
+            container.innerHTML = "";
 
             branches.forEach(branch => {
                 const wrapper = document.createElement("div");
@@ -547,24 +542,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateBranchDropdowns();
                 });
             });
-
-            const selectAllBranches = document.getElementById("selectAllBranches");
-            if (selectAllBranches) {
-                selectAllBranches.addEventListener("change", function () {
-                    const checked = this.checked;
-
-                    document.querySelectorAll("#branchAssignment input[name='branches[]']")
-                        .forEach(cb => cb.checked = checked);
-
-                    updateBranchDropdowns();
-
-                    document.querySelectorAll(".schedule-row").forEach(row => {
-                        const day = row.closest(".day-schedule-wrapper").querySelector("h4").textContent;
-                        updateTimeDropdowns(day);
-                        updateWholeDayVisibility(day);
-                    });
-                });
-            }
         });
 
         fetch(`${BASE_URL}/Owner/processes/employees/get_services.php`)

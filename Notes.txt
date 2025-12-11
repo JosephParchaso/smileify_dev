@@ -287,8 +287,141 @@ with cashless
 users with appointments
 users with 3 transactions
 
+
+====================================================================
+add more dentist
+add last week,month data for reports
+    - get old db
+add promo that is available friday and not
+supplies
 ====================================================================
 
+so hello everyone my name jhon joseph Parchaso and im tasked for the live demonstration for our system,
+
+to start, we have the landing page,
+	- and as u can see we have the login form for the users
+	- so we restrict the secretary from logging in on any mobile device (VERIFY MOBILE PHONE)
+	- and we have also implemented the forgot password feature in our system, so to verify the functionality
+		- the registered users must enter his/her username, (VERIFY EMAIL) 
+        - then afterwards the user must go thru to an otp verification, 
+            and user have 5 mins before the otp expires , 
+            then after user inputs the otp, user must enter a new password for his/her account.
+
+    - to proceed we have the appointment booking, 
+        - some fields have validations
+        - so first user must Select who theyre booking for
+        - then fill out all fields
+        - then we have the appointment information
+        - then after all that, user also must go thru to an otp verification (VERIFY EMAIL)
+        - once successful, the system will also send the login credentials and the appointment details to the user (VERIFY EMAIL BOOKING CONFIRMATION) 
+        - and for the appointment reminders, the system will send an reminder to the user 24 hours before the appointment
+
+    - after the booking,
+        - we also have a simple modal display for the services and the dentists available in the clinic
+        - then the promos and announcements
+        - and the educational content and the footer
+
+====================================================================
+
+then for the patients,
+    - first, we have the recent bookings, registered patients or all active patients, then inactive / archived
+        - we have also implemented a feature that Patients with no transactions in the last 5 years will be automatically marked as inactive.
+        - but secretaries can also manaully set the status of a patient
+        - secretaries can now manage the bookings
+            - then each appointment can be canceled or rescheduled
+                - first we can verify the cancel feature,
+                - then the resched, all field are prefilled with current details, then resched the appointment
+                    - once canceled or rescheduled and completed, we can verify that thru the patient account (VERIFY PATIENT ACCOUNTS)
+
+            - to proceed for the transaction,
+                - secretaries can now store and fill out each fields for the appointment such as vitals and prescription,
+                    - first we have the transaction, 
+                        - since we have a service that requires an xray image, secretaries must upload the image
+                        - and also patient can also request for a dental certificate within that transaction,
+                            - so secretary must fill out the fields for the certificate
+                        - secretaries can also add additional payments and promos and choose the payment method
+                            - secretaries can also upload the receipt of the payment if its cashless
+                        - and below, we have the Transaction Summary
+
+            - and we also have the vitals 
+                - the same with transactions, secretaries can only add one entry 
+
+            - and we have the prescriptions
+                - unlinke with tranasactions and vitals, secretaries can add multiple prescription
+        - once all fields are done, secretaries can now complete the transaction and the patient is also notified
+            - this will also update the stocks for the supplies
+
+    - then we proceed to the patient's records 
+        - newly created transaction, 
+            - patient info with the guardian info
+            - completed appoontment
+                - secretaries can also add an appointment for the specified patient
+            - now for the tranasactions, 
+                - secretaries can downlaod the receipt for the patient
+                - view the cashless receipt
+                - dental certificate
+                - view the xray result
+                - prescription 
+
+
+====================================================================
+1 owner account
+1 secretary account
+
+1 patient account for forgot password, cancel, resched  *brain
+1 patient account for completion newly created secretary appointment booked *auntie
+1 patient account for requesting dent cert thru online and donwloading documents 
+====================================================================
+
+
+ // ===== MEDCERT VALIDITY =====
+                        let medCertButtonHtml = "";
+                        let medCertExpired = false;
+
+                        if (data.date_created) {
+                            const createdDate = new Date(data.date_created);
+                            const now = new Date();
+                            const diffDays = (now - createdDate) / (1000 * 60 * 60 * 24);
+                            medCertExpired = diffDays >= 7;
+                        }
+
+                        if (medCertExpired && data.medcert_status !== 'Expired') {
+                            medCertButtonHtml = `<button class="confirm-btn expired-btn" disabled>Expired</button>`;
+                        } else {
+                            medCertButtonHtml =
+                                data.medcert_status === 'None'
+                                    ? `<button class="confirm-btn" id="requestMedicalCertificate" data-id="${data.dental_transaction_id}">Request Dental Certificate</button>`
+                                    : data.medcert_status === 'Requested'
+                                        ? `<button class="confirm-btn pending-btn" disabled>Pending</button>`
+                                        : data.medcert_status === 'Eligible'
+                                            ? `<button class="confirm-btn" id="downloadMedicalCertificate">Download Dental Certificate</button>`
+                                            : data.medcert_status === 'Issued'
+                                                ? `<button class="confirm-btn issued-btn" id="viewMedCertReceipt" data-id="${data.dental_transaction_id}">Issued</button>`
+                                                : data.medcert_status === 'Expired'
+                                                    ? `<button class="confirm-btn expired-btn" id="viewMedCertReceipt" data-id="${data.dental_transaction_id}">Expired</button>`
+                                                    : '';
+                        }
+
+                        // ===== PRESCRIPTIONS VALIDITY =====
+                        let prescriptionButtonHtml = "";
+
+                        const hasPrescriptions = data.prescriptions && data.prescriptions.length > 0;
+
+                        let isExpired = false;
+                        if (data.date_created) {
+                            const createdDate = new Date(data.date_created);
+                            const now = new Date();
+                            const diffYears = (now - createdDate) / (1000 * 60 * 60 * 24 * 365);
+                            isExpired = diffYears >= 1;
+                        }
+
+====================================================================
+Minimum of 5 minutes for OTP time remaining expiration time 💖{
+    const expiryLimit = 60;
+    $expiry_limit = 60;
+    if (($currentTime - $otpCreatedTime) > 60)
+}
+====================================================================
 Error on change password OTP Fix 👍
 Validation for the Date of Birth, so that it will not accept 0000 👍
 In adding dentist for the owner, autocheck services all by default, and the owner will just uncheck on what the dentist's non specialty 👍
@@ -756,7 +889,7 @@ OWNER creation
 run "php create_owner.php" on cli /Smile-ify/
 then
 "del create_owner.php"
-
+"rm create_owner.php"
 <?php
 
 require_once __DIR__ . '/includes/config.php';

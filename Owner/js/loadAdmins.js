@@ -13,7 +13,7 @@ $(document).ready(function() {
                 { "title": "Status" },
                 { "title": "Action", "orderable": false, "searchable": false }
             ],
-            "order": [[3, "desc"]],
+            "order": [[0, "asc"],[3, "asc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"
