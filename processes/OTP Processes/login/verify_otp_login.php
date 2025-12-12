@@ -15,10 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (time() - $createdAt > 300) {
-        $_SESSION['otp_error'] = "OTP expired. Please log in again.";
-        session_unset();
-        session_destroy();
-        header("Location: " . BASE_URL . "/index.php");
+        $_SESSION['otp_error'] = "OTP expired. Please request a new OTP.";
+        header("Location: " . BASE_URL . "/includes/OTP Includes/login/otp_verification_login.php");
         exit;
     }
 

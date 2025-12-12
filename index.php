@@ -21,7 +21,7 @@ $query = $conn->query("
     INNER JOIN branch b 
         ON ba.branch_id = b.branch_id
     WHERE ba.status = 'Active'
-    ORDER BY ba.date_created DESC
+    ORDER BY ba.date_created ASC
     LIMIT 5
 ");
 
@@ -31,6 +31,7 @@ $loginSuccess = '';
 $loginError = '';
 $otpError = '';
 $usernameError = '';
+$timeoutError = '';
 $showForgotPasswordModal = false;
 
 if (isset($_SESSION['show_forgot_modal'])) {
@@ -56,6 +57,10 @@ if (isset($_SESSION['username_error'])) {
 if (isset($_SESSION['timeoutError'])) {
     $timeoutError = $_SESSION['timeoutError'];
     unset($_SESSION['timeoutError']);
+}
+
+if (isset($_GET['timeout']) && $_GET['timeout'] == 1) {
+    $timeoutError = "Your session has expired due to inactivity. Please log in again.";
 }
 
 ?>

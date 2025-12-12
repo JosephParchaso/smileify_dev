@@ -164,7 +164,7 @@ ADMIN/SECRETARY
         - Registered Patients 
             - all patients active 
             - if recent transaction past 5 years, auto deactivate
-            - manage patient
+            - patient
                 - can deactivate patient accounts
                 - can book for the patient or add dependent account booking(if dependent, only for the dependent booking)
                 - appointment view
@@ -182,7 +182,7 @@ ADMIN/SECRETARY
                 
         - Inactive / Archived
             - all patient inactive
-            - manage patient
+            - patient
                 - can activate patient accounts
     
     Supplies 
@@ -231,7 +231,7 @@ PATIENT
             - prescription
 
     Dependents
-        - manage dependents
+        - dependents
             - info
             - appointment view
             - transaction 
@@ -294,83 +294,47 @@ add last week,month data for reports
     - get old db
 add promo that is available friday and not
 supplies
+book that will notify tomorrow
 ====================================================================
 
-so hello everyone my name jhon joseph Parchaso and im tasked for the live demonstration for our system,
-
-to start, we have the landing page,
-	- and as u can see we have the login form for the users
-	- so we restrict the secretary from logging in on any mobile device (VERIFY MOBILE PHONE)
-	- and we have also implemented the forgot password feature in our system, so to verify the functionality
-		- the registered users must enter his/her username, (VERIFY EMAIL) 
-        - then afterwards the user must go thru to an otp verification, 
-            and user have 5 mins before the otp expires , 
-            then after user inputs the otp, user must enter a new password for his/her account.
-
-    - to proceed we have the appointment booking, 
-        - some fields have validations
-        - so first user must Select who theyre booking for
-        - then fill out all fields
-        - then we have the appointment information
-        - then after all that, user also must go thru to an otp verification (VERIFY EMAIL)
-        - once successful, the system will also send the login credentials and the appointment details to the user (VERIFY EMAIL BOOKING CONFIRMATION) 
-        - and for the appointment reminders, the system will send an reminder to the user 24 hours before the appointment
-
-    - after the booking,
-        - we also have a simple modal display for the services and the dentists available in the clinic
-        - then the promos and announcements
-        - and the educational content and the footer
-
-====================================================================
-
-then for the patients,
-    - first, we have the recent bookings, registered patients or all active patients, then inactive / archived
-        - we have also implemented a feature that Patients with no transactions in the last 5 years will be automatically marked as inactive.
-        - but secretaries can also manaully set the status of a patient
-        - secretaries can now manage the bookings
-            - then each appointment can be canceled or rescheduled
-                - first we can verify the cancel feature,
-                - then the resched, all field are prefilled with current details, then resched the appointment
-                    - once canceled or rescheduled and completed, we can verify that thru the patient account (VERIFY PATIENT ACCOUNTS)
-
-            - to proceed for the transaction,
-                - secretaries can now store and fill out each fields for the appointment such as vitals and prescription,
-                    - first we have the transaction, 
-                        - since we have a service that requires an xray image, secretaries must upload the image
-                        - and also patient can also request for a dental certificate within that transaction,
-                            - so secretary must fill out the fields for the certificate
-                        - secretaries can also add additional payments and promos and choose the payment method
-                            - secretaries can also upload the receipt of the payment if its cashless
-                        - and below, we have the Transaction Summary
-
-            - and we also have the vitals 
-                - the same with transactions, secretaries can only add one entry 
-
-            - and we have the prescriptions
-                - unlinke with tranasactions and vitals, secretaries can add multiple prescription
-        - once all fields are done, secretaries can now complete the transaction and the patient is also notified
-            - this will also update the stocks for the supplies
-
-    - then we proceed to the patient's records 
-        - newly created transaction, 
-            - patient info with the guardian info
-            - completed appoontment
-                - secretaries can also add an appointment for the specified patient
-            - now for the tranasactions, 
-                - secretaries can downlaod the receipt for the patient
-                - view the cashless receipt
-                - dental certificate
-                - view the xray result
-                - prescription 
-
-
-====================================================================
 1 owner account
 1 secretary account
 
-1 patient account for forgot password, cancel, resched  *brain
+1 patient account for forgot password, cancel, resched  *Cuizon_D 
 1 patient account for completion newly created secretary appointment booked *auntie
 1 patient account for requesting dent cert thru online and donwloading documents 
+====================================================================
+to insert
+
+bookings for reports
+    last month
+        Babag
+            1 cancelled 
+            5 completed
+        Pusok
+            2 cancelled
+            3 completed
+        Mandaue
+            2 cancelled
+            3 completed
+    last week
+        Babag
+            1 cancelled 
+            2 completed
+        Pusok
+            2 cancelled
+            1 completed
+        Mandaue
+            1 cancelled
+            3 completed
+    today
+        1 cancelled 9:00
+        3 completed
+
+Reminder Sample 
+    booking for today
+
+
 ====================================================================
 
 

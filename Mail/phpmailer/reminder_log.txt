@@ -3352,3 +3352,55 @@ Reminders checked at 2025-12-11 09:00:03. Sent to 0 recipient(s).
 [2025-12-11 09:30:02] Checking between 2025-12-12 09:30:02 and 2025-12-12 10:00:02
 Reminders checked at 2025-12-11 09:30:03. Sent to 0 recipient(s).
 
+[2025-12-11 10:00:03] Script started
+[2025-12-11 10:00:03] Checking between 2025-12-12 10:00:03 and 2025-12-12 10:30:03
+Reminders checked at 2025-12-11 10:00:03. Sent to 0 recipient(s).
+
+[2025-12-11 10:30:02] Script started
+[2025-12-11 10:30:02] Checking between 2025-12-12 10:30:02 and 2025-12-12 11:00:02
+Reminders checked at 2025-12-11 10:30:03. Sent to 0 recipient(s).
+
+[2025-12-11 11:00:03] Script started
+[2025-12-11 11:00:03] Checking between 2025-12-12 11:00:03 and 2025-12-12 11:30:03
+Reminders checked at 2025-12-11 11:00:04. Sent to 0 recipient(s).
+
+[2025-12-11 11:30:02] Script started
+[2025-12-11 11:30:02] Checking between 2025-12-12 11:30:02 and 2025-12-12 12:00:02
+Reminders checked at 2025-12-11 11:30:04. Sent to 0 recipient(s).
+
+[2025-12-11 12:00:05] Script started
+[2025-12-11 12:00:05] Checking between 2025-12-12 12:00:05 and 2025-12-12 12:30:05
+Reminders checked at 2025-12-11 12:00:06. Sent to 0 recipient(s).
+
+[2025-12-11 12:30:02] Script started
+[2025-12-11 12:30:02] Checking between 2025-12-12 12:30:02 and 2025-12-12 13:00:02
+Reminders checked at 2025-12-11 12:30:03. Sent to 0 recipient(s).
+
+[2025-12-11 13:00:04] Script started
+[2025-12-11 13:00:04] Checking between 2025-12-12 13:00:04 and 2025-12-12 13:30:04
+Reminders checked at 2025-12-11 13:00:06. Sent to 0 recipient(s).
+
+[2025-12-11 13:30:03] Script started
+[2025-12-11 13:30:03] Checking between 2025-12-12 13:30:03 and 2025-12-12 14:00:03
+Reminders checked at 2025-12-11 13:30:05. Sent to 0 recipient(s).
+
+[2025-12-11 14:00:03] Script started
+[2025-12-11 14:00:03] Checking between 2025-12-12 14:00:03 and 2025-12-12 14:30:03
+Reminders checked at 2025-12-11 14:00:04. Sent to 0 recipient(s).
+
+[2025-12-11 14:30:03] Script started
+[2025-12-11 14:30:03] Checking between 2025-12-12 14:30:03 and 2025-12-12 15:00:03
+Reminders checked at 2025-12-11 14:30:04. Sent to 0 recipient(s).
+
+[2025-12-11 15:00:02] Script started
+[2025-12-11 15:00:02] Checking between 2025-12-12 15:00:02 and 2025-12-12 15:30:02
+Reminders checked at 2025-12-11 15:00:04. Sent to 0 recipient(s).
+
+[2025-12-11 15:30:04] Script started
+[2025-12-11 15:30:04] Checking between 2025-12-12 15:30:04 and 2025-12-12 16:00:04
+Reminders checked at 2025-12-11 15:30:05. Sent to 0 recipient(s).
+
+[2025-12-11 16:00:05] Script started
+[2025-12-11 16:00:05] Checking between 2025-12-12 16:00:05 and 2025-12-12 16:30:05
+Reminders checked at 2025-12-11 16:00:06. Sent to 0 recipient(s).
+

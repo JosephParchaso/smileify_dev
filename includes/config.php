@@ -98,22 +98,26 @@ if (php_sapi_name() === 'cli') {
     define('BASE_PATH', $_SERVER['DOCUMENT_ROOT'] . $basePath);
 }
 
-// ===== Session timeout =====
-if (php_sapi_name() !== 'cli') {
-    $timeout_duration = 1800;
+// Detect AJAX request
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
-    if (isset($_SESSION['LAST_ACTIVITY']) &&
-        (time() - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
+// Session inactivity timeout (only for non-AJAX and logged-in users)
+if (php_sapi_name() !== 'cli' && !$isAjax) {
+    $timeout_duration = getenv('SESSION_TIMEOUT') ?: 1800;
 
-        session_unset();
-        session_destroy();
+    if (isset($_SESSION['user_id'])) {
 
-        session_start();
-        $_SESSION['timeoutError'] = "Your session has expired due to inactivity. Please log in again.";
+        if (isset($_SESSION['LAST_ACTIVITY']) &&
+            (time() - $_SESSION['LAST_ACTIVITY']) > $timeout_duration) {
 
-        header("Location: " . BASE_URL . "/index.php");
-        exit();
+            session_unset();
+            session_destroy();
+            header("Location: " . BASE_URL . "/index.php?timeout=1");
+            exit();
+        }
+
+        $_SESSION['LAST_ACTIVITY'] = time();
     }
-
-    $_SESSION['LAST_ACTIVITY'] = time();
 }
+?>
