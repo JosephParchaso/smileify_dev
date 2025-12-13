@@ -3404,3 +3404,32 @@ Reminders checked at 2025-12-11 15:30:05. Sent to 0 recipient(s).
 [2025-12-11 16:00:05] Checking between 2025-12-12 16:00:05 and 2025-12-12 16:30:05
 Reminders checked at 2025-12-11 16:00:06. Sent to 0 recipient(s).
 
+[2025-12-12 15:55:53] Script started
+[2025-12-12 15:55:53] Checking between 2025-12-13 15:55:53 and 2025-12-13 16:25:53
+[2025-12-12 15:55:57] Reminder sent to josephparchaso@gmail.com
+Reminders checked at 2025-12-12 15:55:57. Sent to 1 recipient(s).
+
+[2025-12-12 16:00:02] Script started
+[2025-12-12 16:00:02] Checking between 2025-12-13 16:00:02 and 2025-12-13 16:30:02
+Reminders checked at 2025-12-12 16:00:03. Sent to 0 recipient(s).
+
+[2025-12-12 16:30:05] Script started
+[2025-12-12 16:30:05] Checking between 2025-12-13 16:30:05 and 2025-12-13 17:00:05
+Reminders checked at 2025-12-12 16:30:05. Sent to 0 recipient(s).
+
+[2025-12-12 17:00:03] Script started
+[2025-12-12 17:00:03] Checking between 2025-12-13 17:00:03 and 2025-12-13 17:30:03
+Reminders checked at 2025-12-12 17:00:03. Sent to 0 recipient(s).
+
+[2025-12-12 17:30:02] Script started
+[2025-12-12 17:30:02] Checking between 2025-12-13 17:30:02 and 2025-12-13 18:00:02
+Reminders checked at 2025-12-12 17:30:02. Sent to 0 recipient(s).
+
+[2025-12-12 18:00:02] Script started
+[2025-12-12 18:00:02] Checking between 2025-12-13 18:00:02 and 2025-12-13 18:30:02
+Reminders checked at 2025-12-12 18:00:02. Sent to 0 recipient(s).
+
+[2025-12-12 18:30:03] Script started
+[2025-12-12 18:30:03] Checking between 2025-12-13 18:30:03 and 2025-12-13 19:00:03
+Reminders checked at 2025-12-12 18:30:03. Sent to 0 recipient(s).
+
