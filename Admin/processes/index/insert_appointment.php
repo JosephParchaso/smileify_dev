@@ -60,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $childFirstName = trim($_POST['childFirstName'] ?? '');
     $childGender = $_POST['childGender'] ?? '';
     $childDob = $_POST['childDob'] ?? '';
+    $relationship = $_POST['relationship'] ?? null;
 
     $appointmentBranch = $_POST['appointmentBranch'];
     $appointmentServices = $_POST['appointmentServices'];
@@ -178,12 +179,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 (username, password, last_name, first_name, middle_name, gender,
                 date_of_birth, date_of_birth_iv, date_of_birth_tag,
                 email, contact_number, contact_number_iv, contact_number_tag,
-                role, status, branch_id, guardian_id)
-                VALUES (NULL, NULL, ?, ?, NULL, ?, ?, ?, ?, NULL, NULL, NULL, NULL, 'patient', 'Active', ?, ?)
+                role, status, branch_id, guardian_id, relationship)
+                VALUES (NULL, NULL, ?, ?, NULL, ?, ?, ?, ?, NULL, NULL, NULL, NULL,
+                        'patient', 'Active', ?, ?, ?)
             ");
 
             $c_stmt->bind_param(
-                "ssssssii",
+                "ssssssiis",
                 $childLastName,
                 $childFirstName,
                 $childGender,
@@ -191,7 +193,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $cdob_iv,
                 $cdob_tag,
                 $appointmentBranch,
-                $guardian_id
+                $guardian_id,
+                $relationship
             );
             $c_stmt->execute();
             $patient_user_id = $c_stmt->insert_id;

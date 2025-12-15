@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/Smile-ify/includes/config.php';
 require_once BASE_PATH . '/includes/db.php';
 require_once BASE_PATH . '/processes/load_notifications.php';
+require_once BASE_PATH . '/includes/auto_cancel_pending_reschedule.php';
 ?>
 <link rel="stylesheet" href="<?= BASE_URL ?>/Admin/css/style.css?v=<?= time(); ?>" />
 <nav>

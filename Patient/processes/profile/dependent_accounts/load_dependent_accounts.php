@@ -17,6 +17,7 @@ $sql = "
         u.user_id,
         u.first_name,
         u.last_name,
+        u.relationship,
         u.gender,
         u.status,
         u.date_started,
@@ -41,6 +42,10 @@ while ($row = $result->fetch_assoc()) {
 
     $fullName = htmlspecialchars($row['first_name'] . " " . $row['last_name']);
 
+    $relationship = $row['relationship']
+        ? htmlspecialchars($row['relationship'])
+        : "-";
+
     $recent = $row['recent_transaction']
         ? date("Y-m-d h:i A", strtotime($row['recent_transaction']))
         : "<span style='color: #888;'>None</span>";
@@ -57,6 +62,7 @@ while ($row = $result->fetch_assoc()) {
 
     $data[] = [
         $fullName,
+        $relationship,
         $recent,
         $statusBadge,
         $actions,

@@ -65,7 +65,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
 
                             <label class="radio-option">
                                 <input type="radio" name="bookingType" id="bookForChild" value="child">
-                                Child / Dependent (Minor)
+                                New Dependent (Child, Person with Disability, or Senior Citizen)
                             </label>
                         </div>
                     </div>
@@ -120,12 +120,24 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
 
                         <div class="form-group">
                             <input type="text" id="childLastName" name="childLastName" class="form-control" placeholder=" ">
-                            <label for="childLastName" class="form-label">Child Last Name <span class="required">*</span></label>
+                            <label for="childLastName" class="form-label">Dependent Last Name <span class="required">*</span></label>
                         </div>
 
                         <div class="form-group">
                             <input type="text" id="childFirstName" name="childFirstName" class="form-control" placeholder=" ">
-                            <label for="childFirstName" class="form-label">Child First Name <span class="required">*</span></label>
+                            <label for="childFirstName" class="form-label">Dependent First Name <span class="required">*</span></label>
+                        </div>
+
+                        <div class="form-group">
+                            <select id="relationship" name="relationship" class="form-control">
+                                <option value="" disabled selected hidden></option>
+                                <option value="Parent">Parent</option>
+                                <option value="Sibling">Sibling</option>
+                                <option value="Child">Child</option>
+                            </select>
+                            <label for="relationship" class="form-label">
+                                Relationship to Guardian <span class="required">*</span>
+                            </label>
                         </div>
 
                         <div class="form-group">
@@ -134,12 +146,12 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
-                            <label for="childGender" class="form-label">Child Gender <span class="required">*</span></label>
+                            <label for="childGender" class="form-label">Dependent Gender <span class="required">*</span></label>
                         </div>
 
                         <div class="form-group">
                             <input type="date" id="childDob" name="childDob" class="form-control">
-                            <label for="childDob" class="form-label">Child Date of Birth <span class="required">*</span></label>
+                            <label for="childDob" class="form-label">Dependent Date of Birth <span class="required">*</span></label>
                         </div>
                     </div>
 
@@ -429,6 +441,7 @@ require_once BASE_PATH . '/Admin/includes/navbar.php';
         document.getElementById("childLastName").required = true;
         document.getElementById("childDob").required = true;
         document.getElementById("childGender").required = true;
+        document.getElementById("relationship").required = true;
     });
 </script>
 <style>

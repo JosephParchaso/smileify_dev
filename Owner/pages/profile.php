@@ -117,9 +117,65 @@ $updateError = $_SESSION['updateError'] ?? "";
     </div>
 </div>
 
+<div id="branchDeactivateModal" class="change-password-modal" style="display:none;">
+    <div class="change-password-modal-content" style="max-width: 650px;">
+        <h3>Deactivate Branch?</h3>
+        <p id="branchDeactivateMessage">
+            Checking affected appointments...
+        </p>
+
+        <div class="button-group">
+            <button id="confirmDeactivateYes" class="form-button confirm-btn">Yes, Deactivate</button>
+            <button id="confirmDeactivateNo" class="form-button cancel-btn">Cancel</button>
+        </div>
+    </div>
+</div>
+
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>
 
 <script>
+
+function openBranchDeactivateConfirm(branchId, onConfirm) {
+    const modal = document.getElementById("branchDeactivateModal");
+    const message = document.getElementById("branchDeactivateMessage");
+
+    modal.style.display = "block";
+    message.innerHTML = "Checking affected appointments...";
+
+    fetch(`${BASE_URL}/Owner/processes/profile/branches/check_affected_appointments.php?branch_id=${branchId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                message.innerHTML = "Unable to check affected appointments.";
+                return;
+            }
+
+            if (data.count > 0) {
+                message.innerHTML = `
+                    This branch has <strong>${data.count}</strong> active appointment(s).<br><br>
+                    Deactivating it will affect these bookings.
+                `;
+            } else {
+                message.innerHTML = `
+                    No active appointments found.<br><br>
+                    You may safely deactivate this branch.
+                `;
+            }
+        })
+        .catch(() => {
+            message.innerHTML = "Error checking appointments.";
+        });
+
+    document.getElementById("confirmDeactivateYes").onclick = () => {
+        modal.style.display = "none";
+        onConfirm();
+    };
+
+    document.getElementById("confirmDeactivateNo").onclick = () => {
+        modal.style.display = "none";
+    };
+}
+
 document.addEventListener("DOMContentLoaded", function () {
 
     let isSubmitting = false;
@@ -148,4 +204,3 @@ document.addEventListener("DOMContentLoaded", function () {
     protectForm("requestOtpChangeEmail");
 });
 </script>
-

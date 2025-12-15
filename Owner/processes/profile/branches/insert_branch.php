@@ -20,23 +20,26 @@ $address      = trim($_POST["address"] ?? "");
 $phone_number = trim($_POST["contactNumber"] ?? "");
 $map_url      = trim($_POST["map_url"] ?? "");
 $status       = $_POST["status"] ?? "Active";
+$dental_chairs = intval($_POST["chairCount"] ?? 1);
 
 try {
     $sql = "INSERT INTO branch
-            (name, nickname, address, phone_number, status, map_url, date_created, date_updated)
-            VALUES (?, ?, ?, ?, ?, NULLIF(?, ''), NOW(), NOW())";
+            (name, nickname, address, phone_number, dental_chairs, status, map_url, date_created, date_updated)
+            VALUES (?, ?, ?, ?, ?, ?, NULLIF(?, ''), NOW(), NOW())";
 
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         throw new Exception("Prepare failed: " . $conn->error);
     }
 
-    $stmt->bind_param("ssssss", 
-        $branchName, 
-        $nickname, 
-        $address, 
-        $phone_number, 
-        $status, 
+    $stmt->bind_param(
+        "ssssiss",
+        $branchName,
+        $nickname,
+        $address,
+        $phone_number,
+        $dental_chairs,
+        $status,
         $map_url
     );
 

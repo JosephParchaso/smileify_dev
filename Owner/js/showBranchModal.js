@@ -39,6 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <form id="branchForm" action="${BASE_URL}/Owner/processes/profile/branches/${isEdit ? "update_branch.php" : "insert_branch.php"}" method="POST" autocomplete="off">
                 ${isEdit ? `<input type="hidden" name="branch_id" value="${data.branch_id}">` : ""}
 
+                <input type="hidden" name="confirmDeactivate" id="confirmDeactivate" value="0">
+
                 <div class="form-group">
                     <input type="text" id="branchName" name="branchName" class="form-control"
                         value="${isEdit ? data.name : ""}" required placeholder=" ">
@@ -73,7 +75,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="form-group">
-                    <input type="url" id="map_url" name="map_url" class="form-control"
+                    <input 
+                        type="number" 
+                        id="chairCount" 
+                        name="chairCount" 
+                        class="form-control"
+                        min="1"
+                        value="${isEdit ? (data.dental_chairs ?? 1) : 1}"
+                        required
+                        placeholder=" "
+                    >
+                    <label for="chairCount" class="form-label">
+                        Number of Dental Chairs <span class="required">*</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <input type="url" id="map_url" name="map_url" class="form-control" required
                         value="${isEdit ? (data.map_url || '') : ''}" placeholder=" ">
                     <label for="map_url" class="form-label">Google Maps URL <span class="required">*</span></label>
                 </div>
@@ -105,6 +123,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             </form>
         `;
+
+        document.addEventListener("submit", function (e) {
+            const form = e.target;
+            if (form.id !== "branchForm") return;
+
+            const statusSelect = form.querySelector("#status");
+            const confirmInput = form.querySelector("#confirmDeactivate");
+            const branchIdInput = form.querySelector("input[name='branch_id']");
+
+            if (!statusSelect || !confirmInput) return;
+
+            if (!branchIdInput) return;
+
+            if (statusSelect.value === "Inactive" && confirmInput.value !== "1") {
+                e.preventDefault();
+
+                const branchId = form.querySelector("input[name='branch_id']").value;
+
+                openBranchDeactivateConfirm(branchId, () => {
+                    confirmInput.value = "1";
+                    form.submit();
+                });
+            }
+        });
     }
 });
 

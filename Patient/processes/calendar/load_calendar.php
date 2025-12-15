@@ -71,8 +71,13 @@ $events = [];
 while ($row = $result->fetch_assoc()) {
 
     $statusColor = '#fe9705';
-    if ($row['status'] === 'Completed') $statusColor = '#3ac430';
-    elseif ($row['status'] === 'Cancelled') $statusColor = '#d11313';
+    if ($row['status'] === 'Completed') {
+        $statusColor = '#3ac430';
+    } elseif ($row['status'] === 'Cancelled') {
+        $statusColor = '#d11313';
+    } elseif ($row['status'] === 'Pending Reschedule') {
+        $statusColor = '#0066ff';
+    }
 
     $branchColor = stringToColorCode($row['branch']);
     $serviceList = $row['services'] ?? '-';

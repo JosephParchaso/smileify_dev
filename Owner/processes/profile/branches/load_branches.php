@@ -14,6 +14,7 @@ $sql = "SELECT
             branch_id,
             name,
             address,
+            dental_chairs,
             phone_number,
             status
         FROM branch";
@@ -26,6 +27,7 @@ if ($result) {
         $branches[] = [
             $row['branch_id'],
             $row['name'],
+            $row['dental_chairs'],
             $row['phone_number'],
             $row['status'],
             '<button class="btn-branch" data-type="branch" data-id="'.$row['branch_id'].'">Manage</button>'

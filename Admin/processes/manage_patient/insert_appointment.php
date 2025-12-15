@@ -36,25 +36,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $childLast   = trim($_POST['childLastName'] ?? "");
         $childGender = trim($_POST['childGender'] ?? "");
         $childDob    = trim($_POST['childDob'] ?? "");
-
-        if (!$childFirst || !$childLast || !$childGender || !$childDob) {
-            $_SESSION['updateError'] = "Missing required child information.";
-            header("Location: " . BASE_URL . "/Admin/pages/patients.php");
-            exit();
-        }
+        $relationship = trim($_POST['relationship'] ?? "");
 
         [$cdob_enc, $cdob_iv, $cdob_tag] = encryptField($childDob);
 
         $insertChild = $conn->prepare("
             INSERT INTO users 
             (first_name, last_name, gender,
-                date_of_birth, date_of_birth_iv, date_of_birth_tag,
-                guardian_id, status, role, branch_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'Active', 'patient', ?)
+            date_of_birth, date_of_birth_iv, date_of_birth_tag,
+            guardian_id, relationship, status, role, branch_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Active', 'patient', ?)
         ");
 
         $insertChild->bind_param(
-            "ssssssii",
+            "ssssssisi",
             $childFirst,
             $childLast,
             $childGender,
@@ -62,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $cdob_iv,
             $cdob_tag,
             $original_user_id,
+            $relationship,
             $branch_id
         );
 

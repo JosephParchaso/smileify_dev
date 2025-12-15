@@ -9,11 +9,12 @@ $(document).ready(function() {
             "columns": [
                 { "title": "ID" },
                 { "title": "Branch Name" },
+                { "title": "Dental Chairs" },
                 { "title": "Phone Number" },
                 { "title": "Status" },
                 { "title": "Action", "orderable": false }
             ],
-            "order": [[3, "desc"]],
+            "order": [[4, "desc"]],
             "language": {
                 search: "",
                 searchPlaceholder: "Search"

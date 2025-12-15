@@ -24,6 +24,7 @@ $sql = "
     SELECT 
         user_id, 
         guardian_id,
+        relationship,
         first_name, 
         middle_name, 
         last_name, 
@@ -146,6 +147,7 @@ if ($row = $result->fetch_assoc()) {
 
     $data = [
         'full_name'      => trim(($row['first_name'] ?? '') . ' ' . ($row['middle_name'] ?? '') . ' ' . ($row['last_name'] ?? '')),
+        'relationship' => $row['relationship'] ? ucfirst($row['relationship']) : null,
         'gender'         => ucfirst($row['gender'] ?? '-'),
         'date_of_birth'  => $decryptedDOB ? date("F j, Y", strtotime($decryptedDOB)) : '-',
         'email'          => $row['email'] ?? '-',

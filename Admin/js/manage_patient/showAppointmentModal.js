@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <label class="radio-option">
                             <input type="radio" name="bookingType" id="bookForChild" value="child">
-                            Patient Child / Dependent (Minor)
+                            New Dependent (Child, Person with Disability, or Senior Citizen)
                         </label>
                     </div>
                 </div>
@@ -74,12 +74,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="form-group">
                         <input type="text" id="childLastName" name="childLastName" class="form-control" placeholder=" ">
-                        <label for="childLastName" class="form-label">Child Last Name <span class="required">*</span></label>
+                        <label for="childLastName" class="form-label">Dependent Last Name <span class="required">*</span></label>
                     </div>
 
                     <div class="form-group">
                         <input type="text" id="childFirstName" name="childFirstName" class="form-control" placeholder=" ">
-                        <label for="childFirstName" class="form-label">Child First Name <span class="required">*</span></label>
+                        <label for="childFirstName" class="form-label">Dependent First Name <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="relationship" name="relationship" class="form-control">
+                            <option value="" disabled selected hidden></option>
+                            <option value="Parent">Parent</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Child">Child</option>
+                        </select>
+                        <label for="relationship" class="form-label">
+                            Relationship to Guardian <span class="required">*</span>
+                        </label>
                     </div>
 
                     <div class="form-group">
@@ -88,12 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
-                        <label for="childGender" class="form-label">Child Gender <span class="required">*</span></label>
+                        <label for="childGender" class="form-label">Dependent Gender <span class="required">*</span></label>
                     </div>
 
                     <div class="form-group">
                         <input type="date" id="childDob" name="childDob" class="form-control">
-                        <label for="childDob" class="form-label">Child Date of Birth <span class="required">*</span></label>
+                        <label for="childDob" class="form-label">Dependent Date of Birth <span class="required">*</span></label>
                     </div>
                 </div>
 
@@ -165,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const childLast = document.getElementById("childLastName");
         const childDob = document.getElementById("childDob");
         const childGender = document.getElementById("childGender");
+        const relationship = document.getElementById("relationship");
 
         if (childDob) {
             const today = new Date();
@@ -179,6 +192,8 @@ document.addEventListener("DOMContentLoaded", function () {
             childLast.required = false;
             childDob.required = false;
             childGender.required = false;
+            relationship.required = false;
+            relationship.value = "";
         }
 
         function hideAllBookingForms() {
@@ -200,6 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
             childLast.required = true;
             childDob.required = true;
             childGender.required = true;
+            relationship.required = true;
 
             loadAvailableTimes();
         });

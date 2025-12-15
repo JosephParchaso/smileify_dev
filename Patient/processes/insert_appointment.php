@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $appointmentDate     = $_POST['appointmentDate'];
     $appointmentTime     = $_POST['appointmentTime'];
     $notes               = $_POST['notes'] ?? '';
+    $relationship        = $_POST['relationship'] ?? null;
 
     if (empty($appointmentServices)) {
         $_SESSION['updateError'] = "Please select at least one service.";
@@ -55,12 +56,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 (username, password, last_name, first_name, gender,
                     date_of_birth, date_of_birth_iv, date_of_birth_tag,
                     email, contact_number, contact_number_iv, contact_number_tag,
-                    role, branch_id, guardian_id)
-                VALUES (NULL, NULL, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, 'patient', ?, ?)
+                    role, branch_id, guardian_id, relationship)
+                VALUES (NULL, NULL, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, 'patient', ?, ?, ?)
             ");
 
             $insertChild->bind_param(
-                "ssssssii",
+                "ssssssiis",
                 $childLast,
                 $childFirst,
                 $childGender,
@@ -68,7 +69,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $cdob_iv,
                 $cdob_tag,
                 $appointmentBranch,
-                $guardian_id
+                $guardian_id,
+                $relationship
             );
 
             if (!$insertChild->execute()) {

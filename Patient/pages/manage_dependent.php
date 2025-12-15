@@ -83,6 +83,8 @@ if ($priceFromDB !== null) {
                 </a>
             </div>
             <h2><?= htmlspecialchars($dependent['first_name'] . " " . $dependent['last_name']) ?></h2>
+            
+            <p><strong>Relationship:</strong> <?= htmlspecialchars($dependent['relationship']) ?></p>
 
             <p><strong>Gender:</strong> <?= htmlspecialchars($dependent['gender']) ?></p>
 

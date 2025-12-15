@@ -17,11 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $phone_number  = trim($_POST["contactNumber"] ?? "");
     $map_url       = trim($_POST["map_url"] ?? "");
     $status        = $_POST["status"] ?? "Active";
+    $dental_chairs = intval($_POST["chairCount"] ?? 1);
 
     try {
-        $check_sql = "SELECT name, nickname, address, phone_number, status, map_url
-                        FROM branch
-                        WHERE branch_id = ?";
+        $check_sql = "SELECT name, nickname, address, phone_number, dental_chairs, status, map_url
+                    FROM branch
+                    WHERE branch_id = ?";
         $check_stmt = $conn->prepare($check_sql);
         $check_stmt->bind_param("i", $branch_id);
         $check_stmt->execute();
@@ -36,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $current['nickname'] !== $nickname ||
                 $current['address'] !== $address ||
                 $current['phone_number'] !== $phone_number ||
+                (int)$current['dental_chairs'] !== $dental_chairs ||
                 $current['status'] !== $status ||
                 $current['map_url'] !== $map_url
             ) {
@@ -44,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             nickname = ?, 
                             address = ?, 
                             phone_number = ?, 
+                            dental_chairs = ?,
                             status = ?, 
                             map_url = ?,
                             date_updated = NOW()
@@ -54,12 +57,87 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 }
 
                 $stmt->bind_param(
-                    "ssssssi",
-                    $branchName, $nickname, $address, $phone_number,
-                    $status, $map_url, $branch_id
+                    "ssssissi",
+                    $branchName,
+                    $nickname,
+                    $address,
+                    $phone_number,
+                    $dental_chairs,
+                    $status,
+                    $map_url,
+                    $branch_id
                 );
 
                 if ($stmt->execute() && $stmt->affected_rows > 0) {
+
+                    if ($current['status'] === 'Active' && $status === 'Inactive') {
+
+                        if (($_POST['confirmDeactivate'] ?? '0') !== '1') {
+                            $_SESSION['updateError'] = "Branch deactivation must be confirmed.";
+                            header("Location: " . BASE_URL . "/Owner/pages/profile.php");
+                            exit;
+                        }
+
+                        $apptSql = "
+                            SELECT 
+                                at.appointment_transaction_id,
+                                at.user_id,
+                                u.guardian_id
+                            FROM appointment_transaction at
+                            JOIN users u ON u.user_id = at.user_id
+                            WHERE at.branch_id = ?
+                            AND at.status = 'Booked'
+                            AND at.appointment_date >= CURDATE()
+                        ";
+
+                        $apptStmt = $conn->prepare($apptSql);
+                        $apptStmt->bind_param("i", $branch_id);
+                        $apptStmt->execute();
+                        $appointments = $apptStmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                        $apptStmt->close();
+
+                        if (!empty($appointments)) {
+
+                            $updateAppt = $conn->prepare("
+                                UPDATE appointment_transaction
+                                SET status = 'Pending Reschedule'
+                                WHERE appointment_transaction_id = ?
+                            ");
+
+                            $notif = $conn->prepare("
+                                INSERT INTO notifications (user_id, appointment_transaction_id, message)
+                                VALUES (?, ?, ?)
+                            ");
+
+                            foreach ($appointments as $appt) {
+
+                                $appointmentTransactionId = (int)$appt['appointment_transaction_id'];
+
+                                $updateAppt->bind_param("i", $appointmentTransactionId);
+                                $updateAppt->execute();
+
+                                $notifyUserId = !empty($appt['guardian_id'])
+                                    ? (int)$appt['guardian_id']
+                                    : (int)$appt['user_id'];
+
+                                $message = "Your dental appointment requires action because the branch has been deactivated.
+                                            Please confirm a new schedule or cancel the appointment.";
+
+                                $notif->bind_param(
+                                    "iis",
+                                    $notifyUserId,
+                                    $appointmentTransactionId,
+                                    $message
+                                );
+
+                                $notif->execute();
+                            }
+
+                            $updateAppt->close();
+                            $notif->close();
+                        }
+                    }
+
                     $_SESSION['updateSuccess'] = "Branch updated successfully!";
                 }
 

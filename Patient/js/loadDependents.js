@@ -5,9 +5,10 @@ $(document).ready(function() {
         "lengthChange": false,
         "ordering": true,
         "searching": true,
-        "order": [1, "desc"],
+        "order": [2, "desc"],
         "columns": [
             { "title": "Name"},
+            { "title": "Relationship"},
             { "title": "Recent Transaction" },
             { "title": "Status"},
             { "title": "Action", "orderable": false },

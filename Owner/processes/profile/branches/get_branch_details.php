@@ -24,6 +24,7 @@ $sql = "SELECT
             name,
             nickname,
             address,
+            dental_chairs,
             phone_number,
             map_url,
             status,

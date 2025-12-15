@@ -190,7 +190,7 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
 
                         <label class="radio-option">
                             <input type="radio" name="bookingType" id="bookForChild" value="child">
-                            My Child / Dependent (Minor)
+                            New Dependent (Child, Person with Disability, or Senior Citizen)
                         </label>
 
                         <label class="radio-option">
@@ -205,12 +205,24 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
 
                     <div class="form-group">
                         <input type="text" id="childLastName" name="childLastName" class="form-control" placeholder=" ">
-                        <label for="childLastName" class="form-label">Child Last Name <span class="required">*</span></label>
+                        <label for="childLastName" class="form-label">Dependent Last Name <span class="required">*</span></label>
                     </div>
 
                     <div class="form-group">
                         <input type="text" id="childFirstName" name="childFirstName" class="form-control" placeholder=" ">
-                        <label for="childFirstName" class="form-label">Child First Name <span class="required">*</span></label>
+                        <label for="childFirstName" class="form-label">Dependent First Name <span class="required">*</span></label>
+                    </div>
+
+                    <div class="form-group">
+                        <select id="relationship" name="relationship" class="form-control">
+                            <option value="" disabled selected hidden></option>
+                            <option value="Parent">Parent</option>
+                            <option value="Sibling">Sibling</option>
+                            <option value="Child">Child</option>
+                        </select>
+                        <label for="relationship" class="form-label">
+                            Relationship to Guardian <span class="required">*</span>
+                        </label>
                     </div>
 
                     <div class="form-group">
@@ -219,12 +231,12 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
-                        <label for="childGender" class="form-label">Child Gender <span class="required">*</span></label>
+                        <label for="childGender" class="form-label">Dependent Gender <span class="required">*</span></label>
                     </div>
 
                     <div class="form-group">
                         <input type="date" id="childDob" name="childDob" class="form-control">
-                        <label for="childDob" class="form-label">Child Date of Birth <span class="required">*</span></label>
+                        <label for="childDob" class="form-label">Dependent Date of Birth <span class="required">*</span></label>
                     </div>
                 </div>
 
@@ -393,6 +405,7 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
     const childLast = document.getElementById("childLastName");
     const childDob = document.getElementById("childDob");
     const childGender = document.getElementById("childGender");
+    const relationship = document.getElementById("relationship");
     const existingSelect = document.getElementById("existingDependentSelect");
 
     function resetChildRequirements() {
@@ -400,6 +413,8 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
         childLast.required = false;
         childDob.required = false;
         childGender.required = false;
+        relationship.required = false;
+        relationship.value = "";
     }
 
     function hideAllBookingForms() {
@@ -423,6 +438,7 @@ require_once BASE_PATH . '/Patient/includes/navbar.php';
         childLast.required = true;
         childDob.required = true;
         childGender.required = true;
+        relationship.required = true;
 
         loadAvailableTimes();
     });

@@ -205,7 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (form) attachSafeSubmit(form);
         }, 70);
     }
-    
+
+    const CHAIR_OCCUPANCY = {};
     function renderDentistForm(data) {
         const isEdit = !!data;
         const selectedBranches = isEdit && data.branches ? data.branches.map(b => parseInt(b)) : [];
@@ -397,6 +398,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 container.appendChild(wrapper);
             });
 
+            branches.forEach(branch => {
+                fetch(`${BASE_URL}/Owner/processes/employees/get_branch_chair_occupancy.php?branch_id=${branch.branch_id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        CHAIR_OCCUPANCY[branch.branch_id] = data;
+                    });
+            });
+
             const scheduleContainer = document.getElementById("branchScheduleContainer");
             scheduleContainer.innerHTML = "";
 
@@ -408,7 +417,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 dayWrapper.classList.add("day-schedule-wrapper");
 
                 dayWrapper.innerHTML = `
-                    <h4>${day}</h4>
+                    <h4>
+                        ${day}
+                        <span class="chair-info" id="chairInfo_${day}" style="font-size:0.8em;color:#666;margin-left:6px;"></span>
+                    </h4>
                     <div class="schedule-rows" id="rows_${day}"></div>
                     <button type="button" class="add-schedule-btn" data-day="${day}">+ Add schedule</button>
                 `;
@@ -501,11 +513,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const branchSelect = row.querySelector("select[name$='[branch][]']");
                 branchSelect.addEventListener("change", updateBranchDropdowns);
+
+                branchSelect.addEventListener("change", () => {
+                    buildTimeOptions(startInput);
+                    buildTimeOptions(endInput);
+                });
                 
                 setTimeout(updateBranchDropdowns, 10);
             }
 
             function buildTimeOptions(select, selected = "") {
+                const row = select.closest(".schedule-row");
+                const branchSelect = row.querySelector("select[name$='[branch][]']");
+                const day = row.closest(".day-schedule-wrapper")
+                    .querySelector("h4").childNodes[0].textContent.trim();
+
+                const branchId = branchSelect?.value;
+
                 const start = 9 * 60;
                 const end = 16 * 60 + 30;
 
@@ -519,10 +543,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     let opt = document.createElement("option");
                     opt.value = val;
-                    opt.textContent = label;
+
+                    if (branchId && CHAIR_OCCUPANCY[branchId]) {
+                    const total = CHAIR_OCCUPANCY[branchId].dental_chairs;
+                    const used = countOccupiedChairs(branchId, day, val);
+
+                        if (used >= total) {
+                            opt.disabled = true;
+                            opt.textContent = `${label} (Full)`;
+                        } else {
+                            opt.textContent = `${label} (${total - used} chair left)`;
+                        }
+
+                        const info = document.getElementById(`chairInfo_${day}`);
+                        if (info) {
+                            if (Number.isFinite(total)) {
+                                info.textContent = `${total - used} / ${total} chairs available`;
+                            } else {
+                                info.textContent = "";
+                            }
+                        }
+
+                    } else {
+                        opt.textContent = label;
+                    }
 
                     if (selected === val) opt.selected = true;
-
                     select.appendChild(opt);
                 }
             }
@@ -602,6 +648,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const form = document.getElementById("dentistForm");
             if (form) attachDateValidators(form);
         }, 60);
+    }
+
+    function countOccupiedChairs(branchId, day, time) {
+        const data = CHAIR_OCCUPANCY[branchId];
+        if (!data || !data.occupied?.[day]?.[time]) return 0;
+        return data.occupied[day][time].used;
     }
 
     function updateTimeDropdowns(day) {

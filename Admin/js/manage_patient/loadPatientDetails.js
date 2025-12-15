@@ -17,6 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
             window.IS_DEPENDENT_ACCOUNT = isDependent;
             const age = calculateAge(data.date_of_birth);
 
+            const relationshipHtml = data.relationship
+                ? `<p><strong>Relationship:</strong><span>${data.relationship}</span></p>`
+                : "";
+
             let contactHtml = "";
             let guardianHtml = "";
             let actionButtons = "";
@@ -53,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             patientCard.innerHTML = `
                 <h3>${data.full_name}</h3>
+
+                ${relationshipHtml}
 
                 <p><strong>Gender:</strong><span>${data.gender}</span></p>
                 <p><strong>Date of Birth:</strong><span>${data.date_of_birth}</span></p>

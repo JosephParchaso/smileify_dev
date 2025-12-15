@@ -44,11 +44,14 @@ $result = $conn->query($sql);
 
 $events = [];
 while ($row = $result->fetch_assoc()) {
+
     $statusColor = '#fe9705';
-    if (strcasecmp($row['status'], 'Completed') === 0) {
+    if ($row['status'] === 'Completed') {
         $statusColor = '#3ac430';
-    } elseif (strcasecmp($row['status'], 'Cancelled') === 0) {
+    } elseif ($row['status'] === 'Cancelled') {
         $statusColor = '#d11313';
+    } elseif ($row['status'] === 'Pending Reschedule') {
+        $statusColor = '#0066ff';
     }
 
     $branchColor = stringToColorCode($row['branch']);

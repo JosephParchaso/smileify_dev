@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
         $childLastName  = $_SESSION['verified_data']['childLastName'] ?? null;
         $childGender    = $_SESSION['verified_data']['childGender'] ?? null;
         $childDob       = $_SESSION['verified_data']['childDob'] ?? null;
+        $relationship   = $_SESSION['verified_data']['relationship'] ?? null;
 
         $appointmentBranch = $_SESSION['verified_data']['appointmentBranch'];
         $appointmentServices = $_SESSION['verified_data']['appointmentServices'];
@@ -138,12 +139,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
                                     (username, password, last_name, first_name, gender,
                                     date_of_birth, date_of_birth_iv, date_of_birth_tag,
                                     email, contact_number, contact_number_iv, contact_number_tag,
-                                    role, branch_id, guardian_id)
-                                VALUES (NULL, NULL, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, 'patient', ?, ?)";
+                                    role, branch_id, guardian_id, relationship)
+                                VALUES
+                                    (NULL, NULL, ?, ?, ?, ?, ?, ?, NULL, NULL, NULL, NULL, 'patient', ?, ?, ?)";
 
                 $c_stmt = $conn->prepare($c_sql);
                 $c_stmt->bind_param(
-                    "ssssssii",
+                    "ssssssiis",
                     $childLastName,
                     $childFirstName,
                     $childGender,
@@ -151,7 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["verify"])) {
                     $cdob_iv,
                     $cdob_tag,
                     $appointmentBranch,
-                    $guardian_id
+                    $guardian_id,
+                    $relationship
                 );
                 $c_stmt->execute();
                 $user_id = $c_stmt->insert_id;
