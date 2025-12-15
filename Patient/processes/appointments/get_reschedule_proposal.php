@@ -81,22 +81,19 @@ for ($i = 0; $i < 14; $i++) {
     $datesToCheck[] = $d;
 }
 
-$foundInOriginalBranch = false;
-
 foreach ($datesToCheck as $date) {
     $dateStr = $date->format('Y-m-d');
+
+    $triedBranches = [];
 
     $branches = $conn->query("
         SELECT branch_id, name
         FROM branch
         WHERE status = 'Active'
-        ORDER BY (branch_id = $originalBranch) DESC
+        ORDER BY name ASC
     ");
 
     while ($b = $branches->fetch_assoc()) {
-        if ($foundInOriginalBranch && $b['branch_id'] != $originalBranch) {
-            continue;
-        }
 
         $dayName = $date->format('l');
 
@@ -111,7 +108,22 @@ foreach ($datesToCheck as $date) {
                 AND ba.end_date >= '$dateStr'
             LIMIT 1
         ");
-        if ($closedRes && $closedRes->num_rows > 0) continue;
+        if ($closedRes && $closedRes->num_rows > 0) {
+            $triedBranches[] = $b['branch_id'];
+            continue;
+        }
+
+        $svcCheck = $conn->query("
+            SELECT COUNT(DISTINCT service_id) AS cnt
+            FROM branch_service
+            WHERE branch_id = {$b['branch_id']}
+                AND status = 'Active'
+                AND service_id IN ($serviceIdList)
+        ")->fetch_assoc();
+
+        if ((int)$svcCheck['cnt'] !== count($serviceIds)) {
+            continue;
+        }
 
         $dentists = $conn->query("
             SELECT 
@@ -140,27 +152,66 @@ foreach ($datesToCheck as $date) {
             ")->fetch_assoc();
             if ((int)$chk['cnt'] !== count($serviceIds)) continue;
 
+            $resDur = $conn->query("
+                SELECT SUM(s.duration_minutes * aps.quantity) AS total_minutes
+                FROM appointment_services aps
+                JOIN service s ON s.service_id = aps.service_id
+                WHERE aps.appointment_transaction_id = $appointmentId
+            ")->fetch_assoc();
+
+            $totalMinutes = (int)$resDur['total_minutes'];
+
+            if ($totalMinutes <= 0) {
+                echo json_encode(["success" => false, "message" => "Invalid service duration."]);
+                exit;
+            }
+
             $booked = [];
+
             $res = $conn->query("
-                SELECT appointment_time
-                FROM appointment_transaction
-                WHERE branch_id = {$b['branch_id']}
-                    AND dentist_id = {$d['dentist_id']}
-                    AND appointment_date = '$dateStr'
-                    AND status = 'Booked'
+                SELECT 
+                    at.appointment_time,
+                    SUM(s.duration_minutes * aps.quantity) AS total_minutes
+                FROM appointment_transaction at
+                JOIN appointment_services aps 
+                    ON aps.appointment_transaction_id = at.appointment_transaction_id
+                JOIN service s 
+                    ON s.service_id = aps.service_id
+                WHERE at.branch_id = {$b['branch_id']}
+                    AND at.dentist_id = {$d['dentist_id']}
+                    AND at.appointment_date = '$dateStr'
+                    AND at.status = 'Booked'
+                GROUP BY at.appointment_transaction_id
             ");
+
             while ($r = $res->fetch_assoc()) {
-                $booked[$r['appointment_time']] = true;
+                $start = strtotime($r['appointment_time']);
+                $end   = strtotime("+{$r['total_minutes']} minutes", $start);
+
+                $booked[] = [
+                    'start' => $start,
+                    'end'   => $end
+                ];
             }
 
             foreach ($timeSlots as $slot) {
 
-                if ($slot < $d['start_time'] || $slot >= $d['end_time']) continue;
-                if (isset($booked[$slot])) continue;
+                $slotStart = strtotime($slot);
+                $slotEnd   = strtotime("+$totalMinutes minutes", $slotStart);
 
-                if ($b['branch_id'] == $originalBranch) {
-                    $foundInOriginalBranch = true;
+                if ($slotStart < strtotime($d['start_time']) || $slotEnd > strtotime($d['end_time'])) {
+                    continue;
                 }
+
+                $overlap = false;
+                foreach ($booked as $bk) {
+                    if ($slotStart < $bk['end'] && $slotEnd > $bk['start']) {
+                        $overlap = true;
+                        break;
+                    }
+                }
+
+                if ($overlap) continue;
 
                 echo json_encode([
                     "success" => true,

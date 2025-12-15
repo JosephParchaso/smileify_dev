@@ -271,7 +271,7 @@ form {
 
 .schedule-row {
     display: grid;
-    grid-template-columns: 180px 1fr 1fr auto 40px;
+    grid-template-columns: 180px 1fr 1fr 40px;
     gap: 10px;
     align-items: center;
 }
@@ -282,20 +282,6 @@ form {
     font-size: 14px;
     border-radius: 4px;
     border: 1px solid #ccc;
-}
-
-.whole-day-btn {
-    padding: 6px 10px;
-    background: #3498db;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.whole-day-btn:hover {
-    background: #2980b9;
 }
 
 .remove-row-btn {

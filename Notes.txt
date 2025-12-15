@@ -1,3 +1,12 @@
+dependent
+    - booking relationship
+    - list of dependents in admins page
+deactivating a branch
+    - resched all appointments 
+        - affected dentists_sched, branch_announcements, dentsist_services, dentist_branch, branch_service, appointment_transaction with time overlapping
+
+
+
 ====================================================================
 
 Smile ify Dashboard (Index)

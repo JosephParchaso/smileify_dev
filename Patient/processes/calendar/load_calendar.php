@@ -42,6 +42,7 @@ $types = str_repeat("i", count($ids));
 $sql = "
     SELECT 
         a.appointment_transaction_id,
+        CONCAT(u.first_name, ' ', u.last_name) AS patient,
         a.user_id,
         b.name AS branch,
         GROUP_CONCAT(s.name SEPARATOR '\n') AS services,
@@ -54,6 +55,7 @@ $sql = "
     FROM appointment_transaction a
     LEFT JOIN branch b ON a.branch_id = b.branch_id
     LEFT JOIN appointment_services aps ON a.appointment_transaction_id = aps.appointment_transaction_id
+    LEFT JOIN users u ON a.user_id = u.user_id
     LEFT JOIN service s ON aps.service_id = s.service_id
     LEFT JOIN dentist d ON a.dentist_id = d.dentist_id
     WHERE a.user_id IN ($placeholders)

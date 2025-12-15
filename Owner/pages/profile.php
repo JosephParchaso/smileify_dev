@@ -153,7 +153,7 @@ function openBranchDeactivateConfirm(branchId, onConfirm) {
             if (data.count > 0) {
                 message.innerHTML = `
                     This branch has <strong>${data.count}</strong> active appointment(s).<br><br>
-                    Deactivating it will affect these bookings.
+                    Deactivating it will affect bookings.
                 `;
             } else {
                 message.innerHTML = `

@@ -245,7 +245,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $currentSched = [];
-    $res = $conn->prepare("SELECT day, branch_id FROM dentist_schedule WHERE dentist_id=?");
+    $res = $conn->prepare("SELECT day, branch_id, start_time, end_time
+                            FROM dentist_schedule
+                            WHERE dentist_id=?
+                            ORDER BY day, branch_id, start_time");
     $res->bind_param("i", $dentistId);
     $res->execute();
     $result = $res->get_result();
@@ -255,14 +258,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $res->close();
 
     $newSched = [];
-    foreach ($schedule as $day => $branchId) {
-        if (!empty($branchId)) {
+    foreach ($schedule as $day => $entries) {
+
+        $branchesArr = $entries["branch"] ?? [];
+        $startArr    = $entries["start"] ?? [];
+        $endArr      = $entries["end"] ?? [];
+
+        for ($i = 0; $i < count($branchesArr); $i++) {
+
+            if (empty($branchesArr[$i]) || empty($startArr[$i]) || empty($endArr[$i])) {
+                continue;
+            }
+
             $newSched[] = [
-                "day"       => $day,
-                "branch_id" => (int)$branchId
+                "day"        => $day,
+                "branch_id"  => (int)$branchesArr[$i],
+                "start_time" => $startArr[$i],
+                "end_time"   => $endArr[$i]
             ];
         }
     }
+
+    usort($newSched, function ($a, $b) {
+        return [$a['day'], $a['branch_id'], $a['start_time']]
+            <=> [$b['day'], $b['branch_id'], $b['start_time']];
+    });
 
     if (json_encode($currentSched) !== json_encode($newSched)) {
         $del = $conn->prepare("DELETE FROM dentist_schedule WHERE dentist_id=?");
@@ -285,32 +305,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 for ($i = 0; $i < count($branchesArr); $i++) {
 
-                    $branch_id = !empty($branchesArr[$i]) ? (int)$branchesArr[$i] : null;
+                    if (empty($branchesArr[$i])) continue;
 
-                    $rawStart = $startArr[$i] ?? "";
-                    $rawEnd   = $endArr[$i] ?? "";
+                    $rawStart = trim((string)($startArr[$i] ?? ""));
+                    $rawEnd   = trim((string)($endArr[$i] ?? ""));
 
-                    $isWholeDay = (
-                        $rawStart === "" || $rawStart === null
-                    ) && (
-                        $rawEnd === "" || $rawEnd === null
-                    );
+                    if ($rawStart === "" || $rawEnd === "") continue;
+                    if ($rawEnd <= $rawStart) continue;
 
-                    if ($isWholeDay) {
-                        $start_time = "09:00";
-                        $end_time   = "16:30";
-                    } else {
-                        $start_time = $rawStart ?: null;
-                        $end_time   = $rawEnd ?: null;
-                    }
+                    $branch_id = (int)$branchesArr[$i];
 
                     $stmt->bind_param(
                         "isiss",
                         $dentistId,
                         $day,
                         $branch_id,
-                        $start_time,
-                        $end_time
+                        $rawStart,
+                        $rawEnd
                     );
 
                     $stmt->execute();

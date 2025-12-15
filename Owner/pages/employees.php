@@ -55,4 +55,16 @@ $updateError   = $_SESSION['updateError'] ?? '';
     </div>
 </div>
 
+<div id="dentistUpdateModal" class="change-password-modal" style="display:none;">
+    <div class="change-password-modal-content" style="max-width:650px;">
+        <h3>Update Dentist?</h3>
+        <p id="dentistUpdateMessage">Checking affected appointments...</p>
+
+        <div class="button-group">
+            <button id="confirmDentistYes" class="form-button confirm-btn">Yes, Continue</button>
+            <button id="confirmDentistNo" class="form-button cancel-btn">Cancel</button>
+        </div>
+    </div>
+</div>
+
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>

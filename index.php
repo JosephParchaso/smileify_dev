@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         <label class="radio-option">
                             <input type="radio" name="bookingType" id="bookForChild" value="child">
-                            New Dependent (Child, Person with Disability, or Senior Citizen)
+                            Dependent (Child, Person with Disability, or Senior Citizen)
                         </label>
                     </div>
                 </div>
