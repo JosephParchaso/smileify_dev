@@ -207,8 +207,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const CHAIR_OCCUPANCY = {};
+    let SCHEDULE_LOCKED = false;
     function renderDentistForm(data) {
         const isEdit = !!data;
+        SCHEDULE_LOCKED = false;
         const selectedBranches = isEdit && data.branches ? data.branches.map(b => parseInt(b)) : [];
         const selectedServices = isEdit && data.services ? data.services.map(s => parseInt(s)) : [];
         
@@ -218,6 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ${isEdit ? `<input type="hidden" name="dentist_id" value="${data.dentist_id}">` : ""}
 
                 <input type="hidden" name="confirmDentistUpdate" id="confirmDentistUpdate" value="0">
+                <input type="hidden" id="originalStatus" value="${data.status}">
 
                 <div class="form-group" style="position: relative; margin-bottom: 18px;">
                     <input type="file" id="profileImage" name="profileImage" class="form-control" accept="image/*" ${isEdit ? "" : ""}>
@@ -288,33 +291,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="phone-prefix">+63</span>
                 </div>
 
-                <div class="form-group">
-                    <input type="text" id="licenseNumber" name="licenseNumber" class="form-control"
-                        value="${isEdit ? data.license_number : ""}" required placeholder=" " autocomplete="off">
-                    <label for="licenseNumber" class="form-label">License Number <span class="required">*</span></label>
-                </div>
-
-                <div class="form-group">
-                    <div id="branchAssignment" class="checkbox-group"></div>
-                </div>
-
-                <div class="form-group">
-                    <div id="branchScheduleContainer" class="schedule-days-container"></div>
-                </div>
-
-                <div class="form-group">
-                    <div id="servicesCheckboxes" class="checkbox-group"></div>
-                </div>
-
-                <div class="form-group">
-                    <select id="status" name="status" class="form-control" required>
-                        <option value="" disabled selected hidden></option>
-                        <option value="Active" ${isEdit && data.status === "Active" ? "selected" : ""}>Active</option>
-                        <option value="Inactive" ${isEdit && data.status === "Inactive" ? "selected" : ""}>Inactive</option>
-                    </select>
-                    <label for="status" class="form-label">Status <span class="required">*</span></label>
-                </div>
-
                 <div class="form-group" style="position: relative; margin-bottom: 18px;">
                     <input type="file" id="signatureImage" name="signatureImage" class="form-control" accept="image/*">
                     <label for="signatureImage" class="form-label" style="display: block; margin-top: 6px; margin-bottom: 4px;">Signature Image </label>
@@ -333,6 +309,12 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>`
                         : ""
                     }
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="licenseNumber" name="licenseNumber" class="form-control"
+                        value="${isEdit ? data.license_number : ""}" required placeholder=" " autocomplete="off">
+                    <label for="licenseNumber" class="form-label">License Number <span class="required">*</span></label>
                 </div>
                 
                 <div class="form-group">
@@ -360,6 +342,27 @@ document.addEventListener("DOMContentLoaded", () => {
                             </span>
                         `
                     }
+                </div>
+
+                <div class="form-group">
+                    <select id="status" name="status" class="form-control" required>
+                        <option value="" disabled selected hidden></option>
+                        <option value="Active" ${isEdit && data.status === "Active" ? "selected" : ""}>Active</option>
+                        <option value="Inactive" ${isEdit && data.status === "Inactive" ? "selected" : ""}>Inactive</option>
+                    </select>
+                    <label for="status" class="form-label">Status <span class="required">*</span></label>
+                </div>
+
+                <div class="form-group">
+                    <div id="branchAssignment" class="checkbox-group"></div>
+                </div>
+
+                <div class="form-group">
+                    <div id="branchScheduleContainer" class="schedule-days-container"></div>
+                </div>
+
+                <div class="form-group">
+                    <div id="servicesCheckboxes" class="checkbox-group"></div>
                 </div>
 
                 ${isEdit ? `
@@ -410,6 +413,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 )
             ).then(() => {
                 rebuildAllTimeDropdowns();
+
+                if (isEdit && data.status === "Active") {
+                    setScheduleReadonly(true);
+                }
             });
 
             const scheduleContainer = document.getElementById("branchScheduleContainer");
@@ -447,6 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             scheduleContainer.querySelectorAll(".add-schedule-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
+                    if (SCHEDULE_LOCKED) return;
                     const day = btn.dataset.day;
                     const rowsContainer = document.getElementById(`rows_${day}`);
                     addScheduleRow(day, rowsContainer, branches);
@@ -609,7 +617,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const row = select.closest(".schedule-row");
         const branchSelect = row.querySelector("select[name$='[branch][]']");
         const day = row.closest(".day-schedule-wrapper").dataset.day;
-
         const branchId = branchSelect?.value;
 
         const start = 9 * 60;
@@ -618,37 +625,64 @@ document.addEventListener("DOMContentLoaded", () => {
         select.innerHTML = `<option value="">--</option>`;
 
         for (let t = start; t < end; t += 30) {
-            let hh = String(Math.floor(t / 60)).padStart(2, "0");
-            let mm = String(t % 60).padStart(2, "0");
-            let val = `${hh}:${mm}`;
-            let label = formatTime(val);
+            const hh = String(Math.floor(t / 60)).padStart(2, "0");
+            const mm = String(t % 60).padStart(2, "0");
+            const val = `${hh}:${mm}`;
+            const label = formatTime(val);
 
-            let opt = document.createElement("option");
+            const opt = document.createElement("option");
             opt.value = val;
+
+            const isCurrent = selected === val;
+
+            const dentistBusy = dentistBusyAt(day, val, row);
+
+            if (dentistBusy && !isCurrent) {
+                opt.textContent = `${label}`;
+                opt.disabled = true;
+                select.appendChild(opt);
+                continue;
+            }
 
             if (branchId && CHAIR_OCCUPANCY[branchId]) {
                 const total = CHAIR_OCCUPANCY[branchId].dental_chairs;
                 const usedFromDB = countOccupiedChairs(branchId, day, val);
-                const usedLocal = countLocalChairUsage(branchId, day, val, row);
-
+                const usedLocal  = countLocalChairUsage(branchId, day, val, row);
                 const used = usedFromDB + usedLocal;
 
-                if (used >= total) {
-                    opt.disabled = true;
+                if (used >= total && !isCurrent) {
                     opt.textContent = `${label} (occupied)`;
+                    opt.disabled = true;
                 } else {
-                    opt.textContent = `${label} (${total - used} chair left)`;
+                    const remaining = Math.max(total - used, 0);
+                    opt.textContent = `${label} (${remaining} chair${remaining !== 1 ? "s" : ""} left)`;
                 }
-
             } else {
                 opt.textContent = label;
             }
 
-            if (selected === val) opt.selected = true;
+            if (isCurrent) opt.selected = true;
             select.appendChild(opt);
         }
+    }
 
-        
+    function dentistBusyAt(day, time, excludeRow = null) {
+        let busy = false;
+
+        document.querySelectorAll(`#rows_${day} .schedule-row`).forEach(row => {
+            if (row === excludeRow) return;
+
+            const startSel = row.querySelector(".start-time");
+            const endSel   = row.querySelector(".end-time");
+
+            if (!startSel.value || !endSel.value) return;
+
+            if (time >= startSel.value && time < endSel.value) {
+                busy = true;
+            }
+        });
+
+        return busy;
     }
 
     function countOccupiedChairs(branchId, day, time) {
@@ -672,7 +706,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!startSel.value || !endSel.value) return;
 
-            if (time >= startSel.value && time <= endSel.value) {
+            if (time >= startSel.value && time < endSel.value) {
                 count++;
             }
         });
@@ -963,6 +997,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    function setScheduleReadonly(isReadonly) {
+        SCHEDULE_LOCKED = isReadonly;
+
+        const container = document.getElementById("branchScheduleContainer");
+        if (!container) return;
+
+        container.querySelectorAll("select").forEach(el => {
+            el.disabled = isReadonly;
+        });
+
+        container.querySelectorAll(".add-schedule-btn, .remove-row-btn").forEach(btn => {
+            btn.style.display = isReadonly ? "none" : "inline-block";
+        });
+    }
 });
 
 function clearImage(inputId, hiddenId) {
@@ -983,44 +1032,6 @@ function closeEmployeeModal() {
     document.getElementById("manageModal").style.display = "none";
 }
 
-function openDentistUpdateConfirm(dentistId, onConfirm) {
-    fetch(`${BASE_URL}/Owner/processes/employees/check_affected_dentist_appointments.php?dentist_id=${dentistId}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                onConfirm();
-                return;
-            }
-
-            if (data.count === 0) {
-                onConfirm();
-                return;
-            }
-
-            const modal = document.getElementById("dentistUpdateModal");
-            const message = document.getElementById("dentistUpdateMessage");
-
-            message.innerHTML = `
-                This dentist has <strong>${data.count}</strong> active appointment(s).<br><br>
-                Deactivating this dentist will require patients to reschedule or cancel.
-            `;
-
-            modal.style.display = "block";
-
-            document.getElementById("confirmDentistYes").onclick = () => {
-                modal.style.display = "none";
-                onConfirm();
-            };
-
-            document.getElementById("confirmDentistNo").onclick = () => {
-                modal.style.display = "none";
-            };
-        })
-        .catch(() => {
-            onConfirm();
-        });
-}
-
 document.addEventListener("submit", function (e) {
     const form = e.target;
     if (form.id !== "dentistForm") return;
@@ -1028,17 +1039,25 @@ document.addEventListener("submit", function (e) {
     const confirmInput = form.querySelector("#confirmDentistUpdate");
     const dentistIdInput = form.querySelector("input[name='dentist_id']");
     const statusSelect = form.querySelector("#status");
+    const originalStatusInput = form.querySelector("#originalStatus");
 
-    if (!confirmInput || !dentistIdInput || !statusSelect) return;
+    if (!confirmInput || !dentistIdInput || !statusSelect || !originalStatusInput) return;
 
-    if (statusSelect.value === "Inactive" && confirmInput.value !== "1") {
+    const dentistId = dentistIdInput.value;
+    const currentStatus = originalStatusInput.value;
+    const newStatus = statusSelect.value;
+
+    if (currentStatus === "Active" && newStatus === "Inactive" && confirmInput.value !== "1") {
         e.preventDefault();
 
-        const dentistId = dentistIdInput.value;
-
-        openDentistUpdateConfirm(dentistId, () => {
-            confirmInput.value = "1";
-            form.submit();
-        });
+        openDentistUpdateConfirm(
+            dentistId,
+            currentStatus,
+            newStatus,
+            () => {
+                confirmInput.value = "1";
+                form.submit();
+            }
+        );
     }
 });

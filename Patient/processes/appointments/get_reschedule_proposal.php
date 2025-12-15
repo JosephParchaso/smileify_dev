@@ -129,17 +129,16 @@ foreach ($datesToCheck as $date) {
             SELECT 
                 d.dentist_id,
                 CONCAT(d.first_name,' ',d.last_name) AS name,
-                MAX(ds.start_time) AS start_time,
-                MIN(ds.end_time)   AS end_time
+                ds.start_time,
+                ds.end_time
             FROM dentist d
             JOIN dentist_branch db ON db.dentist_id = d.dentist_id
             JOIN dentist_schedule ds
                 ON ds.dentist_id = d.dentist_id
                 AND ds.branch_id = db.branch_id
             WHERE d.status = 'Active'
-                AND db.branch_id = {$b['branch_id']}
-                AND ds.day = '$dayName'
-            GROUP BY d.dentist_id
+            AND db.branch_id = {$b['branch_id']}
+            AND ds.day = '$dayName'
         ");
 
         while ($d = $dentists->fetch_assoc()) {

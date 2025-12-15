@@ -57,7 +57,7 @@ $updateError   = $_SESSION['updateError'] ?? '';
 
 <div id="dentistUpdateModal" class="change-password-modal" style="display:none;">
     <div class="change-password-modal-content" style="max-width:650px;">
-        <h3>Update Dentist?</h3>
+        <h3>Deactivate Dentist?</h3>
         <p id="dentistUpdateMessage">Checking affected appointments...</p>
 
         <div class="button-group">
@@ -68,3 +68,52 @@ $updateError   = $_SESSION['updateError'] ?? '';
 </div>
 
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>
+
+<script>
+function openDentistUpdateConfirm(dentistId, currentStatus, newStatus, onConfirm) {
+
+    if (!(currentStatus === "Active" && newStatus === "Inactive")) {
+        onConfirm();
+        return;
+    }
+
+    const modal   = document.getElementById("dentistUpdateModal");
+    const message = document.getElementById("dentistUpdateMessage");
+
+    modal.style.display = "block";
+    message.innerHTML = "Checking affected appointments...";
+
+    fetch(`${BASE_URL}/Owner/processes/employees/check_affected_dentist_appointments.php?dentist_id=${dentistId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error) {
+                message.innerHTML = "Unable to check affected appointments.";
+                return;
+            }
+
+            if (data.count > 0) {
+                message.innerHTML = `
+                    This dentist has <strong>${data.count}</strong> active appointment(s).<br><br>
+                    Deactivating will affect bookings.
+                `;
+            } else {
+                message.innerHTML = `
+                    No active appointments found.<br><br>
+                    You may safely deactivate this dentist.
+                `;
+            }
+        })
+        .catch(() => {
+            message.innerHTML = "Error checking appointments.";
+        });
+
+    document.getElementById("confirmDentistYes").onclick = () => {
+        modal.style.display = "none";
+        onConfirm();
+    };
+
+    document.getElementById("confirmDentistNo").onclick = () => {
+        modal.style.display = "none";
+    };
+}
+</script>

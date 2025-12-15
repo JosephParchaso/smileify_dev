@@ -134,7 +134,6 @@ $updateError = $_SESSION['updateError'] ?? "";
 <?php require_once BASE_PATH . '/includes/footer.php'; ?>
 
 <script>
-
 function openBranchDeactivateConfirm(branchId, onConfirm) {
     const modal = document.getElementById("branchDeactivateModal");
     const message = document.getElementById("branchDeactivateMessage");

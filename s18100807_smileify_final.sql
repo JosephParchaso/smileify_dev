@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2025 at 01:40 AM
+-- Generation Time: Dec 16, 2025 at 07:13 AM
 -- Server version: 10.11.14-MariaDB-0+deb12u2
 -- PHP Version: 8.2.29
 
@@ -134,7 +134,8 @@ INSERT INTO `appointment_services` (`appointment_services_id`, `appointment_tran
 (71, 49, 5, 1, '2025-12-15 18:15:23'),
 (72, 49, 8, 1, '2025-12-15 18:15:23'),
 (73, 50, 1, 1, '2025-12-15 23:17:16'),
-(74, 50, 2, 1, '2025-12-15 23:17:16');
+(74, 50, 2, 1, '2025-12-15 23:17:16'),
+(75, 51, 3, 1, '2025-12-16 04:40:21');
 
 -- --------------------------------------------------------
 
@@ -183,34 +184,35 @@ INSERT INTO `appointment_transaction` (`appointment_transaction_id`, `user_id`, 
 (20, 6, 1, 7, '2025-12-04', '13:00:00', '', '2025-12-04 01:36:15', '2025-12-12 09:37:25', 'Completed', 0),
 (21, 8, 2, 1, '2025-12-13', '16:00:00', '', '2025-12-12 07:08:00', '2025-12-12 17:22:20', 'Cancelled', 1),
 (22, 9, 2, 4, '2025-12-15', '11:00:00', '', '2025-12-12 07:09:47', NULL, 'Cancelled', 0),
-(23, 10, 4, 8, '2025-12-17', '14:00:00', '', '2025-12-12 07:11:11', '2025-12-15 04:23:42', 'Cancelled', 0),
+(23, 10, 4, 8, '2025-11-04', '14:00:00', '', '2025-12-12 07:11:11', '2025-12-15 04:23:42', 'Cancelled', 0),
 (24, 9, 2, 1, '2025-12-13', '15:00:00', '', '2025-12-12 07:13:49', '2025-12-12 15:51:53', 'Completed', 0),
 (25, 6, 2, 1, '2025-12-12', '16:00:00', '', '2025-12-12 07:33:52', '2025-12-12 15:48:37', 'Cancelled', 0),
 (26, 6, 2, 3, '2025-12-15', '10:00:00', '', '2025-12-12 07:34:29', NULL, 'Cancelled', 0),
-(27, 6, 1, 2, '2025-12-25', '10:30:00', '', '2025-12-12 07:35:18', NULL, 'Cancelled', 0),
+(27, 6, 1, 2, '2025-11-21', '10:30:00', '', '2025-12-12 07:35:18', NULL, 'Cancelled', 0),
 (28, 11, 1, 7, '2025-12-13', '09:00:00', '', '2025-12-12 07:52:00', NULL, 'Cancelled', 0),
 (29, 11, 2, 1, '2025-12-12', '12:00:00', '', '2025-12-12 07:57:25', '2025-12-12 15:59:07', 'Completed', 0),
 (30, 11, 1, 7, '2025-12-13', '12:00:00', '', '2025-12-12 08:01:10', NULL, 'Cancelled', 0),
 (31, 11, 3, 4, '2025-12-11', '13:30:00', '', '2025-12-12 08:05:01', '2025-12-12 16:08:55', 'Completed', 0),
-(32, 12, 2, 4, '2025-12-16', '09:00:00', '', '2025-12-12 09:00:26', '2025-12-12 17:22:42', 'Cancelled', 0),
+(32, 12, 2, 4, '2025-11-26', '09:00:00', '', '2025-12-12 09:00:26', '2025-12-12 17:22:42', 'Cancelled', 0),
 (33, 15, 2, 1, '2025-12-15', '12:00:00', '', '2025-12-12 09:17:38', '2025-12-12 17:26:13', 'Completed', 0),
-(34, 10, 2, 4, '2025-12-16', '11:00:00', '', '2025-12-12 09:27:24', NULL, 'Cancelled', 0),
-(35, 17, 2, 3, '2025-12-16', '09:00:00', '', '2025-12-13 17:59:39', NULL, 'Cancelled', 0),
+(34, 10, 2, 4, '2025-11-20', '11:00:00', '', '2025-12-12 09:27:24', NULL, 'Cancelled', 0),
+(35, 17, 2, 3, '2025-11-18', '09:00:00', '', '2025-12-13 17:59:39', NULL, 'Cancelled', 0),
 (36, 19, 2, 4, '2025-12-15', '09:00:00', '', '2025-12-13 19:04:27', NULL, 'Cancelled', 0),
-(37, 20, 2, 4, '2025-12-17', '09:00:00', '', '2025-12-13 19:38:54', NULL, 'Cancelled', 0),
-(38, 22, 2, 4, '2025-12-19', '09:00:00', '', '2025-12-13 19:48:15', NULL, 'Cancelled', 0),
-(39, 23, 2, 2, '2025-12-17', '09:00:00', '', '2025-12-13 20:04:25', NULL, 'Cancelled', 0),
-(40, 24, 1, 7, '2025-12-17', '09:00:00', '', '2025-12-14 11:35:13', NULL, 'Cancelled', 0),
-(41, 7, 1, 2, '2025-12-27', '12:00:00', '', '2025-12-14 16:26:50', '2025-12-15 07:12:52', 'Cancelled', 0),
-(42, 12, 1, 2, '2025-12-22', '09:00:00', '', '2025-12-14 18:00:13', NULL, 'Cancelled', 0),
-(43, 6, 1, 7, '2025-12-27', '09:00:00', '', '2025-12-14 21:10:14', NULL, 'Cancelled', 0),
-(44, 12, 1, 2, '2025-12-27', '09:00:00', '', '2025-12-14 21:49:53', NULL, 'Cancelled', 0),
-(45, 10, 1, 7, '2025-12-29', '09:00:00', '', '2025-12-14 23:27:04', '2025-12-15 07:29:20', 'Cancelled', 0),
-(46, 7, 1, 2, '2025-12-27', '09:30:00', '', '2025-12-15 00:05:19', '2025-12-15 09:51:22', 'Cancelled', 0),
-(47, 12, 4, 8, '2025-12-24', '14:00:00', '', '2025-12-15 00:43:12', NULL, 'Cancelled', 0),
-(48, 10, 1, 7, '2026-01-07', '13:30:00', '', '2025-12-15 09:55:00', '2025-12-15 18:31:49', 'Cancelled', 0),
-(49, 7, 1, 7, '2026-01-07', '09:00:00', '', '2025-12-15 10:15:23', NULL, 'Cancelled', 0),
-(50, 26, 4, 2, '2026-01-01', '09:00:00', '', '2025-12-15 15:17:16', '2025-12-15 23:52:07', 'Booked', 0);
+(37, 20, 2, 4, '2025-10-16', '09:00:00', '', '2025-12-13 19:38:54', NULL, 'Cancelled', 0),
+(38, 22, 2, 4, '2025-11-05', '09:00:00', '', '2025-12-13 19:48:15', NULL, 'Cancelled', 0),
+(39, 23, 2, 2, '2025-10-15', '09:00:00', '', '2025-12-13 20:04:25', NULL, 'Cancelled', 0),
+(40, 24, 1, 7, '2025-11-27', '09:00:00', '', '2025-12-14 11:35:13', NULL, 'Cancelled', 0),
+(41, 7, 1, 2, '2025-11-29', '12:00:00', '', '2025-12-14 16:26:50', '2025-12-15 07:12:52', 'Cancelled', 0),
+(42, 12, 1, 2, '2025-11-14', '09:00:00', '', '2025-12-14 18:00:13', NULL, 'Cancelled', 0),
+(43, 6, 1, 7, '2025-11-29', '09:00:00', '', '2025-12-14 21:10:14', NULL, 'Cancelled', 0),
+(44, 12, 1, 2, '2025-11-29', '09:00:00', '', '2025-12-14 21:49:53', NULL, 'Cancelled', 0),
+(45, 10, 1, 7, '2025-12-06', '09:00:00', '', '2025-12-14 23:27:04', '2025-12-15 07:29:20', 'Cancelled', 0),
+(46, 7, 1, 2, '2025-11-29', '09:30:00', '', '2025-12-15 00:05:19', '2025-12-15 09:51:22', 'Cancelled', 0),
+(47, 12, 4, 8, '2025-11-10', '14:00:00', '', '2025-12-15 00:43:12', NULL, 'Cancelled', 0),
+(48, 10, 1, 7, '2025-11-15', '13:30:00', '', '2025-12-15 09:55:00', '2025-12-15 18:31:49', 'Cancelled', 0),
+(49, 7, 1, 7, '2025-12-13', '09:00:00', '', '2025-12-15 10:15:23', NULL, 'Cancelled', 0),
+(50, 26, 4, 2, '2026-01-01', '09:00:00', '', '2025-12-15 15:17:16', '2025-12-15 23:52:07', 'Pending Reschedule', 0),
+(51, 7, 2, 7, '2026-01-22', '13:00:00', '', '2025-12-15 20:40:21', '2025-12-16 07:06:10', 'Booked', 0);
 
 -- --------------------------------------------------------
 
@@ -236,10 +238,10 @@ CREATE TABLE `branch` (
 --
 
 INSERT INTO `branch` (`branch_id`, `name`, `nickname`, `address`, `phone_number`, `dental_chairs`, `status`, `date_created`, `date_updated`, `map_url`) VALUES
-(1, 'Pakna-an, Mandaue City (Main Branch)', 'Mandaue', 'Jayme Street, Zone Ube, Pakna-an, Mandaue City', '9273505830', 2, 'Active', '2025-12-12 03:51:30', '2025-12-14 04:40:00', 'https://maps.app.goo.gl/pMai2KSgVv3hj1tZA'),
-(2, 'Babag 2, Lapu-Lapu City', 'Babag 2', '2nd Floor RM Arcade, Babag 2, Lapu-Lapu City', '9273505830', 1, 'Inactive', '2025-12-12 03:52:04', '2025-12-15 23:23:26', 'https://maps.app.goo.gl/8okHqFg5fRn4xMyV6'),
-(3, 'Pusok, Lapu-Lapu City', 'Pusok', 'Modejar Building (Room 306), City Hall Road, Pusok, Lapu-Lapu City', '9273505830', 1, 'Active', '2025-12-12 03:52:47', '2025-12-15 19:18:24', 'https://maps.app.goo.gl/EUQVQkys2wSabHwKA'),
-(4, 'Pajo, Lapu- Lapu City', 'Pajo', 'Punta Rizal Street, Pajo, Lapu-Lapu City, Cebu', '9273505830', 1, 'Active', '2025-12-12 17:02:40', '2025-12-15 17:53:31', 'https://maps.app.goo.gl/mzhNBDsAAM44pcSY6');
+(1, 'Pakna-an, Mandaue City (Main Branch)', 'Mandaue', 'Jayme Street, Zone Ube, Pakna-an, Mandaue City', '9273505830', 2, 'Inactive', '2025-12-12 03:51:30', '2025-12-16 06:20:45', 'https://maps.app.goo.gl/pMai2KSgVv3hj1tZA'),
+(2, 'Babag 2, Lapu-Lapu City', 'Babag 2', '2nd Floor RM Arcade, Babag 2, Lapu-Lapu City', '9273505830', 1, 'Active', '2025-12-12 03:52:04', '2025-12-16 07:05:50', 'https://maps.app.goo.gl/8okHqFg5fRn4xMyV6'),
+(3, 'Pusok, Lapu-Lapu City', 'Pusok', 'Modejar Building (Room 306), City Hall Road, Pusok, Lapu-Lapu City', '9273505830', 1, 'Inactive', '2025-12-12 03:52:47', '2025-12-16 06:39:36', 'https://maps.app.goo.gl/EUQVQkys2wSabHwKA'),
+(4, 'Pajo, Lapu- Lapu City', 'Pajo', 'Punta Rizal Street, Pajo, Lapu-Lapu City, Cebu', '9273505830', 1, 'Inactive', '2025-12-12 17:02:40', '2025-12-16 07:05:54', 'https://maps.app.goo.gl/mzhNBDsAAM44pcSY6');
 
 -- --------------------------------------------------------
 
@@ -320,9 +322,6 @@ CREATE TABLE `branch_service` (
 --
 
 INSERT INTO `branch_service` (`branch_services_id`, `branch_id`, `service_id`, `status`, `date_created`, `date_updated`) VALUES
-(7, 2, 3, 'Active', '2025-12-12 04:06:26', '2025-12-12 04:06:26'),
-(8, 1, 3, 'Active', '2025-12-12 04:06:26', '2025-12-12 04:06:26'),
-(9, 3, 3, 'Active', '2025-12-12 04:06:26', '2025-12-12 04:06:26'),
 (10, 2, 4, 'Active', '2025-12-12 04:06:40', '2025-12-12 04:06:40'),
 (11, 1, 4, 'Active', '2025-12-12 04:06:40', '2025-12-15 18:05:28'),
 (12, 3, 4, 'Active', '2025-12-12 04:06:40', '2025-12-12 04:06:40'),
@@ -346,7 +345,11 @@ INSERT INTO `branch_service` (`branch_services_id`, `branch_id`, `service_id`, `
 (30, 1, 2, 'Active', '2025-12-15 23:50:44', '2025-12-15 23:50:44'),
 (31, 2, 2, 'Active', '2025-12-15 23:50:44', '2025-12-15 23:50:44'),
 (32, 3, 2, 'Active', '2025-12-15 23:50:44', '2025-12-15 23:50:44'),
-(33, 4, 2, 'Active', '2025-12-15 23:50:44', '2025-12-15 23:50:44');
+(33, 4, 2, 'Active', '2025-12-15 23:50:44', '2025-12-15 23:50:44'),
+(34, 1, 3, 'Active', '2025-12-16 06:40:52', '2025-12-16 06:40:52'),
+(35, 2, 3, 'Active', '2025-12-16 06:40:52', '2025-12-16 06:40:52'),
+(36, 3, 3, 'Active', '2025-12-16 06:40:52', '2025-12-16 06:40:52'),
+(37, 4, 3, 'Active', '2025-12-16 06:40:52', '2025-12-16 06:40:52');
 
 -- --------------------------------------------------------
 
@@ -654,14 +657,17 @@ CREATE TABLE `dentist` (
 --
 
 INSERT INTO `dentist` (`dentist_id`, `last_name`, `middle_name`, `first_name`, `gender`, `date_of_birth`, `date_of_birth_iv`, `date_of_birth_tag`, `email`, `contact_number`, `contact_number_iv`, `contact_number_tag`, `license_number`, `license_number_iv`, `license_number_tag`, `date_started`, `status`, `signature_image`, `profile_image`, `date_created`, `date_updated`) VALUES
-(1, 'Solante', '', 'Ben', 'Male', 'nIfklM798+mtag==', 'jv8fEZEp81hQ+N2V', 'XOjWkOnn93c1MtP7eNPi1g==', 'bensolante@gmail.com', 'Lr13xla0byvc+A==', '4Uvc2IqGWz12Nu15', '2LPCq5OSGcJgkusOvbjrTA==', '+u9mKqVMFA==', 'sFCRLPruelwq/s8l', 'M4P99xmlce8gyJfI5KB4mw==', '2025-10-01', 'Active', '1_solante_signature.png', '1_solante_profile.jpg', '2025-10-01 20:51:14', '2025-12-16 01:37:01'),
+(1, 'Solante', '', 'Ben', 'Male', '44e2vDBKI/gkkA==', 'iBk4vMDdVp4tLpp1', 'OvWXRtixxRTyelzlAoQ0YQ==', 'bensolante@gmail.com', 'l93szQlBXjtEMQ==', 'scwaNhsLHp17xdR7', 'VTdlZBRD3gocjmpUwqQ9rQ==', 'Dqd/MRIx4Q==', 'FbKOUUURzSuA2f3C', 'ICWi95mHO2gVk58sVuL/3g==', '2025-10-01', 'Inactive', '1_solante_signature.png', '1_solante_profile.jpg', '2025-10-01 20:51:14', '2025-12-16 07:04:55'),
 (2, 'Hernandez', '', 'Jaime', 'Female', 'DTdMwkc/467PDQ==', 'cwSNBDMC+/engTdH', 'Ed8DQydJmhrl5reidmDMYQ==', 'jaimeh.89@yahoo.com', 'cfbaO+6hSW8Aew==', 'eJDpzxt5pUuWr+3U', 'ec/FrVy2bT0asAaxjY0K7w==', 'hTbJ7bnFSQ==', 'tGZg4bbqTgkSopkB', '9vHRWaOZ90dL2avOyFXIYg==', '2025-10-01', 'Active', '2_hernandez_signature.png', '2_hernandez_profile.jpg', '2025-10-01 20:55:26', '2025-12-16 01:27:44'),
 (3, 'Perez', '', 'Vince', 'Male', 'FgbWe4bwMY5JMQ==', 'xKRZpj7gBBC3pGN/', 'BOqFK4m/OIFJ9uDV4+6aVQ==', 'vinceperez.outlook@gmail.com', 'hLpiYmRgI4uFGg==', '43UxAHE0Vp8bJnWd', 'a0dDGjFCcvoiRDvMNx8j3Q==', 'ybo3mRAUqw==', 'qVgYib8YJRB7UQSy', '9h6ZiXHYVwqinqHCT7Q12w==', '2025-10-01', 'Active', '3_perez_signature.png', '3_perez_profile.jpg', '2025-10-01 21:01:57', '2025-12-16 01:27:36'),
-(4, 'Dominggo', '', 'Cedric', 'Male', 'cR4PLSHHZdw2hw==', 'FyJ/mfU6E3omOVOv', 'jtj20Nx8Pcak6nO5d5UQ+w==', 'cedric.dominggo@yahoo.com', 'a75Fxh40BeE5dA==', 'C3yql2PMu8aoulQl', 'BODHYSoOPnojbzLK3HCeCA==', 'LdfaMI8z9w==', 'TEX50VmV7ICHfvx5', '5AIT58L+k8wtYVDNqGQxDQ==', '2025-10-01', 'Active', '4_dominggo_signature.png', '4_dominggo_profile.webp', '2025-10-01 21:07:07', '2025-12-16 01:27:19'),
-(5, 'Alonzo', '', 'Love', 'Female', 'JA6oE2W3AzmGbg==', 'J/fQZSDXIdRo+mhR', 's6r5CUz7mvCfJCcXDL+mFQ==', 'lovealonzo@gmail.com', 'uwh8y4HAOr3bpg==', 'MSLh64HmnsCrj910', 'kuQkiT5858I5pQ7fA60HTA==', 'xJSH0c4wdg==', 'V98YJkbVe7iRGAfF', 'YOOErkNStCiuPHZh3LO1ow==', '2025-10-01', 'Inactive', '5_alonzo_signature.png', '5_alonzo_profile.jpg', '2025-10-01 21:11:37', '2025-12-16 00:41:54'),
-(6, 'Asuncion', '', 'Ryan', 'Male', 'Hqk2XlKKV1WS7g==', 'bwHzXpbfvWJzhySc', 'oPBTfyyuigY8emlR6Mv3OA==', 'ryan.asuncion@outlook.com', '6OvKA2MKL5zkvA==', 'lE/c0M628y3STdKX', '12Tp3KW5N8DtRbN/CSKDaw==', '9gt5+0rFqw==', '1nI0G9IZPzqiD1J8', 'yoQO7o/DLuGKNogBLpQNvw==', '2025-10-01', 'Inactive', '6_asuncion_signature.png', '6_asuncion_profile.jpg', '2025-10-01 21:15:00', '2025-12-15 19:13:36'),
-(7, 'Arriesgado', '', 'Irish', 'Female', 'Q2WS8cMbp/3h7Q==', 'uQffirRptwQX9BgD', 'RfVFC5HKPUbCJY/Cu+A7eA==', 'irish.arriesgado@yahoo.com', 'zWcT7w3gciWQXA==', 'UmLDhFiyX+P64gEL', 'GfpXRBQ2sVFI/jdQADvQpw==', 'KRFdWzzMww==', 'ySUGp2rcpLE+gxgJ', '3ZoDH9D4BSCFwEh0rXGy3A==', '2025-10-01', 'Active', NULL, NULL, '2025-10-01 21:16:19', '2025-12-16 00:56:34'),
-(8, 'Buhayan', '', 'Jenmel', 'Female', 'M2OUByYu2pzUcQ==', 'bYyU8gyyiSRRwatb', '1rOA3oPhvf0e+oK8EWgxiA==', 'jbuhayan@gmail.com', 'HVlYPdef5mRH+A==', '+2uDTFJeE98TlWNO', 'eCCx4mpCcS5PHyKeJ7wyCg==', '+/eGj0BwzA==', 'qrFO5oU9Bb1O3QHt', 'pEaUEQoisXbBjeGDcDf6tg==', '2025-12-13', 'Active', '8_buhayan_signature.png', '8_buhayan_profile.jpg', '2025-12-12 09:11:34', '2025-12-16 01:26:49');
+(4, 'Dominggo', '', 'Cedric', 'Male', 'cR4PLSHHZdw2hw==', 'FyJ/mfU6E3omOVOv', 'jtj20Nx8Pcak6nO5d5UQ+w==', 'cedric.dominggo@yahoo.com', 'a75Fxh40BeE5dA==', 'C3yql2PMu8aoulQl', 'BODHYSoOPnojbzLK3HCeCA==', 'LdfaMI8z9w==', 'TEX50VmV7ICHfvx5', '5AIT58L+k8wtYVDNqGQxDQ==', '2025-10-01', 'Active', '4_dominggo_signature.png', '4_dominggo_profile.webp', '2025-10-01 21:07:07', '2025-12-16 02:41:54'),
+(5, 'Alonzo', '', 'Love', 'Female', 'r8U4RZHtIC7qVw==', 'SnxmB96qqRNT2y3M', 'm6T+KoWY1h3Od4kxZbaBjA==', 'lovealonzo@gmail.com', 'q0PaWoGKJ26SKw==', '0s6lZGiDPgnYRVK5', 'y13Zd6yFpJUCvjW/YkLopQ==', 'LAcKqYd3Mg==', 'vWUUODvs4FPxZnC6', 'E7IrqGTA6cA31FkEMDfYDA==', '2025-10-01', 'Inactive', '5_alonzo_signature.png', '5_alonzo_profile.jpg', '2025-10-01 21:11:37', '2025-12-16 06:18:21'),
+(6, 'Asuncion', '', 'Ryan', 'Male', 'nNq8vX8mmLjrIQ==', '3gRCPVjg04yfugv+', '1bgTokbjhANVjanUYm0lcw==', 'ryan.asuncion@outlook.com', 'l//RUL/K+agxjA==', 'ysiIy2skW9T6BhsB', 'rm9VC/Lr1SxRWigSvNM2NQ==', '5tDXKbbhOg==', 'QyC8Wypt4y1dRRDJ', 'YQOzDsg+ZmYhXJpKwiFrLQ==', '2025-10-01', 'Active', '6_asuncion_signature.png', '6_asuncion_profile.jpg', '2025-10-01 21:15:00', '2025-12-16 03:03:58'),
+(7, 'Arriesgado', '', 'Irish', 'Female', 'N9S1n7F60eD5Xg==', 'uzdqB62n/Uum18EF', 'k5hpVx6bfV6iUAVZqPfdzw==', 'irish.arriesgado@yahoo.com', '1Vldq47z6hzyqQ==', 'xUgGoJM6PnRUj6Yx', 'WKS8cVUYhFuYPer6MQuwQw==', 'nI3hMQkddQ==', 'YxN57vbbs37RIkl4', 'r7JibGsODYS2Ga1gEbcNWA==', '2025-10-01', 'Active', NULL, NULL, '2025-10-01 21:16:19', '2025-12-16 04:04:39'),
+(8, 'Buhayan', '', 'Jenmel', 'Female', 'tQAQ0ca1TL6pTw==', '2LokXyP919yLJ6lQ', 'yDyhGQE2PZEfgjQ8abzK5g==', 'jbuhayan@gmail.com', 'Kjiyk5UHlMoMQA==', 'XRpt2bR05ti2H5FS', 'YPO5RusAGrvw3G9boasyNg==', 'W9e4lwYEeg==', 'PQcfyOxksD0Qsvni', 'E72KunqYVuO3YDO9VBRYTg==', '2025-12-13', 'Active', '8_buhayan_signature.png', '8_buhayan_profile.jpg', '2025-12-12 09:11:34', '2025-12-16 06:53:25'),
+(9, 'Parchaso', '', 'Honorato', 'Male', 'mJE+BXfDepnuAA==', '93Wn4Kujioz6HKdY', 'yOfcq/i+gNd7LcJ9C6KLIg==', 'theartp1@gmail.com', 'jOLGjm1sYv+LeA==', 'rwC87ZAkECHVw7XM', 'ymmsCgocAewkMrefpYpnOw==', 'nUhL', 'n/hIKnFgXMZfTwOv', 'fCQbQJGJ6Axqn55+GrUV3A==', '2025-12-17', 'Inactive', NULL, NULL, '2025-12-15 20:18:21', '2025-12-16 06:01:47'),
+(10, 'Morales', '', 'Chan', 'Male', 'yN8IYjlDN+jj/g==', 'ruN7xv0xMLGe4qB3', '+9xt2rHm//9MTiUho5mlNg==', 'theartp1@gmail.com', 'XGA9k57x4y/KDA==', '/0to3U48Q5uqFmqp', 'YYkmmbuBqP0lF6L65wdWYQ==', 'SBm77Rro', '0LDExVHR69n98QZO', '+RItu2XArTVT3dtaRmGSaw==', '2025-12-17', 'Inactive', NULL, NULL, '2025-12-15 20:30:13', '2025-12-16 04:31:13'),
+(11, 'Summers', '', 'Daze', 'Female', 'gDODuY+Kab9vKA==', 'aHOpKo/OGbhbZ9d9', 'cMctB//i2H5fTiJ5luqATw==', 'ewewa@gmail.com', 'nJtUcvWFYoGX5w==', 'x9u2lVqL0LMiEcD+', 'FIXe2uJ2dOkGIvDaArKcyQ==', '2dY1vPg=', 'QSHfka8gklcG71oZ', '8RcRN4Hz1XhckXZiRRyHpQ==', '2025-12-17', 'Inactive', NULL, NULL, '2025-12-15 20:33:12', '2025-12-16 05:39:31');
 
 -- --------------------------------------------------------
 
@@ -711,7 +717,19 @@ INSERT INTO `dentist_branch` (`dentist_branch_id`, `dentist_id`, `branch_id`) VA
 (58, 8, 1),
 (59, 8, 2),
 (60, 8, 3),
-(61, 8, 4);
+(61, 8, 4),
+(62, 9, 2),
+(63, 9, 4),
+(64, 9, 1),
+(65, 9, 3),
+(66, 10, 2),
+(67, 10, 4),
+(68, 10, 1),
+(69, 10, 3),
+(70, 11, 2),
+(71, 11, 4),
+(72, 11, 1),
+(73, 11, 3);
 
 -- --------------------------------------------------------
 
@@ -733,8 +751,26 @@ CREATE TABLE `dentist_schedule` (
 --
 
 INSERT INTO `dentist_schedule` (`schedule_id`, `dentist_id`, `day`, `branch_id`, `start_time`, `end_time`) VALUES
-(294, 1, 'Monday', 2, '13:00:00', '16:00:00'),
-(295, 1, 'Monday', 2, '13:00:00', '16:00:00');
+(377, 4, 'Monday', 1, '09:00:00', '16:00:00'),
+(395, 6, 'Monday', 1, '09:00:00', '16:00:00'),
+(415, 7, 'Monday', 3, '12:00:00', '16:00:00'),
+(416, 7, 'Saturday', 2, '09:00:00', '12:00:00'),
+(417, 7, 'Thursday', 2, '12:00:00', '16:00:00'),
+(418, 10, 'Monday', 4, '09:00:00', '16:00:00'),
+(419, 10, 'Tuesday', 4, '09:00:00', '16:00:00'),
+(441, 11, 'Saturday', 2, '12:00:00', '16:00:00'),
+(455, 5, 'Friday', 3, '09:00:00', '12:00:00'),
+(456, 5, 'Monday', 3, '09:00:00', '12:00:00'),
+(457, 5, 'Tuesday', 3, '09:00:00', '16:00:00'),
+(458, 5, 'Wednesday', 3, '09:30:00', '16:00:00'),
+(469, 8, 'Friday', 2, '09:00:00', '16:00:00'),
+(470, 8, 'Saturday', 4, '09:00:00', '16:00:00'),
+(471, 8, 'Thursday', 1, '09:00:00', '16:00:00'),
+(472, 1, 'Friday', 4, '09:00:00', '16:00:00'),
+(473, 1, 'Monday', 2, '09:00:00', '16:00:00'),
+(474, 1, 'Thursday', 2, '09:00:00', '12:00:00'),
+(475, 1, 'Tuesday', 2, '09:00:00', '16:00:00'),
+(476, 1, 'Wednesday', 2, '09:00:00', '16:00:00');
 
 -- --------------------------------------------------------
 
@@ -816,7 +852,31 @@ INSERT INTO `dentist_service` (`dentist_services_id`, `dentist_id`, `service_id`
 (131, 7, 5),
 (132, 7, 6),
 (133, 7, 7),
-(134, 7, 8);
+(134, 7, 8),
+(135, 9, 6),
+(136, 9, 5),
+(137, 9, 2),
+(138, 9, 3),
+(139, 9, 1),
+(140, 9, 7),
+(141, 9, 8),
+(142, 9, 4),
+(143, 10, 6),
+(144, 10, 5),
+(145, 10, 2),
+(146, 10, 3),
+(147, 10, 1),
+(148, 10, 7),
+(149, 10, 8),
+(150, 10, 4),
+(151, 11, 6),
+(152, 11, 5),
+(153, 11, 2),
+(154, 11, 3),
+(155, 11, 1),
+(156, 11, 7),
+(157, 11, 8),
+(158, 11, 4);
 
 -- --------------------------------------------------------
 
@@ -919,7 +979,7 @@ INSERT INTO `notifications` (`notification_id`, `user_id`, `message`, `is_read`,
 (79, 6, 'Your password was changed successfully on December 12, 2025, 4:58 pm. If this wasn’t you, please contact clinic immediately.', 0, '2025-12-12 08:58:49', NULL),
 (80, 12, 'Welcome to Smile-ify! Your account has been created.', 0, '2025-12-12 09:00:26', NULL),
 (81, 12, 'Your appointment on 2025-12-15 at 09:00 was successfully booked.', 0, '2025-12-12 09:00:26', NULL),
-(82, 13, 'Your Secretary account has been created. Branch Assignment: Pajo, Lapu- Lapu City. Username: Paring_C', 0, '2025-12-12 09:09:08', NULL),
+(82, 13, 'Your Secretary account has been created. Branch Assignment: Pajo, Lapu- Lapu City. Username: Paring_C', 1, '2025-12-12 09:09:08', NULL),
 (83, 1, 'A new announcement titled \'Staff Christmas Party\' was added for Babag 2, Lapu-Lapu City.', 1, '2025-12-12 09:15:10', NULL),
 (84, 14, 'Welcome to Smile-ify! Your account was created.', 0, '2025-12-12 09:17:38', NULL),
 (85, 15, 'Your appointment on 2025-12-15 at 12:00 was successfully booked.', 0, '2025-12-12 09:17:38', NULL),
@@ -965,16 +1025,16 @@ INSERT INTO `notifications` (`notification_id`, `user_id`, `message`, `is_read`,
 (125, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-14 18:37:20', 23),
 (126, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-14 19:10:33', 23),
 (127, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-14 19:12:12', 41),
-(128, 13, 'Appointment #23 has been cancelled by Patient #10.', 0, '2025-12-14 20:02:05', NULL),
-(129, 5, 'Appointment #41 has been cancelled by Patient #7.', 0, '2025-12-14 20:02:33', NULL),
-(130, 13, 'Appointment #23 has been cancelled by Patient #10.', 0, '2025-12-14 20:09:17', NULL),
+(128, 13, 'Appointment #23 has been cancelled by Patient #10.', 1, '2025-12-14 20:02:05', NULL),
+(129, 5, 'Appointment #41 has been cancelled by Patient #7.', 1, '2025-12-14 20:02:33', NULL),
+(130, 13, 'Appointment #23 has been cancelled by Patient #10.', 1, '2025-12-14 20:09:17', NULL),
 (131, 7, 'The appointment #23 for your dependent has been cancelled.', 1, '2025-12-14 20:09:17', NULL),
-(132, 13, 'Appointment #23 has been cancelled by Patient #10.', 0, '2025-12-14 20:10:46', NULL),
+(132, 13, 'Appointment #23 has been cancelled by Patient #10.', 1, '2025-12-14 20:10:46', NULL),
 (133, 7, 'The appointment for your dependent has been cancelled.', 1, '2025-12-14 20:10:46', NULL),
-(134, 5, 'Appointment #41 has been cancelled by Patient #7.', 0, '2025-12-14 20:11:11', NULL),
+(134, 5, 'Appointment #41 has been cancelled by Patient #7.', 1, '2025-12-14 20:11:11', NULL),
 (135, 7, 'Your appointment has been cancelled.', 1, '2025-12-14 20:11:11', NULL),
 (136, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-14 20:23:23', 23),
-(137, 13, 'Appointment #23 has been cancelled by Patient #10.', 0, '2025-12-14 20:23:42', NULL),
+(137, 13, 'Appointment #23 has been cancelled by Patient #10.', 1, '2025-12-14 20:23:42', NULL),
 (138, 7, 'The appointment for your dependent has been cancelled.', 1, '2025-12-14 20:23:42', NULL),
 (139, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-14 20:33:19', 41),
 (140, 1, 'A new announcement titled \'Closed for Christmas\' was added for Pakna-an, Mandaue City (Main Branch).', 1, '2025-12-14 20:47:00', NULL),
@@ -1003,7 +1063,7 @@ INSERT INTO `notifications` (`notification_id`, `user_id`, `message`, `is_read`,
 (163, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 01:41:49', 46),
 (164, 7, 'Your appointment has been successfully rescheduled and confirmed.', 1, '2025-12-15 01:42:00', NULL),
 (165, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 01:45:23', 46),
-(166, 13, 'Appointment #46 has been rescheduled and confirmed by the patient.', 0, '2025-12-15 01:49:08', NULL),
+(166, 13, 'Appointment #46 has been rescheduled and confirmed by the patient.', 1, '2025-12-15 01:49:08', NULL),
 (167, 7, 'Your appointment has been successfully rescheduled and confirmed.', 1, '2025-12-15 01:49:08', NULL),
 (168, 7, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 01:50:26', 46),
 (169, 12, 'Your dental appointment requires action because the branch has been deactivated.\r\n                                            Please confirm a new schedule or cancel the appointment.', 0, '2025-12-15 01:50:26', 47),
@@ -1024,8 +1084,25 @@ INSERT INTO `notifications` (`notification_id`, `user_id`, `message`, `is_read`,
 (184, 1, 'The announcement \'Christmas Break\' in Babag 2, Lapu-Lapu City was updated.', 1, '2025-12-15 15:28:35', NULL),
 (185, 1, 'The announcement \'Closed for Christmas\' in Pakna-an, Mandaue City (Main Branch) was updated.', 1, '2025-12-15 15:30:13', NULL),
 (186, 1, 'The announcement \'Closed for Christmas\' in Pakna-an, Mandaue City (Main Branch) was updated.', 1, '2025-12-15 15:41:35', NULL),
-(187, 13, 'Appointment #50 has been rescheduled and confirmed by the patient.', 0, '2025-12-15 15:52:07', NULL),
-(188, 25, 'Your appointment has been successfully rescheduled and confirmed.', 0, '2025-12-15 15:52:07', NULL);
+(187, 13, 'Appointment #50 has been rescheduled and confirmed by the patient.', 1, '2025-12-15 15:52:07', NULL),
+(188, 25, 'Your appointment has been successfully rescheduled and confirmed.', 0, '2025-12-15 15:52:07', NULL),
+(189, 7, 'Your appointment on 2026-01-07 at 09:30 was successfully booked!', 1, '2025-12-15 20:40:21', NULL),
+(190, 7, 'Your appointment with Dr. Love Alonzo requires action.\r\n                                    The dentist is no longer available. Please reschedule or cancel.', 1, '2025-12-15 22:05:56', 51),
+(191, 7, 'Your dental appointment requires action.\r\n                                    Dr. Love Alonzo is no longer available. Please reschedule or cancel.', 1, '2025-12-15 22:18:21', 51),
+(192, 4, 'Appointment #51 has been rescheduled and confirmed by the patient.', 0, '2025-12-15 22:18:53', NULL),
+(193, 7, 'Your appointment has been successfully rescheduled and confirmed.', 1, '2025-12-15 22:18:53', NULL),
+(194, 7, 'Your dental appointment requires action.\r\n                                            The branch has been deactivated. Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 22:20:45', 51),
+(195, 5, 'Appointment #51 has been rescheduled and confirmed by the patient.', 1, '2025-12-15 22:21:01', NULL),
+(196, 7, 'Your appointment has been successfully rescheduled and confirmed.', 1, '2025-12-15 22:21:01', NULL),
+(197, 7, 'Your dental appointment requires action.\r\n                                            The branch has been deactivated. Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 22:22:12', 51),
+(198, 13, 'Your password was changed successfully on December 16, 2025, 6:27 am. If this wasn’t you, please contact clinic immediately.', 1, '2025-12-15 22:27:59', NULL),
+(199, 7, 'Your dental appointment requires action.\r\n                                            The branch has been deactivated. Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 22:39:36', 51),
+(200, 13, 'Appointment #51 has been rescheduled and confirmed by the patient.', 0, '2025-12-15 23:05:27', NULL),
+(201, 7, 'Your appointment has been successfully rescheduled and confirmed.', 1, '2025-12-15 23:05:27', NULL),
+(202, 25, 'Your dental appointment requires action.\r\n                                            The branch has been deactivated. Please confirm a new schedule or cancel the appointment.', 0, '2025-12-15 23:05:54', 50),
+(203, 7, 'Your dental appointment requires action.\r\n                                            The branch has been deactivated. Please confirm a new schedule or cancel the appointment.', 1, '2025-12-15 23:05:54', 51),
+(204, 3, 'Appointment #51 has been rescheduled and confirmed by the patient.', 0, '2025-12-15 23:06:10', NULL),
+(205, 7, 'Your appointment has been successfully rescheduled and confirmed.', 1, '2025-12-15 23:06:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -1096,7 +1173,7 @@ CREATE TABLE `service` (
 INSERT INTO `service` (`service_id`, `name`, `price`, `duration_minutes`, `date_created`, `date_updated`, `requires_xray`) VALUES
 (1, 'Dental Certificate', 150, 0, '2025-12-12 04:05:54', '2025-12-15 23:50:36', 0),
 (2, 'Check Up/Consultation', 350, 15, '2025-12-12 04:06:15', '2025-12-15 23:50:44', 0),
-(3, 'Cleaning', 700, 45, '2025-12-12 04:06:26', '2025-12-12 04:06:26', 0),
+(3, 'Cleaning', 700, 45, '2025-12-12 04:06:26', '2025-12-16 06:40:52', 0),
 (4, 'Tooth Filling', 700, 60, '2025-12-12 04:06:40', '2025-12-12 04:06:40', 0),
 (5, 'Braces (Simple)', 40000, 120, '2025-12-12 04:06:56', '2025-12-12 04:06:56', 0),
 (6, 'Braces (Complicated)', 70000, 150, '2025-12-12 04:07:14', '2025-12-12 04:07:14', 0),
@@ -1213,13 +1290,13 @@ INSERT INTO `users` (`user_id`, `guardian_id`, `relationship`, `username`, `pass
 (4, NULL, NULL, 'Conde_P', '$2y$10$EFjTzAKLB9HdpOp/3A.nFOydugocjhNnk2qhQDzfzhuW83CRkoxjO', 'Conde', '', 'Perlyn', 'Female', '2CjN0TBddVPa7w==', 'WwsueJ5vIY71fuaf', 'kc41yrz0DdSRefgBOVGF5g==', 'theartp1@gmail.com', 'UtGhyaAOdShjAA==', 'f8mJLWhWda2Imnaa', 'Emf28QdfIPh4p84DJf/H0A==', 'S2zjGlk85dGloWGr6LpnP7wI', 'SPKKUz1A/uN7eHrd', 'D8DfLSJjwqpAnhD9K/2ERw==', 'admin', 1, '2025-10-01', 'Active', '2025-10-01 20:01:40', '2025-12-12 05:58:46', 0),
 (5, NULL, NULL, 'Quinto_K', '$2y$10$qkkgH/tvxxP4lzf6Kng/pec7KDqXDL3GX5ii6arpZR08xOlpBw1/2', 'Quinto', '', 'Kimberly Jean', 'Female', 'FbMJTEyPh5o9bg==', 'jp3PTnhR9mnrf47E', '5EJABDN+6f6eZylGpfeFlw==', 'theartp1@gmail.com', 'aCMJ+LkB3ko/sg==', 'lIkukFiOalUyEJ10', 'GQ6CoCq+NlGNkgtXKIDFqA==', 'YTMW2O0w60QjkmC2nKsCq4yFKmNC2EfD7oVB', '7obuKyOXp9iOo/XF', 'KddceZ5ZWpPgdIEszQzKzQ==', 'admin', 3, '2025-10-01', 'Active', '2025-10-01 20:03:07', '2025-12-12 04:03:07', 0),
 (6, NULL, NULL, 'Cuizon_D', '$2y$10$Lx0oHcax1h927C27lvMJ8eunWNpi8UeoxKqIEcazq4e22sou3FhbG', 'Cuizon', '', 'Dennis', 'Female', 'h3lA9/5GNvQaAQ==', 'HgWGr0sRm6RIPDwB', 'O3ittEcLVb+Gx08YrfNP1A==', 'josephparchaso@gmail.com', 'wnoC1yUDvTCW5A==', 'BFmqb0TsF/ImRXUo', 'KRpUdyZ1HwBD9QN8Uzmp8w==', NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-11 21:24:30', '2025-12-15 05:10:14', 0),
-(7, NULL, NULL, 'San Jose_Y', '$2y$10$dA3Pe6jsXsT1miA7Kx3sZe217rolsZb1cf9W4FQu7ER4pRxGB1DDO', 'San Jose', '', 'Yel Marie', 'Female', 'RRALLUQN47udfw==', 'vWjc1BAySp36Ezyt', 'KdPPT7xtjvDQWm1J6y57Fg==', 'josephparchaso@gmail.com', '5imdTDCsz0hSEA==', 'XdnEOqzTm5IsWQSl', '/BctI9w/BjpUJykB7akJyA==', NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-11 21:36:20', '2025-12-15 18:15:23', 0),
+(7, NULL, NULL, 'San Jose_Y', '$2y$10$dA3Pe6jsXsT1miA7Kx3sZe217rolsZb1cf9W4FQu7ER4pRxGB1DDO', 'San Jose', '', 'Yel Marie', 'Female', 'RRALLUQN47udfw==', 'vWjc1BAySp36Ezyt', 'KdPPT7xtjvDQWm1J6y57Fg==', 'josephparchaso@gmail.com', '5imdTDCsz0hSEA==', 'XdnEOqzTm5IsWQSl', '/BctI9w/BjpUJykB7akJyA==', NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-11 21:36:20', '2025-12-16 04:40:21', 0),
 (8, 7, NULL, NULL, NULL, 'San Jose', NULL, 'Solene', 'Female', 'rTxKFdQL8IR4FA==', 'LuKXLLxBuiXUPBA3', '1t4NX/+E+PUXLBg2VcAFQQ==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-11 21:36:20', '2025-12-12 15:08:00', 0),
 (9, 7, NULL, NULL, NULL, 'San Jose', NULL, 'Jerome', 'Male', '/Uqra9T3myXR/g==', 'jiifd9vbbogNzfVv', '1GBC4Hbp4VpfGW9WeT0agg==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-12 07:09:47', '2025-12-12 15:13:49', 0),
 (10, 7, NULL, NULL, NULL, 'San Jose', NULL, 'Chloe', 'Female', '9QKPCzewWzO6zg==', 'qDFIGmZKJDQ6joDl', 'A34UqOIYxudlS8tmCBoZPA==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-12 07:11:11', '2025-12-15 17:55:00', 0),
 (11, NULL, NULL, 'Alcoriza_R', '$2y$10$DB.dRccfaXfEV0U5bvN1Eebu3yDdBfAdPn5V1SsOFF4FpWn1tA/XK', 'Alcoriza', 'Rio', 'Ryan June', 'Male', 'of08GpWPmDB0hQ==', 'bErK757Jntgskyh3', 'DJ+2ww2bR1tWHmFNULSpqA==', '18105953@usc.edu.ph', 'g261hmfQEEcrFg==', '/CUbGyaUisVFWh/X', 'SgWx4VCPQKTb+GKQQYrB3w==', NULL, NULL, NULL, 'patient', 1, NULL, 'Active', '2025-12-12 07:52:00', '2025-12-12 16:05:01', 0),
 (12, NULL, NULL, 'Saban_R', '$2y$10$frQtlcT6iVRrGSKkSXruauX/zM0rJ4MVY/ynLh10rJsNpElO8ydy.', 'Saban', '', 'Ralph', 'Male', 'qRi2Obn2S1aXGg==', 'Ud9+ku93Ou0b5qHz', 'htb2kO5UAQVc2bN05I/6Jg==', 'josephparchaso@gmail.com', 'Fn7BK3y/b1/9Dw==', 'jRtQzAY30PJgkYd2', 'B+JUlOD18Qj/1yhc2n3Fyg==', NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-12 09:00:26', '2025-12-15 08:43:12', 0),
-(13, NULL, NULL, 'Paring_C', '$2y$10$JcQlRKQB5MCQiS4A4/4vd.Ai/AJbmr.8uYK0E4vVDJSFLsvkhv.Mm', 'Paring', 'Lener', 'Chresaian', 'Male', 'QUHw2SvmZy9rsw==', 'mGlCCVCWSDq+nwh5', 'yPyS59MS5+84f7T5Rc7Kiw==', 'theartp1@gmail.com', 'W1mfvCfrYblBwA==', 'JOhLWtS7dxRQBRKH', 'G2g/UaVSu7oIk81WdSDJAg==', 'u0fscWs4v/XJ+kjYhrSj1WuqAewL5A==', 'l+8HqTt0JiWGazsv', 'V3IO0kdqYor6JxwtxXsohg==', 'admin', 4, '2025-12-13', 'Active', '2025-12-12 09:09:08', '2025-12-12 17:09:08', 0),
+(13, NULL, NULL, 'Paring_C', '$2y$10$aLxo7g/BemSdZgG5Zz5xtOKX7e5oe/uD/AYOVrTy7f0VqXGfapzK6', 'Paring', 'Lener', 'Chresaian', 'Male', 'QUHw2SvmZy9rsw==', 'mGlCCVCWSDq+nwh5', 'yPyS59MS5+84f7T5Rc7Kiw==', 'theartp1@gmail.com', 'W1mfvCfrYblBwA==', 'JOhLWtS7dxRQBRKH', 'G2g/UaVSu7oIk81WdSDJAg==', 'u0fscWs4v/XJ+kjYhrSj1WuqAewL5A==', 'l+8HqTt0JiWGazsv', 'V3IO0kdqYor6JxwtxXsohg==', 'admin', 4, '2025-12-13', 'Active', '2025-12-12 09:09:08', '2025-12-12 17:09:08', 0),
 (14, NULL, NULL, 'Castillo_J', '$2y$10$YahKv7tD9kb/O29KyTbf3Ow2MUWip6knNiHA/8HZ2lMXYuvDu1Y6u', 'Castillo', '', 'Jane', 'Female', '900okWIxQThkTQ==', 'j2O5r7KxZ5nUtUus', 'OgOQCeJDOQIeVGDfLMqRWw==', 'josephparchaso@gmail.com', 'hTz1aE+yZKNEIw==', 'Uxp1ZzPCuTIdbI4D', '3OvdjmKZow75/1tGsUyvKg==', NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-12 09:17:38', '2025-12-12 17:17:38', 0),
 (15, 14, NULL, NULL, NULL, 'Castillo', NULL, 'Shekinah', 'Female', 'wUVhALuk03fovg==', 'gq40ENYCpLFqp4hK', 'lbJJBW/1O8n9m7hERVseHQ==', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-12 09:17:38', '2025-12-12 17:17:38', 0),
 (16, NULL, NULL, 'Parchaso_H', '$2y$10$n0kUhEwJ.wPFjF7kc8GN3.t/SjIsrGv5RMrWFHIyBMp2fjfc5Nt4u', 'Parchaso', '', 'Honorato', 'Male', '3WjVF8gG88s04Q==', 'idXj3EmE0GC8P3/t', 'KYdoJwzI+iD25YiwWbPyUA==', 'josephparchaso@gmail.com', 'x9QrZiH2uI4zog==', 'CQvB8BKm7gB7zJoT', 'N/y2r66+Nlx83QHRaq0ppQ==', NULL, NULL, NULL, 'patient', 2, NULL, 'Active', '2025-12-13 17:59:39', '2025-12-14 01:59:39', 0),
@@ -1433,13 +1510,13 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `appointment_services`
 --
 ALTER TABLE `appointment_services`
-  MODIFY `appointment_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `appointment_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `appointment_transaction`
 --
 ALTER TABLE `appointment_transaction`
-  MODIFY `appointment_transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `appointment_transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `branch`
@@ -1463,7 +1540,7 @@ ALTER TABLE `branch_promo`
 -- AUTO_INCREMENT for table `branch_service`
 --
 ALTER TABLE `branch_service`
-  MODIFY `branch_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `branch_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `branch_supply`
@@ -1505,31 +1582,31 @@ ALTER TABLE `dental_vital`
 -- AUTO_INCREMENT for table `dentist`
 --
 ALTER TABLE `dentist`
-  MODIFY `dentist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `dentist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `dentist_branch`
 --
 ALTER TABLE `dentist_branch`
-  MODIFY `dentist_branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `dentist_branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `dentist_schedule`
 --
 ALTER TABLE `dentist_schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=477;
 
 --
 -- AUTO_INCREMENT for table `dentist_service`
 --
 ALTER TABLE `dentist_service`
-  MODIFY `dentist_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `dentist_services_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT for table `promo`
